@@ -1,4 +1,5 @@
 Project Proposal 
+Matt Dang, Kimberly Nguyen 
 
 We would like to build a two-player, turn-based fighter that is a cross between 
 Pokémon and Roshambo, or more popularly known as “Rock-Paper-Scissors.” When 
