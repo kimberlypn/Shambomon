@@ -1,32 +1,34 @@
-Project Proposal 
-Matt Dang, Kimberly Nguyen 
+Project Proposal
+Matt Dang, Kimberly Nguyen
 
-We would like to build a two-player, turn-based fighter that is a cross between 
-Pokémon and Roshambo, or more popularly known as “Rock-Paper-Scissors.” When 
-players visit the site, they will be prompted to enter a game name. After 
-entering, they will be able to choose a character to play as from the list of 
-options. Once one other opponent joins by entering the same game name, the game 
-will begin. Any other players who try to join this game will be prompted with 
-the message, “This game is currently full.” 
+We would like to build a two-player, turn-based fighter that is a cross between
+Pokémon and Roshambo, or more popularly known as “Rock-Paper-Scissors.” When
+players visit the site, they will be prompted to enter a game name. After
+entering, they will be able to choose a character to play as from the list of
+options. Once one other opponent joins by entering the same game name, the game
+will begin. Any other players who try to join this game will be prompted with
+the message, “This game is currently full.”
 
-Players will see the characters they chose rendered on the screen, each attached 
-with a health bar of 100 health points. On a player’s turn, she will be able to 
-use one of three attacks by pressing the corresponding key: Q, W, or E. The 
-attacks follow the conventions of “Rock-Paper-Scissors” in the sense that each 
-attack is superior to one attack but inferior to another. A round ends once each 
-player has chosen her attack and the damage dealt has been calculated. If both 
-players choose the same attack, then neither player will incur damage for that 
-round. If the attacks are different, then the player who chose the inferior 
-attack will incur damage. The game ends when one player’s health reaches zero, 
-and the winner is the player who is still alive. 
+Players will see the characters they chose rendered on the screen, each attached
+with a health bar of 100 health points. On a player’s turn, she will be able to
+use one of three attacks by pressing the corresponding key: Q, W, or E. The
+attacks follow the conventions of “Rock-Paper-Scissors” in the sense that each
+attack is superior to one attack but inferior to another. A round ends once each
+player has chosen her attack and the damage dealt has been calculated. If both
+players choose the same attack, then neither player will incur damage for that
+round. If the attacks are different, then the player who chose the inferior
+attack will incur damage. The game ends when one player’s health reaches zero,
+and the winner is the player who is still alive.
 
-One additional feature that we will implement is a multiplier: the damage dealt 
-each round will increase on each consecutive win. For example, if Player 1 wins 
-(i.e., chooses the superior attack) the first round, then she will deal -10 
-damage, which is the base damage, to her opponent. If she wins again the next 
-round, then she will earn a 1.5x multiplier and be able to deal -15 damage to 
-her opponent. The multiplier will be capped at 2x the base damage, meaning that 
-the maximum damage that a player can deal in a single round is -20, and will 
-reset back to 1x, or -10 damage, on the fourth consecutive win. The multiplier 
-will also reset if the opponent chooses either the same attack or a superior 
+One additional feature that we will implement is a multiplier: the damage dealt
+each round will increase on each consecutive win. For example, if Player 1 wins
+(i.e., chooses the superior attack) the first round, then she will deal -10
+damage, which is the base damage, to her opponent. If she wins again the next
+round, then she will earn a 1.5x multiplier and be able to deal -15 damage to
+her opponent. The multiplier will be capped at 2x the base damage, meaning that
+the maximum damage that a player can deal in a single round is -20, and will
+reset back to 1x, or -10 damage, on the fourth consecutive win. The multiplier
+will also reset if the opponent chooses either the same attack or a superior
 attack. After a reset, the player has a chance to earn the multiplier again.
+
+Word Count: 369
