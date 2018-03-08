@@ -51,8 +51,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :shambomon, Shambomon.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+  username: "shambomon",
+  password: "paiDooc8oe6w",
   database: "shambomon_dev",
   hostname: "localhost",
   pool_size: 10
