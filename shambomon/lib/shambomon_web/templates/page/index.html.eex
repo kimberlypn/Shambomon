@@ -49,11 +49,22 @@
   <div class="row">
     <div class="col-md-6 offset-md-3">
     <p>
+      Each player has 100 health points (HP). On your turn, you will
+      be able to use one of three attacks by pressing the corresponding key: Q,
+      W, or E. The attacks follow the conventions of “Rock-Paper-Scissors” in
+      the sense that each attack is superior to one attack, inferior to
+      another, and negated if the same attack is chosen by the opponent. A round
+      ends once each player has chosen her attack and the damage dealt has been
+      calculated. If both players choose the same attack, then neither player
+      will incur damage for that round. If the attacks are different, then the
+      player who chose the inferior attack will incur damage. The game ends when
+      one player’s health reaches 0, and the winner is the player who is still
+      alive.
     </p>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-6 offset-md-3">
+    <div class="col-md-6 offset-md-3" id="close">
       <a href="javascript:void(0);" onclick="toggleInstructions()">
         CLOSE
       </a>
