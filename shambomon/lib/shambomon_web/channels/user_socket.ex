@@ -2,7 +2,7 @@ defmodule ShambomonWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", ShambomonWeb.RoomChannel
+  channel "games:*", ShambomonWeb.GamesChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

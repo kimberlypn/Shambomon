@@ -20,6 +20,9 @@ class Shambomon extends React.Component {
 
   // Renders the battlefield
   render() {
-    
+    return(
+      <div>
+      </div>
+    )
   }
 }

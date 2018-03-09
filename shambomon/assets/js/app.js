@@ -19,15 +19,15 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 import socket from "./socket"
-import start_game() from "./shambomon";
+import start_game from "./shambomon";
 
 function init() {
   let root = document.getElementById('root');
   if (root) {
     let channel = socket.channel("games:" + window.gameName, {});
-    run_game(root, channel);
+    start_game(root, channel);
   }
 }
 
-// Use jQuery to delay until page loaded
+// Use jQuery to delay until page loaded.
 $(init);
