@@ -1,2 +1,58 @@
 /* This file is for your main application css. */
 @import "bootstrap";
+
+@font-face {
+  font-family: 'Pokemon Classic';
+  src: url('/fonts/Pokemon Classic.ttf');
+}
+
+@font-face {
+  font-family: 'PixelOperator';
+  src: url('/fonts/PixelOperator.ttf');
+}
+
+body {
+  font-family: 'PixelOperator';
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+#game-name {
+  font-size: 22px;
+}
+
+#right-side {
+  text-align: right;
+  display: block;
+}
+
+#home-header {
+  font-family: 'Pokemon Classic';
+  font-size: 70px;
+}
+
+#start-game {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#start-btn {
+  font-size: 20px;
+  padding-left: 200px;
+  padding-right: 200px;
+}
+
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 75%;
+}
+
+#instructions {
+  display: none;
+  text-align: center;
+}

@@ -1,6 +1,62 @@
+<script>
+  // Toggles the instructions
+  function toggleInstructions() {
+    var main = document.getElementById('main');
+    var instructions = document.getElementById('instructions');
+    // Show the main div and hide the instructions
+    if (main.style.display == 'none') {
+      main.style.display = 'inline';
+      instructions.style.display = 'none';
+    }
+    // Hide the main div and show the instructions
+    else {
+      instructions.style.display = 'inline';
+      main.style.display = 'none';
+    }
+  }
+</script>
+
 <div class="row">
-  <div class="col">
-    <h1 id="index-page">Join a Game</h1>
-    <p><a href="/game/demo">Join</a></p>
+  <h1 id="home-header">SHAMBOMON</h1>
+</div>
+<div class="centered" id="main">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="row" id="game-name">
+        <div class="col-6">
+          <p>ENTER A GAME NAME:</p>
+        </div>
+        <div class="col-6" id="right-side">
+          <a href="javascript:void(0);" onclick="toggleInstructions()">
+            HOW TO PLAY
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <input type="text" class="form-control" placeholder="GAME NAME">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3" id="start-game">
+      <button class="btn btn-primary" id="start-btn">START GAME</button>
+    </div>
+  </div>
+</div>
+<div class="centered" id="instructions">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+    <p>
+    </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <a href="javascript:void(0);" onclick="toggleInstructions()">
+        CLOSE
+      </a>
+    </div>
   </div>
 </div>
