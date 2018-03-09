@@ -56,7 +56,7 @@ p {
   width: 75%;
 }
 
-#instructions {
+.instructions {
   display: none;
   font-size: 19px;
 }
@@ -67,4 +67,11 @@ p {
 
 #instruction-span {
   color: #57af9e;
+}
+
+.divider {
+  display: inline;
+  font-weight: bold;
+  padding-left: 7px;
+  padding-right: 7px;
 }
