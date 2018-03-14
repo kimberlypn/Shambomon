@@ -8,12 +8,18 @@
             </tr>
             <tr>
                 <td>
+                    <!-- Image credits to Jedflah on DeviantArt -->
+                    <!-- https://jedflah.deviantart.com/art/Minimalist-Charmander-Icon-Free-to-Use-623942829 -->
                     <img src="/images/Charmander.png" />
                 </td>
                 <td>
+                    <!-- Image credits to Jedflah on DeviantArt -->
+                    <!-- https://jedflah.deviantart.com/art/Minimalist-Squirtle-Icon-Free-to-use-623939100 -->
                     <img src="/images/Squirtle.png" />
                 </td>
                 <td>
+                    <!-- Image credits to Jedflah on DeviantArt -->
+                    <!-- https://jedflah.deviantart.com/art/Minimalist-Bulbasaur-Icon-Free-to-Use-623933759 -->
                     <img src="/images/Bulbasaur.png" />
                 </td>
             </tr>
