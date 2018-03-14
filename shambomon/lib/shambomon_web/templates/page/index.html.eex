@@ -57,7 +57,7 @@
   </div>
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <input type="text" class="form-control" placeholder="GAME NAME">
+      <input type="text" class="form-control" placeholder="GAME NAME" id="g-name">
     </div>
   </div>
   <div class="row">

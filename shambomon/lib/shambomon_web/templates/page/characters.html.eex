@@ -1,0 +1,22 @@
+<div class="container">
+    <table>
+        <tbody>
+            <tr>
+                <th>Charmander</th>
+                <th>Squirtle</th>
+                <th>Bulbasaur</th>
+            </tr>
+            <tr>
+                <td>
+                    <img src="/images/Charmander.png" />
+                </td>
+                <td>
+                    <img src="/images/Squirtle.png" />
+                </td>
+                <td>
+                    <img src="/images/Bulbasaur.png" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

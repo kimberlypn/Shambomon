@@ -18,6 +18,7 @@ defmodule ShambomonWeb.Router do
 
     get "/", PageController, :index
     get "/game/:game", PageController, :game
+    get "/game/:game/characters", PageController, :characters
   end
 
   # Other scopes may use custom stacks.

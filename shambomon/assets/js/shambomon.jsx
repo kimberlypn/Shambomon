@@ -11,11 +11,18 @@ class Shambomon extends React.Component {
     super(props);
     this.channel = props.channel;
     this.state = {
-
+      availableCharacters: [],
     };
+
     this.channel.join()
-    .receive("ok", this.gotView.bind(this))
-    .receive("error", resp => { console.log("Unable to join", resp) });
+    .receive('ok', this.gotView.bind(this))
+    .receive('error', res => {
+      console.log('Unable to join', res);
+    });
+  }
+
+  gotView(view) {
+    this.setState(view.game);
   }
 
   // Renders the battlefield
@@ -23,6 +30,6 @@ class Shambomon extends React.Component {
     return(
       <div>
       </div>
-    )
+    );
   }
 }

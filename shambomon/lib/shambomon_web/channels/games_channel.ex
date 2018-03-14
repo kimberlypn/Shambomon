@@ -1,15 +1,19 @@
 defmodule ShambomonWeb.GamesChannel do
   use ShambomonWeb, :channel
 
+  alias Shambomon.Game
+
   def join("games:" <> name, payload, socket) do
     # Get initial game on join
-    game = Memory.GameBackup.load(name) || Game.new()
+    #game = Shambomon.GameBackup.load(name) || Game.new()
+    game = Game.new()
     # Add the game and name to socket assigns
     socket = socket
     |> assign(:game, game)
     |> assign(:name, name)
+
     # Send an ok message
-    {:ok, %{"join" => name, "game" => Game.client_view(game)}, socket}
+    {:ok, %{ "join" => name, "game" => Game.client_view(game)}, socket }
   end
 
   # Channels can be used in a request/response fashion
