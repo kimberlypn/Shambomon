@@ -14,6 +14,7 @@ defmodule Shambomon.Application do
       supervisor(ShambomonWeb.Endpoint, []),
       # Start your own worker by calling: Shambomon.Worker.start_link(arg1, arg2, arg3)
       # worker(Shambomon.Worker, [arg1, arg2, arg3]),
+      worker(Shambomon.GameBackup, []),
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

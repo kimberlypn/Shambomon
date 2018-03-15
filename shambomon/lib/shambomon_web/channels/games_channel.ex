@@ -5,8 +5,7 @@ defmodule ShambomonWeb.GamesChannel do
 
   def join("games:" <> name, payload, socket) do
     # Get initial game on join
-    #game = Shambomon.GameBackup.load(name) || Game.new()
-    game = Game.new()
+    game = Shambomon.GameBackup.load(name) || Game.new()
     # Add the game and name to socket assigns
     socket = socket
     |> assign(:game, game)
