@@ -35,13 +35,18 @@ class Shambomon extends React.Component {
       <div>
         <div>
           <div class="row player-info">
-            <PlayerInfo player={1} state={this.state} />
+            <div class="col-9">
+              <PlayerInfo player={1} state={this.state} />
+            </div>
             <Player img={"/images/" + this.state.p1Char + "-battle.png"} />
           </div>
         </div>
         <div class="row player-info" id="player-2">
           <Player img={"/images/" + this.state.p2Char + "-battle.png"} />
-          <PlayerInfo player={2} state={this.state} />
+          <div class="col-9">
+            <PlayerInfo player={2} state={this.state} />
+            <Attack />
+          </div>
         </div>
       </div>
     );
@@ -72,7 +77,7 @@ function PlayerInfo(props) {
     hp.push(<HP />);
   }
   return (
-    <div class="col-9">
+    <div>
       <p>{name}</p>
       <div class="hp">
         {hp}
@@ -84,4 +89,15 @@ function PlayerInfo(props) {
 
 function HP(props) {
   return <div class="hp-bar"></div>;
+}
+
+function Attack(props) {
+  return (
+    <div class="attack">
+      <span>Choose an attack: </span>
+      <button>Q</button>
+      <button>W</button>
+      <button>E</button>
+    </div>
+  )
 }
