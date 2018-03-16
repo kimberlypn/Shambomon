@@ -95,9 +95,9 @@ function Attack(props) {
   return (
     <div class="attack">
       <span>Choose an attack: </span>
-      <button>Q</button>
-      <button>W</button>
-      <button>E</button>
+      <button title="Tackle">Q</button>
+      <button title="Double Team">W</button>
+      <button title="Frustration">E</button>
     </div>
   )
 }
