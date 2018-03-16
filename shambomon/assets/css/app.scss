@@ -23,6 +23,10 @@ p {
   text-align: justify;
 }
 
+h1 {
+  font-family: 'Pokemon Classic';
+}
+
 #game-name {
   font-size: 22px;
 }
@@ -83,7 +87,7 @@ th {
 
 /* character tile images */
 td img {
-  border: 1px solid #ddd;
+  //border: 1px solid #ddd;
   border-radius: 8px;
   padding: 5px;
   width: 100%;
@@ -94,4 +98,35 @@ td img {
 
 td:hover img {
   opacity: 0.5;
+}
+
+.player-info img {
+  width: 200px;
+  height: 200px;
+}
+
+.player-info p {
+  font-size: 40px;
+  margin: 0;
+}
+
+.hp-bar {
+  border: 1px none;
+  height: 30px;
+  width: 5px;
+  background: #83ea8f;
+  margin-right: 2px;
+  display: inline-block;
+}
+
+.hp {
+  display: inline-block;
+}
+
+.hp-text {
+  font-size: 10px;
+}
+
+#player-2 {
+  margin-top: 100px;
 }
