@@ -75,9 +75,8 @@ function PlayerInfo(props) {
     <div class="col-9">
       <p>{name}</p>
       <div class="hp">
-        <p>HP</p>
         {hp}
-        <p>{health} / 100</p>
+        <p id="hp-status">HP {health} / 100</p>
       </div>
     </div>
   )
