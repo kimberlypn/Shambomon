@@ -1,4 +1,5 @@
 <div class="container">
+  <div class="centered">
     <table>
         <tbody>
             <tr>
@@ -10,19 +11,20 @@
                 <td>
                     <!-- Image credits to Jedflah on DeviantArt -->
                     <!-- https://jedflah.deviantart.com/art/Minimalist-Charmander-Icon-Free-to-Use-623942829 -->
-                    <img src="/images/Charmander.png" />
+                    <img src="<%= static_path(@conn, "/images/Charmander.png") %>"/>
                 </td>
                 <td>
                     <!-- Image credits to Jedflah on DeviantArt -->
                     <!-- https://jedflah.deviantart.com/art/Minimalist-Squirtle-Icon-Free-to-use-623939100 -->
-                    <img src="/images/Squirtle.png" />
+                    <img src="<%= static_path(@conn, "/images/Squirtle.png") %>" />
                 </td>
                 <td>
                     <!-- Image credits to Jedflah on DeviantArt -->
                     <!-- https://jedflah.deviantart.com/art/Minimalist-Bulbasaur-Icon-Free-to-Use-623933759 -->
-                    <img src="/images/Bulbasaur.png" />
+                    <img src="<%= static_path(@conn, "/images/Bulbasaur.png") %>" />
                 </td>
             </tr>
         </tbody>
     </table>
+    </div>
 </div>
