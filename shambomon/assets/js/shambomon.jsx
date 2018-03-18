@@ -12,10 +12,11 @@ class Shambomon extends React.Component {
     this.channel = props.channel;
     this.state = {
       availableCharacters: [],
-      p1Char: "Bulbasaur",
-      p2Char: "Charmander",
-      p1Health: 100,
-      p2Health: 100
+      turn: 1, // current player whose turn it is
+      p1Char: "Bulbasaur", // player 1's character
+      p2Char: "Charmander", // player 2's character
+      p1Health: 100, // player 1's HP
+      p2Health: 100 // player 2's HP
     };
 
     this.channel.join()
@@ -25,6 +26,7 @@ class Shambomon extends React.Component {
     });
   }
 
+  // Sets the current state
   gotView(view) {
     this.setState(view.game);
   }
@@ -34,6 +36,7 @@ class Shambomon extends React.Component {
     return(
       <div>
         <div>
+          {/* Player 1 */}
           <div class="row player-info">
             <div class="col-9">
               <PlayerInfo player={1} state={this.state} />
@@ -41,6 +44,7 @@ class Shambomon extends React.Component {
             <Player img={"/images/" + this.state.p1Char + "-battle.png"} />
           </div>
         </div>
+        {/* Player 2 */}
         <div class="row player-info" id="player-2">
           <Player img={"/images/" + this.state.p2Char + "-battle.png"} />
           <div class="col-9">
@@ -53,6 +57,7 @@ class Shambomon extends React.Component {
   }
 }
 
+// Returns an image of the player's character
 function Player(props) {
   return (
     <div class="col-3">
@@ -61,7 +66,7 @@ function Player(props) {
   );
 }
 
-// Renders a player's character and health
+// Returns the player's character name and HP
 function PlayerInfo(props) {
   var health, name, pokemon, pos;
   if (props.player == 1) {
@@ -87,10 +92,12 @@ function PlayerInfo(props) {
   )
 }
 
+// Returns the a green HP bar
 function HP(props) {
   return <div class="hp-bar"></div>;
 }
 
+// Returns the attack buttons
 function Attack(props) {
   return (
     <div class="attack">
