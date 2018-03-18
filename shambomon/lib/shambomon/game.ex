@@ -9,8 +9,8 @@ defmodule Shambomon.Game do
       characters: characters,
       turn: 1,
       attacks: 0,
-      p1Char: "",
-      p2Char: "",
+      p1Char: "Bulbasaur",
+      p2Char: "Charmander",
       p1Health: 100,
       p2Health: 100,
       p1Attack: "",
@@ -65,15 +65,9 @@ defmodule Shambomon.Game do
       Map.put(game, :p2Health, game.p2Health - 10)
   end
 
-  # Updates all necessary fields for the round
-  defp update_state(game, attk) do
-    update_player_attack(game, attk)
-    |> update_attacks()
-    |> update_turn()
-  end
-
   # Determines who won the round and calculates the damage taken accordingly
   defp determine_winner(game) do
+    IO.inspect(game)
     cond do
       game.p1Attack == "Q" ->
         # Player 2 chose the superior attack
@@ -106,11 +100,15 @@ defmodule Shambomon.Game do
   def attack(game, attk) do
     # First attack in the round
     if game.attacks == 0 do
-      update_state(game, attk)
+      update_player_attack(game, attk)
+      |> update_attacks()
+      |> update_turn()
     # Both attacks have been chosen, so calculate damage
     else
-      determine_winner(game)
-      |> update_state(attk)
+      update_player_attack(game, attk)
+      |> determine_winner()
+      |> update_attacks()
+      |> update_turn()
     end
   end
 end

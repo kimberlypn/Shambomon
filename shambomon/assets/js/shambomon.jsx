@@ -11,7 +11,6 @@ class Shambomon extends React.Component {
     super(props);
     this.channel = props.channel;
     this.state = {
-      availableCharacters: [],
       turn: 1, // current player whose turn it is
       attacks: 0, // number of attacks that have been chosen in the round
       p1Char: "Bulbasaur", // player 1's character
