@@ -86,7 +86,7 @@ th {
 }
 
 /* character tile images */
-td img {
+.character-icon {
   //border: 1px solid #ddd;
   border-radius: 8px;
   padding: 5px;
@@ -96,8 +96,24 @@ td img {
   margin-right: auto;
 }
 
-td:hover img {
+td img:hover {
   opacity: 0.5;
+}
+
+.selected {
+  border: 1px solid black;
+}
+
+.select {
+  padding-top: 60px;
+}
+
+#select-btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 40px 20px 40px;
+  font-size: 20px;
 }
 
 .player-info img {
