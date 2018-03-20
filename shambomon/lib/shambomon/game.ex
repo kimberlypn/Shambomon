@@ -9,8 +9,8 @@ defmodule Shambomon.Game do
       characters: characters,
       turn: 1,
       attacks: 0,
-      p1Char: "Bulbasaur",
-      p2Char: "Charmander",
+      p1Char: "",
+      p2Char: "",
       p1Health: 100,
       p2Health: 100,
       p1Attack: "",
@@ -20,7 +20,11 @@ defmodule Shambomon.Game do
 
   # Returns the current state of the game
   def client_view(game) do
+    available_characters = List.delete(game.characters, game.p1Char)
+    |> List.delete(game.p2Char)
+
     %{
+      availableCharacters: available_characters,
       turn: game.turn,
       attacks: game.attacks,
       p1Char: game.p1Char,
