@@ -28,6 +28,7 @@ defmodule ShambomonWeb.Router do
     get "/", PageController, :index
     get "/game", PageController, :name
     get "/game/:game", PageController, :game
+    get "/game/:game/characters", PageController, :characters
 
     resources "/users", UserController
 

@@ -1,6 +1,7 @@
 /* This file is for your main application css. */
 @import "bootstrap";
 
+/********************************** FONTS ********************************/
 @font-face {
   font-family: 'Pokemon Classic';
   src: url('/fonts/Pokemon Classic.ttf');
@@ -10,31 +11,39 @@
   font-family: 'PixelOperator';
   src: url('/fonts/PixelOperator.ttf');
 }
+/****************************** END OF FONTS *****************************/
 
+/************************** SHARED ACROSS PAGES **************************/
 body {
   font-family: 'PixelOperator';
   font-size: 21px;
+  //cursor: url('/images/Pokeball.png'), auto;
 }
 
 a:hover {
     text-decoration: none;
 }
 
-
-.explanation {
-  text-align: justify;
+.btn {
+  font-size: 21px;
 }
 
-.right-side {
-  text-align: right;
-  display: block;
+.btn-primary {
+  width: 100%;
 }
 
-.home-header {
+/* Used for "SHAMBOMON" header on every page */
+.shambomon-header {
   font-family: 'Pokemon Classic';
   font-size: 70px;
 }
 
+h1 {
+  font-family: 'Pokemon Classic';
+  font-size: 45px;
+}
+
+/* Centers a div in the middle of the screen */
 .centered {
   position: fixed;
   top: 50%;
@@ -43,23 +52,13 @@ a:hover {
   width: 75%;
 }
 
-.instructions {
-  display: none;
-  font-size: 19px;
-}
-
-.btn {
-  font-size: 21px;
-}
-
-#close {
+/* Aligns a div on the right side */
+.right-side {
   text-align: right;
+  display: block;
 }
 
-#instruction-span {
-  color: #57af9e;
-}
-
+/* Creates a "|" divider between text */
 .divider {
   display: inline;
   font-weight: bold;
@@ -67,10 +66,182 @@ a:hover {
   padding-right: 7px;
 }
 
-.btn-primary {
-  width: 100%;
-}
-
-.no-session {
+/* Centers text */
+.center-text {
   text-align: center;
 }
+/*********************** END OF SHARED ACROSS PAGES **********************/
+
+/****************************** INSTRUCTIONS *****************************/
+/* Don't display the instructions by default */
+.instructions {
+  display: none;
+  font-size: 19px;
+}
+
+/* Justifies the instruction p tags */
+.explanation {
+  text-align: justify;
+}
+
+/* Emphasizes certain text by changing the color */
+.instructions span {
+  color: #57af9e;
+}
+/************************** END OF INSTRUCTIONS **************************/
+
+/************************** CHARACTER SELECTION **************************/
+#characters th {
+  font-size: 24px;
+  text-align: center;
+}
+
+/* Character tile images */
+#characters td img {
+  //border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 5px;
+  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#characters td:hover img {
+  opacity: 0.5;
+}
+
+#characters p {
+  background: #90ceb4;
+  border-radius: 10px;
+  color: white;
+  //border: dashed 4px #a6e0cd;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 25px;
+}
+/*********************** END OF CHARACTER SELECTION **********************/
+
+/***************************** RIBBON HEADER *****************************/
+/* Ribbon template credits to https://css-tricks.com/snippets/css/ribbon/ */
+.ribbon {
+ font-size: 18px !important;
+ width: 55%;
+ position: relative;
+ background: #91b7c6;
+ color: #fff;
+ text-align: center;
+ padding: 1em 2em;
+ margin: 2em auto 3em;
+ margin-top: 80px;
+ margin-bottom: 40px;
+}
+
+.ribbon:before, .ribbon:after {
+ content: "";
+ position: absolute;
+ display: block;
+ bottom: -1em;
+ border: 1.5em solid #799aa8;
+ z-index: -1;
+}
+
+.ribbon:before {
+ left: -2em;
+ border-right-width: 1.5em;
+ border-left-color: transparent;
+}
+
+.ribbon:after {
+ right: -2em;
+ border-left-width: 1.5em;
+ border-right-color: transparent;
+}
+
+.ribbon .ribbon-content:before, .ribbon .ribbon-content:after {
+ content: "";
+ position: absolute;
+ display: block;
+ border-style: solid;
+ border-color: #57717c transparent transparent transparent;
+ bottom: -1em;
+}
+
+.ribbon .ribbon-content:before {
+ left: 0;
+ border-width: 1em 0 0 1em;
+}
+
+.ribbon .ribbon-content:after {
+ right: 0;
+ border-width: 1em 1em 0 0;
+}
+/************************** END OF RIBBON HEADER *************************/
+
+/****************************** BATTLEFIELD ******************************/
+/* Make character imgs 200x200 */
+.player-info img {
+  width: 200px;
+  height: 200px;
+}
+
+/* Div that contains character img + player stats */
+.player-info p {
+  font-size: 40px;
+  margin: 0;
+}
+
+/* Used to render the player on the bottom */
+#bottom-player {
+  margin-top: 100px;
+}
+
+/* Used to render HP bars in a row */
+.hp {
+  display: inline-block;
+}
+
+/* Renders green HP bars */
+.hp-bar-alive {
+  border: 1px none;
+  height: 30px;
+  width: 5px;
+  background: #83ea8f;
+  margin-right: 2px;
+  display: inline-block;
+}
+
+/* Renders grey HP bars */
+.hp-bar-dead {
+  border: 1px none;
+  height: 30px;
+  width: 5px;
+  background: #d6d8db;
+  margin-right: 2px;
+  display: inline-block;
+}
+
+/* HP status (e.g., "HP 60/100") */
+.hp p {
+  text-align: right;
+  font-size: 30px;
+}
+
+.attack button {
+  font-size: 30px;
+  margin-right: 10px;
+  width: 50px;
+  border-radius: 5px;
+  background: #8c8f91;
+  color: white;
+}
+
+.attack button:hover {
+  background: #5f6163;
+}
+
+/* Places "Choose an attack" on same line as attack btns */
+.attack span {
+  font-size: 30px;
+}
+/*************************** END OF BATTLEFIELD **************************/

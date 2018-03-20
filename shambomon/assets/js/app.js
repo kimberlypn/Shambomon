@@ -22,10 +22,20 @@ import socket from "./socket"
 import start_game from "./shambomon";
 
 function init() {
-  let root = document.getElementById('root');
-  if (root) {
+  let mainRoot = document.getElementById('main');
+  let gameRoot = document.getElementById('game');
+
+  // Redirect to the character-selection page
+  if (mainRoot) {
+    $('#start-btn').click(() => {
+      let gameName = $('#g-name').val();
+      window.location.href = '/game/' + gameName + '/characters';
+    });
+  }
+  // Redirect to the main game
+  if (gameRoot) {
     let channel = socket.channel("games:" + window.gameName, {});
-    start_game(root, channel);
+    start_game(gameRoot, channel);
   }
 }
 
