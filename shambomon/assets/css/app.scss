@@ -126,11 +126,20 @@ td img:hover {
   margin: 0;
 }
 
-.hp-bar {
+.hp-bar-alive {
   border: 1px none;
   height: 30px;
   width: 5px;
   background: #83ea8f;
+  margin-right: 2px;
+  display: inline-block;
+}
+
+.hp-bar-dead {
+  border: 1px none;
+  height: 30px;
+  width: 5px;
+  background: #d6d8db;
   margin-right: 2px;
   display: inline-block;
 }

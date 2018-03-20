@@ -69,34 +69,30 @@ defmodule Shambomon.Game do
       Map.put(game, :p2Health, game.p2Health - 10)
   end
 
-  # Determines who won the round and calculates the damage taken accordingly
+  # Determines who won the round and calculates the damage taken accordingly;
+  # Q beats E but loses to W;
+  # W beats Q but loses to E;
+  # E beats W but loses to Q;
   defp determine_winner(game) do
-    IO.inspect(game)
     cond do
-      game.p1Attack == "Q" ->
-        # Player 2 chose the superior attack
-        if game.p2Attack == "W", do:
-          update_health(game, 1)
-        # Player 1 chose the superior attack
-        if game.p2Attack == "E", do:
-          update_health(game, 2)
-      game.p1Attack == "W" ->
-        # Player 1 chose the superior attack
-        if game.p2Attack == "Q", do:
-          update_health(game, 2)
-        # Player 2 chose the superior attack
-        if game.p2Attack == "E", do:
-          update_health(game, 1)
-      game.p1Attack == "E" ->
-        # Player 2 chose the superior attack
-        if game.p2Attack == "Q", do:
-          update_health(game, 1)
-        # Player 1 chose the superior attack
-        if game.p2Attack == "W", do:
-          update_health(game, 2)
-      # Both players chose the same attack, so no damage taken
-      true ->
+      # Both chose the same attack, so no damage taken
+      String.equivalent?(game.p1Attack, game.p2Attack) ->
         game
+      String.equivalent?(game.p1Attack, "Q") ->
+        if String.equivalent?(game.p2Attack, "W"), do:
+          update_health(game, 1),
+        else:
+          update_health(game, 2)
+      String.equivalent?(game.p1Attack, "W") ->
+        if String.equivalent?(game.p2Attack, "Q"), do:
+          update_health(game, 2),
+        else:
+          update_health(game, 1)
+      String.equivalent?(game.p1Attack, "E") ->
+        if String.equivalent?(game.p2Attack, "Q"), do:
+          update_health(game, 1),
+        else:
+          update_health(game, 2)
     end
   end
 

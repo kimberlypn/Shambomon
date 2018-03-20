@@ -25,14 +25,14 @@ function init() {
   let mainRoot = document.getElementById('main');
   let gameRoot = document.getElementById('game');
 
+  // Redirect to the character-selection page
   if (mainRoot) {
-    // redirects to the game with the inputted game name
     $('#start-btn').click(() => {
       let gameName = $('#g-name').val();
       window.location.href = '/game/' + gameName;
     });
   }
-
+  // Redirect to the main game
   if (gameRoot) {
     let channel = socket.channel("games:" + window.gameName, {});
     start_game(gameRoot, channel);

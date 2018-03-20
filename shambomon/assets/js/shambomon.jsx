@@ -14,19 +14,19 @@ class Shambomon extends React.Component {
       availableCharacters: [],
       turn: 1, // current player whose turn it is
       attacks: 0, // number of attacks that have been chosen in the round
-      p1Char: "", // player 1's character
-      p2Char: "", // player 2's character
-      p1Health: 100, // player 1's HP
+      p1Char: "Bulbasaur", // player 1's character
+      p2Char: "Charmander", // player 2's character
+      p1Health: 50, // player 1's HP
       p2Health: 100, // player 2's HP
       p1Attack: "", // attack chosen by player 1
       p2Attack: "" // attack chosen by player 2
     };
 
     this.channel.join()
-      .receive('ok', this.gotView.bind(this))
-      .receive('error', res => {
-        console.log('Unable to join', res);
-      });
+    .receive("ok", this.gotView.bind(this))
+    .receive("error", res => {
+      console.log("Unable to join", res);
+    });
   }
 
   // Sets the current state
@@ -171,7 +171,10 @@ function PlayerInfo(props) {
   }
   var hp = []
   for (var i = 0; i < health; i++) {
-    hp.push(<HP />);
+    hp.push(<HP type={"alive"} />);
+  }
+  for (var i = health; i < 100; i++) {
+    hp.push(<HP type={"dead"} />);
   }
   return (
     <div>
@@ -186,7 +189,12 @@ function PlayerInfo(props) {
 
 // Returns the a green HP bar
 function HP(props) {
-  return <div class="hp-bar"></div>;
+  if (props.type == "alive") {
+    return <div class="hp-bar-alive"></div>;
+  }
+  else {
+    return <div class="hp-bar-dead"></div>;
+  }
 }
 
 // Returns the attack buttons
