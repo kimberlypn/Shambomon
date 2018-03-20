@@ -1,6 +1,6 @@
 <!-- HEADER -->
 <div class="row">
-  <h1 class="home-header">SHAMBOMON</h1>
+  <h1 class="shambomon-header">SHAMBOMON</h1>
 </div>
 
 <%= render "form.html", Map.put(assigns, :action, user_path(@conn, :create)) %>

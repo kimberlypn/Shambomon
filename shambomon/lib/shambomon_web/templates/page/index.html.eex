@@ -35,9 +35,7 @@
 </script>
 
 <!-- HEADER -->
-<div class="row">
-  <h1 class="shambomon-header">SHAMBOMON</h1>
-</div>
+<%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
 <!-- MAIN PAGE -->
 <div class="centered" id="main">
@@ -79,67 +77,4 @@
   <% end %>
 </div>
 
-<!-- INSTRUCTIONS PAGE 1 -->
-<div class="centered instructions" id="pg-1">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-    <p class="explanation">
-      Each player has <span>100 health points (HP)</span>. On your turn, you
-      will be able to use one of three attacks by pressing the corresponding
-      key: <span>Q, W, or E.</span> The attacks follow the conventions of
-      Roshambo (“Rock-Paper-Scissors”) in the sense that each attack is superior
-      to one attack, inferior to another, and negated if the same attack is
-      chosen by the opponent. A round ends once each player has chosen her
-      attack and the damage dealt has been calculated. If both players choose
-      the same attack, then neither player will incur damage for that round. If
-      the attacks are different, then the player who chose the inferior attack
-      will incur damage.
-    </p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6 offset-md-3 right-side">
-      <span><a href="javascript:void(0);" onclick="flipPage()">
-        NEXT
-      </a>
-      <p class="divider"> | </p>
-      <a href="javascript:void(0);" onclick="toggleInstructions()">
-        CLOSE
-      </a>
-      </span>
-    </div>
-  </div>
-</div>
-
-<!-- INSTRUCTIONS PAGE 2 -->
-<div class="centered instructions" id="pg-2">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-    <p class="explanation">
-      The damage dealt each round will increase on each consecutive win. For
-      example, if you win the first round, then you will deal -10 damage, which
-      is the base damage, to your opponent. If you win again the next round,
-      then you will earn a <span>1.5x multiplier</span> and be able to deal -15
-      damage to your opponent. The multiplier will be capped at 2x the base
-      damage (i.e., the maximum damage that a player can deal in a single round
-      is -20) and will reset back to 1x, or -10 damage, on the fourth
-      consecutive win. The multiplier will also reset if your opponent chooses
-      either the same attack or a superior attack. After a reset, you can work
-      to earn the multiplier again. <span>The game ends when one player’s HP
-      reaches 0, and the winner is the player who is still alive.</span>
-    </p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6 offset-md-3 right-side">
-      <span><a href="javascript:void(0);" onclick="flipPage()">
-        BACK
-      </a>
-      <p class="divider"> | </p>
-      <a href="javascript:void(0);" onclick="toggleInstructions()">
-        CLOSE
-      </a>
-      </span>
-    </div>
-  </div>
-</div>
+<%= render ShambomonWeb.ComponentView, "instructions.html", assigns %>
