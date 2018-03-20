@@ -11,7 +11,7 @@ defmodule ShambomonWeb.SessionController do
     if user do
       conn
       |> put_session(:user_id, user.id)
-      |> redirect(to: page_path(conn, :index))
+      |> redirect(to: page_path(conn, :name))
     else
       conn
       |> put_flash(:error, "The information you’ve entered doesn’t match any account. Please try again.")

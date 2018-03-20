@@ -60,11 +60,11 @@
     <div class="row">
       <div class="col-md-6 offset-md-3">
         <div class="form-group">
-          USERNAME
+          USERNAME:
           <input class="form-control" type="username" name="username">
         </div>
         <div class="form-group">
-          PASSWORD
+          PASSWORD:
           <input class="form-control" type="password" name="password">
         </div>
       </div>
@@ -72,7 +72,7 @@
     <div class="row">
       <div class="col-md-6 offset-md-3">
         <div class="form-group">
-          <button class="btn btn-primary form-control">LOG IN</button>
+          <button class="btn btn-primary">LOG IN</button>
         </div>
       </div>
     </div>
@@ -83,7 +83,7 @@
 <div class="centered instructions" id="pg-1">
   <div class="row">
     <div class="col-md-6 offset-md-3">
-    <p>
+    <p class="explanation">
       Each player has <span id="instruction-span">100 health points (HP)</span>.
       On your turn, you will be able to use one of three attacks by pressing the
       corresponding key: <span id="instruction-span">Q, W, or E.</span> The
@@ -115,7 +115,7 @@
 <div class="centered instructions" id="pg-2">
   <div class="row">
     <div class="col-md-6 offset-md-3">
-    <p>
+    <p class="explanation">
       The damage dealt each round will increase on each consecutive win. For
       example, if you win the first round, then you will deal -10 damage, which
       is the base damage, to your opponent. If you win again the next round,

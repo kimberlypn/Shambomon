@@ -26,6 +26,7 @@ defmodule ShambomonWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/game", PageController, :name
     get "/game/:game", PageController, :game
 
     resources "/users", UserController
