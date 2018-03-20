@@ -1,7 +1,7 @@
 /* This file is for your main application css. */
 @import "bootstrap";
 
-/**************************** FONTS **************************/
+/********************************** FONTS ********************************/
 @font-face {
   font-family: 'Pokemon Classic';
   src: url('/fonts/Pokemon Classic.ttf');
@@ -11,12 +11,13 @@
   font-family: 'PixelOperator';
   src: url('/fonts/PixelOperator.ttf');
 }
-/************************ END OF FONTS ***********************/
+/****************************** END OF FONTS *****************************/
 
-/******************** SHARED ACROSS PAGES ********************/
+/************************** SHARED ACROSS PAGES **************************/
 body {
   font-family: 'PixelOperator';
   font-size: 21px;
+  //cursor: url('/images/Pokeball.png'), auto;
 }
 
 a:hover {
@@ -69,9 +70,9 @@ h1 {
 .center-text {
   text-align: center;
 }
-/***************** END OF SHARED ACROSS PAGES ****************/
+/*********************** END OF SHARED ACROSS PAGES **********************/
 
-/************************ INSTRUCTIONS ***********************/
+/****************************** INSTRUCTIONS *****************************/
 /* Don't display the instructions by default */
 .instructions {
   display: none;
@@ -87,16 +88,16 @@ h1 {
 .instructions span {
   color: #57af9e;
 }
-/******************** END OF INSTRUCTIONS ********************/
+/************************** END OF INSTRUCTIONS **************************/
 
-/******************** CHARACTER SELECTION ********************/
-th {
+/************************** CHARACTER SELECTION **************************/
+#characters th {
   font-size: 24px;
   text-align: center;
 }
 
 /* Character tile images */
-td img {
+#characters td img {
   //border: 1px solid #ddd;
   border-radius: 8px;
   padding: 5px;
@@ -106,12 +107,78 @@ td img {
   margin-right: auto;
 }
 
-td:hover img {
+#characters td:hover img {
   opacity: 0.5;
 }
-/***************** END OF CHARACTER SELECTION ****************/
 
-/************************ BATTLEFIELD ************************/
+#characters p {
+  background: #90ceb4;
+  border-radius: 10px;
+  color: white;
+  //border: dashed 4px #a6e0cd;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 25px;
+}
+/*********************** END OF CHARACTER SELECTION **********************/
+
+/***************************** RIBBON HEADER *****************************/
+/* Ribbon template credits to https://css-tricks.com/snippets/css/ribbon/ */
+.ribbon {
+ font-size: 18px !important;
+ width: 55%;
+ position: relative;
+ background: #91b7c6;
+ color: #fff;
+ text-align: center;
+ padding: 1em 2em;
+ margin: 2em auto 3em;
+ margin-top: 80px;
+ margin-bottom: 40px;
+}
+
+.ribbon:before, .ribbon:after {
+ content: "";
+ position: absolute;
+ display: block;
+ bottom: -1em;
+ border: 1.5em solid #799aa8;
+ z-index: -1;
+}
+
+.ribbon:before {
+ left: -2em;
+ border-right-width: 1.5em;
+ border-left-color: transparent;
+}
+
+.ribbon:after {
+ right: -2em;
+ border-left-width: 1.5em;
+ border-right-color: transparent;
+}
+
+.ribbon .ribbon-content:before, .ribbon .ribbon-content:after {
+ content: "";
+ position: absolute;
+ display: block;
+ border-style: solid;
+ border-color: #57717c transparent transparent transparent;
+ bottom: -1em;
+}
+
+.ribbon .ribbon-content:before {
+ left: 0;
+ border-width: 1em 0 0 1em;
+}
+
+.ribbon .ribbon-content:after {
+ right: 0;
+ border-width: 1em 1em 0 0;
+}
+/************************** END OF RIBBON HEADER *************************/
+
+/****************************** BATTLEFIELD ******************************/
 /* Make character imgs 200x200 */
 .player-info img {
   width: 200px;
@@ -177,4 +244,4 @@ td:hover img {
 .attack span {
   font-size: 30px;
 }
-/********************* END OF BATTLEFIELD ********************/
+/*************************** END OF BATTLEFIELD **************************/

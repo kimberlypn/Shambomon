@@ -1,44 +1,7 @@
-<script>
-  // Toggles the instructions
-  function toggleInstructions() {
-    var main = document.getElementById('main');
-    var pg_1 = document.getElementById('pg-1');
-    var pg_2 = document.getElementById('pg-2');
-    // Show the main div and hide the instructions
-    if (main.style.display == 'none') {
-      main.style.display = 'inline';
-      pg_1.style.display = 'none';
-      pg_2.style.display = 'none';
-    }
-    // Hide the main div and show the instructions
-    else {
-      pg_1.style.display = 'inline';
-      main.style.display = 'none';
-    }
-  }
-
-  // Flips between the instruction pages
-  function flipPage() {
-    var pg_1 = document.getElementById('pg-1');
-    var pg_2 = document.getElementById('pg-2');
-    // Show the first page and hide the second page
-    if (pg_1.style.display == 'none') {
-      pg_1.style.display = 'inline';
-      pg_2.style.display = 'none';
-    }
-    // Hide the first page and show the second page
-    else {
-      pg_2.style.display = 'inline';
-      pg_1.style.display = 'none';
-    }
-  }
-</script>
+<%= render ShambomonWeb.ComponentView, "functions.html", assigns %>
+<%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
 <%= if @current_user do %>
-  <!-- HEADER -->
-  <%= render ShambomonWeb.ComponentView, "header.html", assigns %>
-
-
   <!-- MAIN PAGE -->
   <div class="centered" id="main">
     <div class="row">
@@ -55,7 +18,6 @@
         </div>
       </div>
     </div>
-
     <!-- GAME-NAME FORM -->
       <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -72,25 +34,9 @@
         </div>
       </div>
   </div>
-
   <%= render ShambomonWeb.ComponentView, "instructions.html", assigns %>
 
 <% else %>
-  <div class="row">
-    <h1 class="home-header">SHAMBOMON</h1>
-  </div>
-
-  <div class="centered center-text">
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <p>You must log in first in order to create a game.</p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <%= link "BACK TO HOME", to: page_path(@conn, :index) %>
-      </div>
-    </div>
-  </div>
+  <%= render ShambomonWeb.ComponentView, "no_session.html", assigns %>
 
 <% end %>

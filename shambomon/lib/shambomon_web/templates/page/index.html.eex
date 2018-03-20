@@ -1,40 +1,4 @@
-<script>
-  // Toggles the instructions
-  function toggleInstructions() {
-    var main = document.getElementById('main');
-    var pg_1 = document.getElementById('pg-1');
-    var pg_2 = document.getElementById('pg-2');
-    // Show the main div and hide the instructions
-    if (main.style.display == 'none') {
-      main.style.display = 'inline';
-      pg_1.style.display = 'none';
-      pg_2.style.display = 'none';
-    }
-    // Hide the main div and show the instructions
-    else {
-      pg_1.style.display = 'inline';
-      main.style.display = 'none';
-    }
-  }
-
-  // Flips between the instruction pages
-  function flipPage() {
-    var pg_1 = document.getElementById('pg-1');
-    var pg_2 = document.getElementById('pg-2');
-    // Show the first page and hide the second page
-    if (pg_1.style.display == 'none') {
-      pg_1.style.display = 'inline';
-      pg_2.style.display = 'none';
-    }
-    // Hide the first page and show the second page
-    else {
-      pg_2.style.display = 'inline';
-      pg_1.style.display = 'none';
-    }
-  }
-</script>
-
-<!-- HEADER -->
+<%= render ShambomonWeb.ComponentView, "functions.html", assigns %>
 <%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
 <!-- MAIN PAGE -->
@@ -52,7 +16,6 @@
       </div>
     </div>
   </div>
-
   <!-- LOG-IN FORM -->
   <%= form_tag("/session", method: :post) do %>
     <div class="row">
