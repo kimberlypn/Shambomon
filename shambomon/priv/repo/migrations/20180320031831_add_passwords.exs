@@ -1,6 +1,7 @@
 defmodule Shambomon.Repo.Migrations.AddPasswords do
   use Ecto.Migration
 
+  # Taken from Nat's lecture notes
   def change do
     alter table("users") do
       add :password_hash, :string

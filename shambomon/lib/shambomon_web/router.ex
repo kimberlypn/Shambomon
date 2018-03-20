@@ -4,9 +4,18 @@ defmodule ShambomonWeb.Router do
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
+    plug :get_current_user
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+  end
+
+  # Taken from Nat's lecture notes
+  def get_current_user(conn, _params) do
+    # TODO: Move this function out of the router module.
+    user_id = get_session(conn, :user_id)
+    user = Shambomon.Accounts.get_user(user_id || -1)
+    assign(conn, :current_user, user)
   end
 
   pipeline :api do
@@ -20,6 +29,10 @@ defmodule ShambomonWeb.Router do
     get "/game/:game", PageController, :game
 
     resources "/users", UserController
+
+    # Taken from Nat's lecture notes
+    post "/session", SessionController, :create
+    delete "/session", SessionController, :delete
   end
 
   # Other scopes may use custom stacks.
