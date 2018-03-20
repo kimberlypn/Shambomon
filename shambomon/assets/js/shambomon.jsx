@@ -69,7 +69,7 @@ class Shambomon extends React.Component {
           </div>
         </div>
         {/* Bottom */}
-        <div class="row player-info" id="player-2">
+        <div class="row player-info" id="bottom-player">
           <Player img={playerImg} />
           <div class="col-9">
             <PlayerInfo player={player} state={this.state} />
@@ -113,30 +113,35 @@ function PlayerInfo(props) {
       <p>{name}</p>
       <div class="hp">
         {hp}
-        <p id="hp-status">HP {health} / 100</p>
+        <p>HP {health} / 100</p>
       </div>
     </div>
-  )
+  );
 }
 
 // Returns the a green HP bar
 function HP(props) {
   if (props.type == "alive") {
-    return <div class="hp-bar-alive"></div>;
+    return (
+      <div class="hp-bar-alive"></div>
+    );
   }
   else {
-    return <div class="hp-bar-dead"></div>;
+    return (
+
+      <div class="hp-bar-dead"></div>
+    );
   }
 }
 
-  // Returns the attack buttons
-  function Attack(props) {
-    return (
-      <div class="attack">
-        <span>Choose an attack: </span>
-        <button title="Tackle" onClick={() => props.attack("Q")}>Q</button>
-        <button title="Double Team" onClick={() => props.attack("W")}>W</button>
-        <button title="Frustration" onClick={() => props.attack("E")}>E</button>
-      </div>
-    )
-  }
+// Returns the attack buttons
+function Attack(props) {
+  return (
+    <div class="attack">
+      <span>Choose an attack: </span>
+      <button title="Tackle" onClick={() => props.attack("Q")}>Q</button>
+      <button title="Double Team" onClick={() => props.attack("W")}>W</button>
+      <button title="Frustration" onClick={() => props.attack("E")}>E</button>
+    </div>
+  );
+}

@@ -1,6 +1,7 @@
 /* This file is for your main application css. */
 @import "bootstrap";
 
+/**************************** FONTS **************************/
 @font-face {
   font-family: 'Pokemon Classic';
   src: url('/fonts/Pokemon Classic.ttf');
@@ -10,7 +11,9 @@
   font-family: 'PixelOperator';
   src: url('/fonts/PixelOperator.ttf');
 }
+/************************ END OF FONTS ***********************/
 
+/******************** SHARED ACROSS PAGES ********************/
 body {
   font-family: 'PixelOperator';
   font-size: 21px;
@@ -20,20 +23,26 @@ a:hover {
     text-decoration: none;
 }
 
-.explanation {
-  text-align: justify;
+.btn {
+  font-size: 21px;
 }
 
-.right-side {
-  text-align: right;
-  display: block;
+.btn-primary {
+  width: 100%;
 }
 
-.home-header {
+/* Used for "SHAMBOMON" header on every page */
+.shambomon-header {
   font-family: 'Pokemon Classic';
   font-size: 70px;
 }
 
+h1 {
+  font-family: 'Pokemon Classic';
+  font-size: 45px;
+}
+
+/* Centers a div in the middle of the screen */
 .centered {
   position: fixed;
   top: 50%;
@@ -42,23 +51,13 @@ a:hover {
   width: 75%;
 }
 
-.instructions {
-  display: none;
-  font-size: 19px;
-}
-
-.btn {
-  font-size: 21px;
-}
-
-#close {
+/* Aligns a div on the right side */
+.right-side {
   text-align: right;
+  display: block;
 }
 
-#instruction-span {
-  color: #57af9e;
-}
-
+/* Creates a "|" divider between text */
 .divider {
   display: inline;
   font-weight: bold;
@@ -66,13 +65,37 @@ a:hover {
   padding-right: 7px;
 }
 
+/* Centers text */
+.center-text {
+  text-align: center;
+}
+/***************** END OF SHARED ACROSS PAGES ****************/
 
+/************************ INSTRUCTIONS ***********************/
+/* Don't display the instructions by default */
+.instructions {
+  display: none;
+  font-size: 19px;
+}
+
+/* Justifies the instruction p tags */
+.explanation {
+  text-align: justify;
+}
+
+/* Emphasizes certain text by changing the color */
+.instructions span {
+  color: #57af9e;
+}
+/******************** END OF INSTRUCTIONS ********************/
+
+/******************** CHARACTER SELECTION ********************/
 th {
   font-size: 24px;
   text-align: center;
 }
 
-/* character tile images */
+/* Character tile images */
 td img {
   //border: 1px solid #ddd;
   border-radius: 8px;
@@ -86,17 +109,32 @@ td img {
 td:hover img {
   opacity: 0.5;
 }
+/***************** END OF CHARACTER SELECTION ****************/
 
+/************************ BATTLEFIELD ************************/
+/* Make character imgs 200x200 */
 .player-info img {
   width: 200px;
   height: 200px;
 }
 
+/* Div that contains character img + player stats */
 .player-info p {
   font-size: 40px;
   margin: 0;
 }
 
+/* Used to render the player on the bottom */
+#bottom-player {
+  margin-top: 100px;
+}
+
+/* Used to render HP bars in a row */
+.hp {
+  display: inline-block;
+}
+
+/* Renders green HP bars */
 .hp-bar-alive {
   border: 1px none;
   height: 30px;
@@ -106,6 +144,7 @@ td:hover img {
   display: inline-block;
 }
 
+/* Renders grey HP bars */
 .hp-bar-dead {
   border: 1px none;
   height: 30px;
@@ -115,19 +154,8 @@ td:hover img {
   display: inline-block;
 }
 
-.hp {
-  display: inline-block;
-}
-
-.hp-text {
-  font-size: 10px;
-}
-
-#player-2 {
-  margin-top: 100px;
-}
-
-#hp-status {
+/* HP status (e.g., "HP 60/100") */
+.hp p {
   text-align: right;
   font-size: 30px;
 }
@@ -145,13 +173,8 @@ td:hover img {
   background: #5f6163;
 }
 
+/* Places "Choose an attack" on same line as attack btns */
 .attack span {
   font-size: 30px;
-
-.btn-primary {
-  width: 100%;
 }
-
-.no-session {
-  text-align: center;
-}
+/********************* END OF BATTLEFIELD ********************/
