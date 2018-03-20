@@ -13,43 +13,25 @@
 
 body {
   font-family: 'PixelOperator';
+  font-size: 21px;
 }
 
 a:hover {
     text-decoration: none;
 }
 
-p {
+.explanation {
   text-align: justify;
 }
 
-h1 {
-  font-family: 'Pokemon Classic';
-}
-
-#game-name {
-  font-size: 22px;
-}
-
-#right-side {
+.right-side {
   text-align: right;
   display: block;
 }
 
-#home-header {
+.home-header {
   font-family: 'Pokemon Classic';
   font-size: 70px;
-}
-
-#start-game {
-  text-align: center;
-  margin-top: 20px;
-}
-
-#start-btn {
-  font-size: 20px;
-  padding-left: 200px;
-  padding-right: 200px;
 }
 
 .centered {
@@ -63,6 +45,10 @@ h1 {
 .instructions {
   display: none;
   font-size: 19px;
+}
+
+.btn {
+  font-size: 21px;
 }
 
 #close {
@@ -79,6 +65,7 @@ h1 {
   padding-left: 7px;
   padding-right: 7px;
 }
+
 
 th {
   font-size: 24px;
@@ -160,4 +147,11 @@ td:hover img {
 
 .attack span {
   font-size: 30px;
+
+.btn-primary {
+  width: 100%;
+}
+
+.no-session {
+  text-align: center;
 }

@@ -8,8 +8,11 @@ defmodule ShambomonWeb.PageController do
   def game(conn, params) do
     render conn, "game.html", game: params["game"]
   end
-
+  
   def characters(conn, _params) do
     render conn, "characters.html"
+
+  def name(conn, params) do
+    render conn, "name.html"
   end
 end
