@@ -36,7 +36,7 @@
 
 <!-- HEADER -->
 <div class="row">
-  <h1 id="home-header">SHAMBOMON</h1>
+  <h1 class="home-header">SHAMBOMON</h1>
 </div>
 
 <!-- MAIN PAGE -->
@@ -44,10 +44,9 @@
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <div class="row" id="game-name">
-        <div class="col-6">
-          <p>ENTER A GAME NAME:</p>
-        </div>
-        <div class="col-6" id="right-side">
+        <div class="col-6 offset-6" id="right-side">
+          <%= link "REGISTER", to: user_path(@conn, :new) %>
+          <p class="divider"> | </p>
           <a href="javascript:void(0);" onclick="toggleInstructions()">
             HOW TO PLAY
           </a>
@@ -55,16 +54,29 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <input type="text" class="form-control" placeholder="GAME NAME">
+
+  <!-- LOG-IN FORM -->
+  <%= form_tag("/session", method: :post) do %>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group">
+          USERNAME
+          <input class="form-control" type="username" name="username">
+        </div>
+        <div class="form-group">
+          PASSWORD
+          <input class="form-control" type="password" name="password">
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6 offset-md-3" id="start-game">
-      <button class="btn btn-primary" id="start-btn">BEGIN BATTLE</button>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group">
+          <button class="btn btn-primary form-control">LOG IN</button>
+        </div>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
 
 <!-- INSTRUCTIONS PAGE 1 -->
