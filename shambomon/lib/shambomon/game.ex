@@ -103,7 +103,6 @@ defmodule Shambomon.Game do
     else
       update_player_attack(game, attk)
       |> determine_winner()
-      |> IO.inspect()
       |> update_attacks()
       |> update_turn()
     end
