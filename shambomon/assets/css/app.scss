@@ -13,6 +13,7 @@
 
 body {
   font-family: 'PixelOperator';
+  font-size: 18px;
 }
 
 a:hover {
@@ -23,11 +24,7 @@ p {
   text-align: justify;
 }
 
-#game-name {
-  font-size: 22px;
-}
-
-#right-side {
+.right-side {
   text-align: right;
   display: block;
 }
@@ -48,6 +45,14 @@ p {
 .instructions {
   display: none;
   font-size: 19px;
+}
+
+#main a {
+  font-size: 21px;
+}
+
+.btn {
+  font-size: 21px;
 }
 
 #close {
