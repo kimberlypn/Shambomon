@@ -108,17 +108,17 @@ class Shambomon extends React.Component {
         <div>
           <div>
             {/* Top */}
-            <div class="row player-info">
-              <div class="col-9">
+            <div className="row player-info">
+              <div className="col-9">
                 <PlayerInfo player={opponent} state={this.state} />
               </div>
               <Player img={opponentImg} />
             </div>
           </div>
           {/* Bottom */}
-          <div class="row player-info" id="player-2">
+          <div className="row player-info" id="player-2">
             <Player img={playerImg} />
-            <div class="col-9">
+            <div className="col-9">
               <PlayerInfo player={player} state={this.state} />
               <Attack attack={this.sendAttack.bind(this)} />
             </div>
@@ -152,7 +152,7 @@ function CharacterIcon(props) {
 // Returns an image of the player's character
 function Player(props) {
   return (
-    <div class="col-3">
+    <div className="col-3">
       <img src={props.img} />
     </div>
   );
@@ -171,15 +171,15 @@ function PlayerInfo(props) {
   }
   var hp = []
   for (var i = 0; i < health; i++) {
-    hp.push(<HP type={"alive"} />);
+    hp.push(<HP type={"alive"} key={i} />);
   }
   for (var i = health; i < 100; i++) {
-    hp.push(<HP type={"dead"} />);
+    hp.push(<HP type={"dead"} key={i} />);
   }
   return (
     <div>
       <p>{name}</p>
-      <div class="hp">
+      <div className="hp">
         {hp}
         <p id="hp-status">HP {health} / 100</p>
       </div>
@@ -190,17 +190,17 @@ function PlayerInfo(props) {
 // Returns the a green HP bar
 function HP(props) {
   if (props.type == "alive") {
-    return <div class="hp-bar-alive"></div>;
+    return <div className="hp-bar-alive"></div>;
   }
   else {
-    return <div class="hp-bar-dead"></div>;
+    return <div className="hp-bar-dead"></div>;
   }
 }
 
 // Returns the attack buttons
 function Attack(props) {
   return (
-    <div class="attack">
+    <div className="attack">
       <span>Choose an attack: </span>
       <button title="Tackle" onClick={() => props.attack("Q")}>Q</button>
       <button title="Double Team" onClick={() => props.attack("W")}>W</button>
