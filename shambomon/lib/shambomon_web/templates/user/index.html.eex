@@ -12,6 +12,7 @@
         <th>Wins</th>
         <th>Losses</th>
         <th>Win Ratio</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -25,6 +26,7 @@
           <%= if user.losses + user.wins == 0, do: 0,
           else: div(user.wins, (user.losses + user.wins)) * 100 %>%
         </td>
+        <td><%= link "Match History", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %></td>
       </tr>
     <% end %>
     </tbody>

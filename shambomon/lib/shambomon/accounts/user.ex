@@ -2,6 +2,8 @@ defmodule Shambomon.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Shambomon.Accounts.User
+  alias Shambomon.Gameplay.Match
 
   schema "users" do
     field :username, :string
@@ -14,6 +16,11 @@ defmodule Shambomon.Accounts.User do
 
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
+
+    has_many :player_matches, Match, foreign_key: :player_id
+    has_many :opponent_matches, Match, foreign_key: :opponent_id
+    has_many :players, through: [:opponent_matches, :player]
+    has_many :opponents, through: [:player_matches, :opponent]
 
     timestamps()
   end

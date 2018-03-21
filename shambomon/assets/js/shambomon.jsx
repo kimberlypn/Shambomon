@@ -54,6 +54,33 @@ class Shambomon extends React.Component {
     this.channel.push("stats", {id: this.user_id, stats: stats});
   }
 
+  // Sends a request to the server to update the user's match history
+  sendHistory(winner) {
+    // Only send if the user won; otherwise, two records would be added per game
+    if (this.user_id == winner) {
+      let players = this.state.players;
+      var opponent;
+      var player_champ, opponent_champ;
+      if (players[0].id == this.user_id) {
+        opponent = players[1].id;
+        player_champ = players[0].char;
+        opponent_champ = players[1].char;
+      }
+      else {
+        opponent = players[0].id;
+        player_champ = players[1].char;
+        opponent_champ = players[0].char;
+      }
+      this.channel.push("history",
+      {
+        player: this.user_id,
+        opponent: opponent,
+        player_champ: player_champ,
+        opponent_champ: opponent_champ
+      });
+    }
+  }
+
   // Determines if the game is ready to start (i.e., has two players)
   isReady() {
     let players = this.state.players;
@@ -88,6 +115,7 @@ class Shambomon extends React.Component {
     // Someone has won
     else if (winner) {
       this.sendStats(winner);
+      this.sendHistory(winner);
       return <Winner winner={winner} id={this.user_id} reset={this.sendReset.bind(this)} />;
     }
     // Ongoing game

@@ -1,13 +1,40 @@
-<h2>Show User</h2>
+<%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
-<ul>
-
-  <li>
-    <strong>Username:</strong>
-    <%= @user.username %>
-  </li>
-
-</ul>
-
-<span><%= link "Edit", to: user_path(@conn, :edit, @user) %></span>
-<span><%= link "Back", to: user_path(@conn, :index) %></span>
+<div class="leaderboard match-history">
+  <h1 class="ribbon">
+    <div class="ribbon-content">MATCH HISTORY</div>
+  </h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Date Played</th>
+        <th>Result</th>
+        <th>Opponent</th>
+        <th>Character Played</th>
+        <th>Opponent's Character</th>
+      </tr>
+    </thead>
+    <tbody>
+    <%= Enum.map @matches, fn match -> %>
+      <%= if Map.get(match, :winner) == Map.get(match, :player_id) do %>
+      <tr class="victory">
+        <td><%= NaiveDateTime.truncate(Map.get(match, :inserted_at), :second) %></td>
+        <td>Victory</td>
+        <td><%= Map.get(match, :opponent).username %></td>
+        <td><%= Map.get(match, :player_champ) %></td>
+        <td><%= Map.get(match, :opponent_champ) %></td>
+      </tr>
+      <% else %>
+      <tr class="defeat">
+        <td><%= NaiveDateTime.truncate(Map.get(match, :inserted_at), :second) %></td>
+        <td>Defeat</td>
+        <td><%= Map.get(match, :opponent).username %></td>
+        <td><%= Map.get(match, :player_champ) %></td>
+        <td><%= Map.get(match, :opponent_champ) %></td>
+      </tr>
+      <% end %>
+    <% end %>
+    </tbody>
+  </table>
+  <%= link "BACK", to: user_path(@conn, :index) %>
+</div>
