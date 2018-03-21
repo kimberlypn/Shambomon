@@ -109,4 +109,11 @@ defmodule Shambomon.Accounts do
   def change_user(%User{} = user) do
     User.changeset(user, %{})
   end
+
+  @doc """
+  Updates the User's stats.
+  """
+  def update_stats() do
+    IO.inspect("it works!")
+  end
 end

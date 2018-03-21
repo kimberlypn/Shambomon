@@ -40,7 +40,18 @@ class Shambomon extends React.Component {
 
   // Sends a request to the server to reset the game
   sendReset() {
-    this.channel.push("reset");
+    this.channel.push("reset")
+    .receive("ok", console.log("Successfully reset."));
+  }
+
+  // Sends a request to the server to update the user's stats
+  sendStats(winner) {
+    let stats = 1
+    // Send a 1 if the user won; else, send a -1
+    if (this.user_id != winner) {
+      stats = -1;
+    }
+    this.channel.push("stats", {id: this.user_id, stats: stats});
   }
 
   // Determines if the game is ready to start (i.e., has two players)
@@ -76,6 +87,7 @@ class Shambomon extends React.Component {
     }
     // Someone has won
     else if (winner) {
+      this.sendStats(winner);
       return <Winner winner={winner} id={this.user_id} reset={this.sendReset.bind(this)} />;
     }
     // Ongoing game
@@ -113,6 +125,8 @@ function Winner(props) {
         <div className="col-md-6 offset-md-3">
           <p>{msg}</p>
           <NewGame reset={props.reset} />
+          <p class="divider"> | </p>
+          <Leaderboard reset={props.reset} />
         </div>
       </div>
     </div>
@@ -250,5 +264,12 @@ function Attack(props) {
 function NewGame(props) {
   return (
     <a href="/game/" onClick={() => props.reset()}>New Game</a>
+  );
+}
+
+// Resets the game state and redirects the user to the leaderboard
+function Leaderboard(props) {
+  return (
+    <a href="/users/" onClick={() => props.reset()}>Leaderboard</a>
   );
 }

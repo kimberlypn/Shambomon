@@ -21,7 +21,7 @@ defmodule Shambomon.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :password, :password_confirmation])
+    |> cast(attrs, [:username, :password, :password_confirmation, :wins, :losses])
     |> validate_confirmation(:password)
     |> validate_password(:password)
     |> put_pass_hash()
