@@ -21,7 +21,10 @@
         <td><%= user.username %></td>
         <td><%= user.wins %></td>
         <td><%= user.losses %></td>
-        <td><%= if user.losses + user.wins == 0, do: 0, else: div(user.wins, (user.losses + user.wins)) %>%</td>
+        <td>
+          <%= if user.losses + user.wins == 0, do: 0,
+          else: div(user.wins, (user.losses + user.wins)) * 100 %>%
+        </td>
       </tr>
     <% end %>
     </tbody>
