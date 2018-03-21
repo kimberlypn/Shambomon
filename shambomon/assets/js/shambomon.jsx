@@ -16,15 +16,15 @@ class Shambomon extends React.Component {
       attacks: 0, // number of attacks that have been chosen in the round
       players: [
         {id: null, char: "", health: 100, attack: ""},
-        {id: null, char: "", health: 0, attack: ""}
+        {id: null, char: "", health: 100, attack: ""}
       ]
     };
 
-    // this.channel.join()
-    // .receive("ok", this.gotView.bind(this))
-    // .receive("error", res => {
-    //   console.log("Unable to join", res);
-    // });
+    this.channel.join()
+    .receive("ok", this.gotView.bind(this))
+    .receive("error", res => {
+      console.log("Unable to join", res);
+    });
   }
 
   // Sets the current state
@@ -57,9 +57,9 @@ class Shambomon extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     let ready = this.isReady();
     let winner = this.hasWinner();
-    console.log(winner);
     if (!ready) {
       return <Waiting />;
     }

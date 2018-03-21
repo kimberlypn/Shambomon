@@ -7,13 +7,21 @@ defmodule ShambomonWeb.GamesChannel do
   def join("games:" <> name, payload, socket) do
     # Get initial game on join
     game = GameBackup.load(name) || Game.new()
+
     # Add the game and name to socket assigns
     socket = socket
     |> assign(:name, name)
-    # Save the game in case it is a new one
+
+    # Add the player to the game if it is not full
+    if !Game.is_full(game) do
+      game = Game.add_player(game, payload["user"])
+    end
+
+    # Save the game
     GameBackup.save(name, game)
 
-    
+    # Send an ok message
+    {:ok, %{"join" => name, "game" => Game.client_view(game)}, socket}
   end
 
   # Channels can be used in a request/response fashion
