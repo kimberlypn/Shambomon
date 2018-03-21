@@ -39,6 +39,18 @@ defmodule ShambomonWeb.GamesChannel do
     {:reply, {:ok, %{"game" => Game.client_view(game)}}, socket}
   end
 
+  # Resets the game
+  def handle_in("reset", %{}, socket) do
+    # Call new() to get a fresh state
+    game = Game.new()
+
+    # Override game with new state
+    GameBackup.save(socket.assigns[:name], game)
+
+    # Send an ok message
+    {:reply, {:ok, %{ "game" => Game.client_view(game) }}, socket}
+  end
+
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (games:lobby).
   def handle_in("shout", payload, socket) do

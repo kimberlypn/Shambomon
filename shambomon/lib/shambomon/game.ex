@@ -140,5 +140,4 @@ defmodule Shambomon.Game do
       |> update_turn()
     end
   end
-
 end

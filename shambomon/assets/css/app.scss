@@ -69,6 +69,7 @@ h1 {
 /* Centers text */
 .center-text {
   text-align: center;
+  font-size: 30px;
 }
 /*********************** END OF SHARED ACROSS PAGES **********************/
 
@@ -243,5 +244,10 @@ h1 {
 /* Places "Choose an attack" on same line as attack btns */
 .attack span {
   font-size: 30px;
+}
+
+/* Adds some padding between the battlefield and the header */
+.battlefield {
+  padding-top: 60px;
 }
 /*************************** END OF BATTLEFIELD **************************/

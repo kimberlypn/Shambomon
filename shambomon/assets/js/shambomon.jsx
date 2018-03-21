@@ -35,7 +35,12 @@ class Shambomon extends React.Component {
   // Sends a request to the server to handle the logic for attacking
   sendAttack(attack) {
     this.channel.push("attack", { attack: attack })
-    .receive("ok", this.gotView.bind(this))
+    .receive("ok", this.gotView.bind(this));
+  }
+
+  // Sends a request to the server to reset the game
+  sendReset() {
+    this.channel.push("reset");
   }
 
   // Determines if the game is ready to start (i.e., has two players)
@@ -71,11 +76,11 @@ class Shambomon extends React.Component {
     }
     // Someone has won
     else if (winner) {
-      return <Winner winner={winner} id={this.user_id} />;
+      return <Winner winner={winner} id={this.user_id} reset={this.sendReset.bind(this)} />;
     }
     // Ongoing game
     else {
-      return <Battlefield state={this.state} id={this.user_id} attack={this.sendAttack.bind(this)}/>;
+      return <Battlefield state={this.state} id={this.user_id} attack={this.sendAttack.bind(this)} />;
     }
   }
 }
@@ -90,7 +95,7 @@ function Waiting() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // Renders the end-game message
@@ -107,10 +112,11 @@ function Winner(props) {
       <div className="row">
         <div className="col-md-6 offset-md-3">
           <p>{msg}</p>
+          <NewGame reset={props.reset} />
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 // Renders the battlefield, where the user's character is at the bottom
@@ -214,5 +220,12 @@ function Attack(props) {
       <button title="Double Team" onClick={() => props.attack("W")}>W</button>
       <button title="Frustration" onClick={() => props.attack("E")}>E</button>
     </div>
+  );
+}
+
+// Resets the game state and redirects the user back to the game name page
+function NewGame(props) {
+  return (
+    <a href="/game/" onClick={() => props.reset()}>New Game</a>
   );
 }
