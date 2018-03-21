@@ -1,8 +1,14 @@
-<h1>Choose your character!</h1>
+<%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
-<div class="container">
-  <div class="centered">
-    <table id="selection-table">
+<%= if @current_user do %>
+  <div class="centered" id="characters">
+    <script>
+      window.gameName = "<%= @game %>";
+    </script>
+    <h1 class="ribbon">
+      <div class="ribbon-content">SELECT CHARACTER</div>
+    </h1>
+    <table>
       <tbody>
         <tr>
           <th>Charmander</th>
@@ -28,9 +34,10 @@
         </tr>
       </tbody>
     </table>
-
-    <div class="row select">
-      <button class="btn btn-primary" id="select-btn">SELECT</button>
-    </div>
+    <input type="hidden" id="current-user" value=<%= @current_user.id %>>
   </div>
-</div>
+
+<% else %> 
+  <%= render ShambomonWeb.ComponentView, "no_session.html", assigns %> 
+ 
+<% end %> 

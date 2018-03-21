@@ -1,53 +1,14 @@
-<script>
-  // Toggles the instructions
-  function toggleInstructions() {
-    var main = document.getElementById('main');
-    var pg_1 = document.getElementById('pg-1');
-    var pg_2 = document.getElementById('pg-2');
-    // Show the main div and hide the instructions
-    if (main.style.display == 'none') {
-      main.style.display = 'inline';
-      pg_1.style.display = 'none';
-      pg_2.style.display = 'none';
-    }
-    // Hide the main div and show the instructions
-    else {
-      pg_1.style.display = 'inline';
-      main.style.display = 'none';
-    }
-  }
-
-  // Flips between the instruction pages
-  function flipPage() {
-    var pg_1 = document.getElementById('pg-1');
-    var pg_2 = document.getElementById('pg-2');
-    // Show the first page and hide the second page
-    if (pg_1.style.display == 'none') {
-      pg_1.style.display = 'inline';
-      pg_2.style.display = 'none';
-    }
-    // Hide the first page and show the second page
-    else {
-      pg_2.style.display = 'inline';
-      pg_1.style.display = 'none';
-    }
-  }
-</script>
-
-<!-- HEADER -->
-<div class="row">
-  <h1 id="home-header">SHAMBOMON</h1>
-</div>
+<%= render ShambomonWeb.ComponentView, "functions.html", assigns %>
+<%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
 <!-- MAIN PAGE -->
 <div class="centered" id="main">
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <div class="row" id="game-name">
-        <div class="col-6">
-          <p>ENTER A GAME NAME:</p>
-        </div>
-        <div class="col-6" id="right-side">
+      <div class="row">
+        <div class="col-6 offset-6 right-side">
+          <%= link "REGISTER", to: user_path(@conn, :new) %>
+          <p class="divider"> | </p>
           <a href="javascript:void(0);" onclick="toggleInstructions()">
             HOW TO PLAY
           </a>
@@ -55,80 +16,28 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-      <input type="text" class="form-control" placeholder="GAME NAME" id="g-name">
+  <!-- LOG-IN FORM -->
+  <%= form_tag("/session", method: :post) do %>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group">
+          USERNAME:
+          <input class="form-control" type="username" name="username">
+        </div>
+        <div class="form-group">
+          PASSWORD:
+          <input class="form-control" type="password" name="password">
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6 offset-md-3" id="start-game">
-      <button class="btn btn-primary" id="start-btn">BEGIN BATTLE</button>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="form-group">
+          <button class="btn btn-primary">LOG IN</button>
+        </div>
+      </div>
     </div>
-  </div>
+  <% end %>
 </div>
 
-<!-- INSTRUCTIONS PAGE 1 -->
-<div class="centered instructions" id="pg-1">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-    <p>
-      Each player has <span id="instruction-span">100 health points (HP)</span>.
-      On your turn, you will be able to use one of three attacks by pressing the
-      corresponding key: <span id="instruction-span">Q, W, or E.</span> The
-      attacks follow the conventions of Roshambo (“Rock-Paper-Scissors”) in the
-      sense that each attack is superior to one attack, inferior to another, and
-      negated if the same attack is chosen by the opponent. A round ends once
-      each player has chosen her attack and the damage dealt has been calculated.
-      If both players choose the same attack, then neither player will incur
-      damage for that round. If the attacks are different, then the player who
-      chose the inferior attack will incur damage.
-    </p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6 offset-md-3" id="close">
-      <span><a href="javascript:void(0);" onclick="flipPage()">
-        NEXT
-      </a>
-      <p class="divider"> | </p>
-      <a href="javascript:void(0);" onclick="toggleInstructions()">
-        CLOSE
-      </a>
-      </span>
-    </div>
-  </div>
-</div>
-
-<!-- INSTRUCTIONS PAGE 2 -->
-<div class="centered instructions" id="pg-2">
-  <div class="row">
-    <div class="col-md-6 offset-md-3">
-    <p>
-      The damage dealt each round will increase on each consecutive win. For
-      example, if you win the first round, then you will deal -10 damage, which
-      is the base damage, to your opponent. If you win again the next round,
-      then you will earn a <span id="instruction-span">1.5x multiplier</span>
-      and be able to deal -15 damage to your opponent. The multiplier will be
-      capped at 2x the base damage (i.e., the maximum damage that a player can
-      deal in a single round is -20) and will reset back to 1x, or -10 damage,
-      on the fourth consecutive win. The multiplier will also reset if your
-      opponent chooses either the same attack or a superior attack. After a
-      reset, you can work to earn the multiplier again.
-      <span id="instruction-span">The game ends when one player’s HP reaches 0,
-      and the winner is the player who is still alive.</span>
-    </p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6 offset-md-3" id="close">
-      <span><a href="javascript:void(0);" onclick="flipPage()">
-        BACK
-      </a>
-      <p class="divider"> | </p>
-      <a href="javascript:void(0);" onclick="toggleInstructions()">
-        CLOSE
-      </a>
-      </span>
-    </div>
-  </div>
-</div>
+<%= render ShambomonWeb.ComponentView, "instructions.html", assigns %>

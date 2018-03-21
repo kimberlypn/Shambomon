@@ -1,53 +1,68 @@
 defmodule Shambomon.Game do
   @moduledoc false
 
-  # Resets the state of the game
+  # Creates a new game
   def new do
-    characters = ["Charmander", "Squirtle", "Bulbasaur"]
-
     %{
-      characters: characters,
-      turn: 1,
+      turn: 0,
       attacks: 0,
-      p1Char: "",
-      p2Char: "",
-      p1Health: 100,
-      p2Health: 100,
-      p1Attack: "",
-      p2Attack: ""
+      players: [
+        %{id: 1, char: "", health: 100, attack: ""},
+        %{id: nil, char: "", health: 100, attack: ""}
+      ]
     }
   end
 
   # Returns the current state of the game
   def client_view(game) do
-    available_characters = List.delete(game.characters, game.p1Char)
-    |> List.delete(game.p2Char)
-
     %{
-      availableCharacters: available_characters,
       turn: game.turn,
       attacks: game.attacks,
-      p1Char: game.p1Char,
-      p2Char: game.p2Char,
-      p1Health: game.p1Health,
-      p2Health: game.p2Health,
-      p1Attack: game.p1Attack,
-      p2Attack: game.p2Attack
+      players: game.players
     }
+  end
+
+  # Returns true if there are two players in the game
+  def is_full(game) do
+    players = Map.get(game, :players)
+    p1 = Enum.at(players, 0)
+    p2 = Enum.at(players, 1)
+    (Map.get(p1, :id) != nil) && (Map.get(p2, :id) != nil)
+  end
+
+  # Adds the given player to the game
+  def add_player(game, id, character) do
+    players = Map.get(game, :players)
+    p1 = Enum.at(players, 0)
+    p2 = Enum.at(players, 1)
+    # Check if player should be Player 1 or Player 2
+    if !Map.get(p1, :id) do
+      p1 = Map.put(p1, :id, id)
+      |> Map.put(:character, character)
+    else
+      # Make sure the same player isn't getting added twice, which can happen
+      # if the user refreshes the page while waiting for the second player
+      if Map.get(p1, :id) != id do
+        p2 = Map.put(p2, :id, id)
+        |> Map.put(:character, character)
+      end
+    end
+    Map.put(game, :players, [p1, p2])
   end
 
   # Updates the turn
   defp update_turn(game) do
-    if game.turn == 1, do:
-      Map.put(game, :turn, 2),
+    if Map.get(game, :turn) == 0, do:
+      Map.put(game, :turn, 1),
     else:
-      Map.put(game, :turn, 1)
+      Map.put(game, :turn, 0)
   end
 
   # Updates the number of attacks that have been chosen for the current round
   defp update_attacks(game) do
-    if game.attacks == 0, do:
-      Map.put(game, :attacks, game.attacks + 1),
+    attacks = Map.get(game, :attacks)
+    if attacks == 0, do:
+      Map.put(game, :attacks, attacks + 1),
     # Both players have gone, so reset the number of attacks
     else:
       Map.put(game, :attacks, 0)
@@ -55,18 +70,29 @@ defmodule Shambomon.Game do
 
   # Updates the attack chosen by the current player
   defp update_player_attack(game, attk) do
-    if game.turn == 1, do:
-      Map.put(game, :p1Attack, attk),
+    players = Map.get(game, :players)
+    p1 = Enum.at(players, 0)
+    p2 = Enum.at(players, 1)
+    if Map.get(game, :turn) == 0, do:
+      p1 = Map.put(p1, :attack, attk),
     else:
-      Map.put(game, :p2Attack, attk)
+      p2 = Map.put(p2, :attack, attk)
+    Map.put(game, :players, [p1, p2])
   end
 
   # Updates the given player's HP
   defp update_health(game, player) do
-    if player == 1, do:
-      Map.put(game, :p1Health, game.p1Health - 10),
-    else:
-      Map.put(game, :p2Health, game.p2Health - 10)
+    players = Map.get(game, :players)
+    p1 = Enum.at(players, 0)
+    p2 = Enum.at(players, 1)
+    if player == 0 do
+      health = Map.get(p1, :health)
+      p1 = Map.put(p1, :health, health - 10)
+    else
+      health = Map.get(p2, :health)
+      p2 = Map.put(p2, :health, health - 10)
+    end
+    Map.put(game, :players, [p1, p2])
   end
 
   # Determines who won the round and calculates the damage taken accordingly;
@@ -74,32 +100,37 @@ defmodule Shambomon.Game do
   # W beats Q but loses to E;
   # E beats W but loses to Q;
   defp determine_winner(game) do
+    players = Map.get(game, :players)
+    p1 = Enum.at(players, 0)
+    p2 = Enum.at(players, 1)
+    p1Attack = Map.get(p1, :attack)
+    p2Attack = Map.get(p2, :attack)
     cond do
       # Both chose the same attack, so no damage taken
-      String.equivalent?(game.p1Attack, game.p2Attack) ->
+      String.equivalent?(p1Attack, p2Attack) ->
         game
-      String.equivalent?(game.p1Attack, "Q") ->
-        if String.equivalent?(game.p2Attack, "W"), do:
-          update_health(game, 1),
-        else:
-          update_health(game, 2)
-      String.equivalent?(game.p1Attack, "W") ->
-        if String.equivalent?(game.p2Attack, "Q"), do:
-          update_health(game, 2),
+      String.equivalent?(p1Attack, "Q") ->
+        if String.equivalent?(p2Attack, "W"), do:
+          update_health(game, 0),
         else:
           update_health(game, 1)
-      String.equivalent?(game.p1Attack, "E") ->
-        if String.equivalent?(game.p2Attack, "Q"), do:
+      String.equivalent?(p1Attack, "W") ->
+        if String.equivalent?(p2Attack, "Q"), do:
           update_health(game, 1),
         else:
-          update_health(game, 2)
+          update_health(game, 0)
+      String.equivalent?(p1Attack, "E") ->
+        if String.equivalent?(p2Attack, "Q"), do:
+          update_health(game, 0),
+        else:
+          update_health(game, 1)
     end
   end
 
   # Handles an attack
   def attack(game, attk) do
     # First attack in the round
-    if game.attacks == 0 do
+    if Map.get(game, :attacks) == 0 do
       update_player_attack(game, attk)
       |> update_attacks()
       |> update_turn()
@@ -111,4 +142,5 @@ defmodule Shambomon.Game do
       |> update_turn()
     end
   end
+
 end

@@ -1,0 +1,13 @@
+<!-- HEADER -->
+<div class="row">
+  <h1 class="shambomon-header">SHAMBOMON</h1>
+</div>
+
+<%= render "form.html", Map.put(assigns, :action, user_path(@conn, :create)) %>
+
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <%= link "CANCEL", to: page_path(@conn, :index) %>
+    </div>
+  </div>
+</div>
