@@ -5,6 +5,7 @@ defmodule ShambomonWeb.GamesChannel do
   alias Shambomon.GameBackup
 
   def join("games:" <> name, payload, socket) do
+    IO.inspect(payload)
     # Get initial game on join
     game = GameBackup.load(name) || Game.new()
 
@@ -14,7 +15,7 @@ defmodule ShambomonWeb.GamesChannel do
 
     # Add the player to the game if it is not full
     if !Game.is_full(game) do
-      game = Game.add_player(game, payload["user"])
+      game = Game.add_player(game, payload["user"], payload["character"])
     end
 
     # Save the game
