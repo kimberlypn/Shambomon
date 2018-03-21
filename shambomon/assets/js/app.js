@@ -24,6 +24,7 @@ import start_game from "./shambomon";
 function init() {
   let mainRoot = document.getElementById('main');
   let gameRoot = document.getElementById('game');
+  let user_id = $('input#current-user').val();
 
   // Redirect to the character-selection page
   if (mainRoot) {
@@ -34,8 +35,8 @@ function init() {
   }
   // Redirect to the main game
   if (gameRoot) {
-    let channel = socket.channel("games:" + window.gameName, {});
-    start_game(gameRoot, channel);
+    let channel = socket.channel("games:" + window.gameName, {user: user_id});
+    start_game(gameRoot, channel, user_id);
   }
 }
 

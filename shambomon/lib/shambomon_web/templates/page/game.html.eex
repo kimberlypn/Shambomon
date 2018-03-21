@@ -7,5 +7,6 @@
     <div id="game">
       <p>React app not loaded...</p>
     </div>
+    <input type="hidden" id="current-user" value=<%= @current_user.id %>>
   </div>
 </div>
