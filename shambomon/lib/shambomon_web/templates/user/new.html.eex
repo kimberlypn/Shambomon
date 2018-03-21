@@ -1,7 +1,4 @@
-<!-- HEADER -->
-<div class="row">
-  <h1 class="shambomon-header">SHAMBOMON</h1>
-</div>
+<%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
 <%= render "form.html", Map.put(assigns, :action, user_path(@conn, :create)) %>
 

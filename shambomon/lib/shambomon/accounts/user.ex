@@ -5,6 +5,8 @@ defmodule Shambomon.Accounts.User do
 
   schema "users" do
     field :username, :string
+    field :wins, :integer
+    field :losses, :integer
 
     field :password_hash, :string
     field :pw_tries, :integer
@@ -20,11 +22,11 @@ defmodule Shambomon.Accounts.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:username, :password, :password_confirmation])
-    |> unique_constraint(:username)
     |> validate_confirmation(:password)
     |> validate_password(:password)
     |> put_pass_hash()
     |> validate_required([:username, :password_hash])
+    |> unique_constraint(:username)
   end
 
   # Password validation
