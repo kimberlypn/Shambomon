@@ -7,7 +7,6 @@ defmodule Shambomon.Repo.Migrations.CreateMatches do
       add :opponent_id, references(:users, on_delete: :delete_all), null: false
       add :player_champ, :string
       add :opponent_champ, :string
-      add :winner, :integer
 
       timestamps()
     end
