@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
 
 export default function start_game(root, channel, user_id) {
-  ReactDOM.render(<Shambomon channel={channel} user={user_id} />, root);
+  ReactDOM.render(<Shambomon channel={ channel } user={ user_id } />, root);
 }
 
 class Shambomon extends React.Component {
@@ -12,20 +12,19 @@ class Shambomon extends React.Component {
     this.channel = props.channel;
     this.user_id = props.user;
     this.state = {
-      turn: 1, // current player whose turn it is
+      turn: 0, // current player whose turn it is
       attacks: 0, // number of attacks that have been chosen in the round
       players: [
-        { id: null, char: "", health: 100, attack: "" },
-        { id: null, char: "", health: 100, attack: "" }
-      ],
-      availableCharacters: []
+        {id: null, char: "", health: 100, attack: ""},
+        {id: null, char: "", health: 100, attack: ""}
+      ]
     };
 
     this.channel.join()
-      .receive("ok", this.gotView.bind(this))
-      .receive("error", res => {
-        console.log("Unable to join", res);
-      });
+    .receive("ok", this.gotView.bind(this))
+    .receive("error", res => {
+      console.log("Unable to join", res);
+    });
   }
 
   // Sets the current state
@@ -33,10 +32,21 @@ class Shambomon extends React.Component {
     this.setState(view.game);
   }
 
+  // Sends a request to the server to handle the logic for attacking
+  sendAttack(attack) {
+    this.channel.push("attack", { attack: attack })
+    .receive("ok", this.gotView.bind(this));
+  }
+
+  // Sends a request to the server to reset the game
+  sendReset() {
+    this.channel.push("reset");
+  }
+
   // Determines if the game is ready to start (i.e., has two players)
   isReady() {
     let players = this.state.players;
-    let ready = (players[0].id != null) && (players[1].id != null);
+    let ready = players[0].id && players[1].id;
     return ready;
   }
 
@@ -57,84 +67,22 @@ class Shambomon extends React.Component {
     }
   }
 
-  selectCharacter(character) {
-    let p1Char = (this.state.players[0].char === "") ? character : this.state.players[0].char;
-    let p2Char = (this.state.players[1].char === "") ? character : this.state.players[1].char;
-
-    this.setState({
-      players: [
-        { id: null, char: p1Char, health: 100, attack: "" },
-        { id: null, char: p2Char, health: 100, attack: "" }
-      ]
-    });
-  }
-
   render() {
-    // console.log(this.state.players);
-    // if (this.state.players[0].char === "" || this.state.players[1].char === "") {
-    //   return (
-    //     <div className="container">
-    //       <h1 className="ribbon">
-    //         <div className="ribbon-content">SELECT CHARACTER</div>
-    //       </h1>
-    //       <div className="centered">
-    //         <table id="characters">
-    //           <tbody>
-    //             <tr>
-    //               <th>Charmander</th>
-    //               <th>Squirtle</th>
-    //               <th>Bulbasaur</th>
-    //             </tr>
-    //             <tr>
-    //               <CharacterIcon character={this.state.availableCharacters[0]} select={this.selectCharacter.bind(this)} />
-    //               <CharacterIcon character={this.state.availableCharacters[1]} select={this.selectCharacter.bind(this)} />
-    //               <CharacterIcon character={this.state.availableCharacters[2]} select={this.selectCharacter.bind(this)} />
-    //             </tr>
-    //           </tbody>
-    //         </table>
-    //         <div className="row select">
-    //           <Button className="btn btn-primary" id="select-btn">SELECT</Button>
-    //         </div>
-    //       </div>
-    //     </div>
-    //   );
-    // } else {
-      console.log(this.state);
-      let ready = this.isReady();
-      let winner = this.hasWinner();
-      if (!ready) {
-        return <Waiting />;
-      }
-      else if (winner) {
-        return <Winner winner={winner} id={this.user_id} />
-      }
-      else {
-        return (
-          <div></div>
-        );
-      }
-    //}
+    let ready = this.isReady();
+    let winner = this.hasWinner();
+    // Game has less than two players
+    if (!ready) {
+      return <Waiting />;
+    }
+    // Someone has won
+    else if (winner) {
+      return <Winner winner={winner} id={this.user_id} reset={this.sendReset.bind(this)} />;
+    }
+    // Ongoing game
+    else {
+      return <Battlefield state={this.state} id={this.user_id} attack={this.sendAttack.bind(this)} />;
+    }
   }
-}
-
-function CharacterIcon(props) {
-  let creditsLink = {
-    Charmander: "https://jedflah.deviantart.com/art/Minimalist-Charmander-Icon-Free-to-Use-623942829",
-    Squirtle: "https://jedflah.deviantart.com/art/Minimalist-Squirtle-Icon-Free-to-use-623939100",
-    Bulbasaur: "https://jedflah.deviantart.com/art/Minimalist-Bulbasaur-Icon-Free-to-Use-623933759"
-  };
-
-  function iconClick() {
-    console.log('Selected character:', props.character);
-    props.select(props.character);
-  }
-
-  return (
-    <td>
-      {/* Image credits to Jedflah on DeviantArt */}
-      <img src={"/images/" + props.character + ".png"} onClick={iconClick} className="character-icon" />
-    </td>
-  );
 }
 
 // Renders a waiting message
@@ -147,10 +95,10 @@ function Waiting() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-// Renders a winner message
+// Renders the end-game message
 function Winner(props) {
   var msg = "";
   if (props.winner == props.id) {
@@ -164,8 +112,120 @@ function Winner(props) {
       <div className="row">
         <div className="col-md-6 offset-md-3">
           <p>{msg}</p>
+          <NewGame reset={props.reset} />
         </div>
       </div>
     </div>
-  )
+  );
+}
+
+// Renders the battlefield, where the user's character is at the bottom
+function Battlefield(props) {
+  let players = props.state.players;
+  var player, opponent;
+  var playerImg, opponentImg;
+  // User is Player 1
+  if (players[0].id == props.id) {
+    player = 0;
+    opponent = 1;
+    playerImg = "/images/" + players[player].char + "-battle.png";
+    opponentImg = "/images/" + players[opponent].char + "-battle.png";
+  }
+  // User is Player 2
+  else {
+    player = 1;
+    opponent = 0;
+    playerImg = "/images/" + players[player].char + "-battle.png";
+    opponentImg = "/images/" + players[opponent].char + "-battle.png";
+  }
+
+  return(
+    <div>
+      <div>
+        {/* Top */}
+        <div class="row player-info">
+          <div class="col-9">
+            <PlayerInfo player={opponent} state={props.state} />
+          </div>
+          <Player img={opponentImg} />
+        </div>
+      </div>
+      {/* Bottom */}
+      <div class="row player-info" id="bottom-player">
+        <Player img={playerImg} />
+        <div class="col-9">
+          <PlayerInfo player={player} state={props.state} />
+          <Attack attack={props.attack} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Renders the player's character
+function Player(props) {
+  return (
+    <div class="col-3">
+      <img src={props.img}/>
+    </div>
+  );
+}
+
+// Renders the player's character name and HP
+function PlayerInfo(props) {
+  var health, name, pokemon, pos;
+  let players = props.state.players;
+  health = players[props.player].health;
+  name = players[props.player].char;
+
+  var hp = []
+  for (var i = 0; i < health; i++) {
+    hp.push(<HP type={"alive"} />);
+  }
+  for (var i = health; i < 100; i++) {
+    hp.push(<HP type={"dead"} />);
+  }
+
+  return (
+    <div>
+      <p>{name}</p>
+      <div class="hp">
+        {hp}
+        <p>HP {health} / 100</p>
+      </div>
+    </div>
+  );
+}
+
+// Renders an HP bar
+function HP(props) {
+  if (props.type == "alive") {
+    return (
+      <div class="hp-bar-alive"></div>
+    );
+  }
+  else {
+    return (
+      <div class="hp-bar-dead"></div>
+    );
+  }
+}
+
+// Renders the attack buttons
+function Attack(props) {
+  return (
+    <div class="attack">
+      <span>Choose an attack: </span>
+      <button title="Tackle" onClick={() => props.attack("Q")}>Q</button>
+      <button title="Double Team" onClick={() => props.attack("W")}>W</button>
+      <button title="Frustration" onClick={() => props.attack("E")}>E</button>
+    </div>
+  );
+}
+
+// Resets the game state and redirects the user back to the game name page
+function NewGame(props) {
+  return (
+    <a href="/game/" onClick={() => props.reset()}>New Game</a>
+  );
 }

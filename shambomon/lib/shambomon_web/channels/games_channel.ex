@@ -15,7 +15,7 @@ defmodule ShambomonWeb.GamesChannel do
 
     # Add the player to the game if it is not full
     if !Game.is_full(game) do
-      game = Game.add_player(game, payload["user"], payload["character"])
+      game = Game.add_player(game, payload["user"])
     end
 
     # Save the game
@@ -28,6 +28,29 @@ defmodule ShambomonWeb.GamesChannel do
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
 
+  # Sends to chosen attack to attack()
+  def handle_in("attack", %{"attack" => a}, socket) do
+    # Call attack() with the current state
+    game = Game.attack(GameBackup.load(socket.assigns[:name]), a)
+
+    # Save game after generating new state
+    GameBackup.save(socket.assigns[:name], game)
+
+    # Send an ok message
+    {:reply, {:ok, %{"game" => Game.client_view(game)}}, socket}
+  end
+
+  # Resets the game
+  def handle_in("reset", %{}, socket) do
+    # Call new() to get a fresh state
+    game = Game.new()
+
+    # Override game with new state
+    GameBackup.save(socket.assigns[:name], game)
+
+    # Send an ok message
+    {:reply, {:ok, %{ "game" => Game.client_view(game) }}, socket}
+  end
 
   # It is also common to receive messages from the client and
   # broadcast to everyone in the current topic (games:lobby).

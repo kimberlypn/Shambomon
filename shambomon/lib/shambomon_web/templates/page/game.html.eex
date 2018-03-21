@@ -1,7 +1,8 @@
+<%= render ShambomonWeb.ComponentView, "header.html", assigns %>
+
 <%= if @current_user do %>
-  <div class="row">
-    <div class="col">
-      <h1>SHAMBOMON: <%= @game %></h1>
+  <div class="centered">
+    <div class="battlefield">
       <script>
         window.gameName = "<%= @game %>";
       </script>
@@ -11,9 +12,8 @@
       <input type="hidden" id="current-user" value=<%= @current_user.id %>>
     </div>
   </div>
- 
+
 <% else %>
-  <%= render ShambomonWeb.ComponentView, "header.html", assigns %>
   <%= render ShambomonWeb.ComponentView, "no_session.html", assigns %>
- 
+
 <% end %>
