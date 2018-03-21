@@ -2,8 +2,11 @@
 
 <%= if @current_user do %>
   <div class="centered" id="characters">
+    <script>
+      window.gameName = "<%= @game %>";
+    </script>
     <h1 class="ribbon">
-     <div class="ribbon-content">SELECT CHARACTER</div>
+      <div class="ribbon-content">SELECT CHARACTER</div>
     </h1>
     <table>
       <tbody>
@@ -16,21 +19,22 @@
           <td>
             <!-- Image credits to Jedflah on DeviantArt -->
             <!-- https://jedflah.deviantart.com/art/Minimalist-Charmander-Icon-Free-to-Use-623942829 -->
-            <img src="/images/Charmander.png" />
+            <img src="/images/Charmander.png" alt="Charmander" class="character-icon"/>
           </td>
           <td>
             <!-- Image credits to Jedflah on DeviantArt -->
             <!-- https://jedflah.deviantart.com/art/Minimalist-Squirtle-Icon-Free-to-use-623939100 -->
-            <img src="/images/Squirtle.png" />
+            <img src="/images/Squirtle.png" alt="Squirtle" class="character-icon"/>
           </td>
           <td>
             <!-- Image credits to Jedflah on DeviantArt -->
             <!-- https://jedflah.deviantart.com/art/Minimalist-Bulbasaur-Icon-Free-to-Use-623933759 -->
-            <img src="/images/Bulbasaur.png" />
+            <img src="/images/Bulbasaur.png" alt="Bulbasaur" class="character-icon"/>
           </td>
         </tr>
       </tbody>
     </table>
+    <input type="hidden" id="current-user" value=<%= @current_user.id %>>
   </div>
 
 <% else %>

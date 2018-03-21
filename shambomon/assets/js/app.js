@@ -24,6 +24,7 @@ import start_game from "./shambomon";
 function init() {
   let mainRoot = document.getElementById('main');
   let gameRoot = document.getElementById('game');
+  let charactersRoot = document.getElementById('characters');
   let user_id = $('#current-user').val();
 
   // Redirect to the character-selection page
@@ -32,15 +33,25 @@ function init() {
       let gameName = $('#g-name').val();
       if (gameName) {
         window.location.href = '/game/' + gameName + '/characters';
-      }
-      else {
+      } else {
         alert("You must enter a game name.");
       }
     });
   }
-  // Redirect to the main game
+
+  if (charactersRoot) {
+    $('.character-icon').bind('click', function () {
+      let selectedCharacter = $(this).attr('alt');
+      window.location.href = '/game/' + window.gameName + '?user=' + user_id + '&character=' + selectedCharacter;
+    });
+  }
+
   if (gameRoot) {
-    let channel = socket.channel("games:" + window.gameName, {user: user_id});
+    let params = (new URL(document.location)).searchParams;
+    let userId = params.get('user');
+    let selectedCharacter = params.get('character');
+
+    let channel = socket.channel("games:" + window.gameName, { user: userId, character: selectedCharacter });
     start_game(gameRoot, channel, user_id);
   }
 }

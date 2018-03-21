@@ -7,8 +7,8 @@ defmodule Shambomon.Game do
       turn: 0,
       attacks: 0,
       players: [
-        %{id: nil, char: "Charmander", health: 100, attack: ""},
-        %{id: nil, char: "Squirtle", health: 100, attack: ""}
+        %{id: nil, char: "", health: 100, attack: ""},
+        %{id: nil, char: "", health: 100, attack: ""}
       ]
     }
   end
@@ -31,18 +31,20 @@ defmodule Shambomon.Game do
   end
 
   # Adds the given player to the game
-  def add_player(game, id) do
+  def add_player(game, id, character) do
     players = Map.get(game, :players)
     p1 = Enum.at(players, 0)
     p2 = Enum.at(players, 1)
     # Check if player should be Player 1 or Player 2
     if !Map.get(p1, :id) do
       p1 = Map.put(p1, :id, id)
+      |> Map.put(:char, character)
     else
       # Make sure the same player isn't getting added twice, which can happen
       # if the user refreshes the page while waiting for the second player
       if Map.get(p1, :id) != id do
         p2 = Map.put(p2, :id, id)
+        |> Map.put(:char, character)
       end
     end
     Map.put(game, :players, [p1, p2])
