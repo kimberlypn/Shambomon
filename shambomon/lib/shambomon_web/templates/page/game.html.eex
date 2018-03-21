@@ -1,12 +1,19 @@
-<div class="row">
-  <div class="col">
-    <h1>SHAMBOMON: <%= @game %></h1>
-    <script>
-      window.gameName = "<%= @game %>";
-    </script>
-    <div id="game">
-      <p>React app not loaded...</p>
+<%= if @current_user do %>
+  <div class="row">
+    <div class="col">
+      <h1>SHAMBOMON: <%= @game %></h1>
+      <script>
+        window.gameName = "<%= @game %>";
+      </script>
+      <div id="game">
+        <p>React app not loaded...</p>
+      </div>
+      <input type="hidden" id="current-user" value=<%= @current_user.id %>>
     </div>
-    <input type="hidden" id="current-user" value=<%= @current_user.id %>>
   </div>
-</div>
+
+<% else %>
+  <%= render ShambomonWeb.ComponentView, "header.html", assigns %>
+  <%= render ShambomonWeb.ComponentView, "no_session.html", assigns %>
+
+<% end %>

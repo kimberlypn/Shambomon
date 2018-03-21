@@ -1,33 +1,39 @@
 <%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
-<div class="centered" id="characters">
-  <h1 class="ribbon">
-   <div class="ribbon-content">SELECT CHARACTER</div>
-  </h1>
-  <table>
-    <tbody>
-      <tr>
-        <th>Charmander</th>
-        <th>Squirtle</th>
-        <th>Bulbasaur</th>
-      </tr>
-      <tr>
-        <td>
-          <!-- Image credits to Jedflah on DeviantArt -->
-          <!-- https://jedflah.deviantart.com/art/Minimalist-Charmander-Icon-Free-to-Use-623942829 -->
-          <img src="/images/Charmander.png" />
-        </td>
-        <td>
-          <!-- Image credits to Jedflah on DeviantArt -->
-          <!-- https://jedflah.deviantart.com/art/Minimalist-Squirtle-Icon-Free-to-use-623939100 -->
-          <img src="/images/Squirtle.png" />
-        </td>
-        <td>
-          <!-- Image credits to Jedflah on DeviantArt -->
-          <!-- https://jedflah.deviantart.com/art/Minimalist-Bulbasaur-Icon-Free-to-Use-623933759 -->
-          <img src="/images/Bulbasaur.png" />
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<%= if @current_user do %>
+  <div class="centered" id="characters">
+    <h1 class="ribbon">
+     <div class="ribbon-content">SELECT CHARACTER</div>
+    </h1>
+    <table>
+      <tbody>
+        <tr>
+          <th>Charmander</th>
+          <th>Squirtle</th>
+          <th>Bulbasaur</th>
+        </tr>
+        <tr>
+          <td>
+            <!-- Image credits to Jedflah on DeviantArt -->
+            <!-- https://jedflah.deviantart.com/art/Minimalist-Charmander-Icon-Free-to-Use-623942829 -->
+            <img src="/images/Charmander.png" />
+          </td>
+          <td>
+            <!-- Image credits to Jedflah on DeviantArt -->
+            <!-- https://jedflah.deviantart.com/art/Minimalist-Squirtle-Icon-Free-to-use-623939100 -->
+            <img src="/images/Squirtle.png" />
+          </td>
+          <td>
+            <!-- Image credits to Jedflah on DeviantArt -->
+            <!-- https://jedflah.deviantart.com/art/Minimalist-Bulbasaur-Icon-Free-to-Use-623933759 -->
+            <img src="/images/Bulbasaur.png" />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+<% else %>
+  <%= render ShambomonWeb.ComponentView, "no_session.html", assigns %>
+
+<% end %>
