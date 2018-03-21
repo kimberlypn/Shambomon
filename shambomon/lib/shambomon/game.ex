@@ -27,7 +27,7 @@ defmodule Shambomon.Game do
     players = Map.get(game, :players)
     p1 = Enum.at(players, 0)
     p2 = Enum.at(players, 1)
-    Map.get(p1, :id) && (Map.get(p2, :id)
+    Map.get(p1, :id) && Map.get(p2, :id)
   end
 
   # Adds the given player to the game
