@@ -93,7 +93,7 @@ function Waiting() {
   )
 }
 
-// Renders a winner message
+// Renders the end-game message
 function Winner(props) {
   var msg = "";
   if (props.winner == props.id) {
@@ -113,7 +113,7 @@ function Winner(props) {
   )
 }
 
-// Renders the battlefield, where the user's player is at the bottom
+// Renders the battlefield, where the user's character is at the bottom
 function Battlefield(props) {
   let players = props.state.players;
   var player, opponent;
@@ -156,7 +156,7 @@ function Battlefield(props) {
   );
 }
 
-// Returns an image of the player's character
+// Renders the player's character
 function Player(props) {
   return (
     <div class="col-3">
@@ -165,7 +165,7 @@ function Player(props) {
   );
 }
 
-// Returns the player's character name and HP
+// Renders the player's character name and HP
 function PlayerInfo(props) {
   var health, name, pokemon, pos;
   let players = props.state.players;
@@ -191,7 +191,7 @@ function PlayerInfo(props) {
   );
 }
 
-// Returns the a green HP bar
+// Renders an HP bar
 function HP(props) {
   if (props.type == "alive") {
     return (
@@ -200,13 +200,12 @@ function HP(props) {
   }
   else {
     return (
-
       <div class="hp-bar-dead"></div>
     );
   }
 }
 
-// Returns the attack buttons
+// Renders the attack buttons
 function Attack(props) {
   return (
     <div class="attack">
