@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-md-6 offset-md-3">
           <div class="form-group">
-            <input type="text" class="form-control" placeholder="GAME NAME" id="g-name">
+            <input type="text" class="form-control" placeholder="GAME NAME">
           </div>
         </div>
       </div>

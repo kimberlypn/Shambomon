@@ -30,7 +30,12 @@ function init() {
   if (mainRoot) {
     $('#start-btn').click(() => {
       let gameName = $('#g-name').val();
-      window.location.href = '/game/' + gameName + '/characters';
+      if (gameName) {
+        window.location.href = '/game/' + gameName + '/characters';
+      }
+      else {
+        alert("You must enter a game name.");
+      }
     });
   }
   // Redirect to the main game
