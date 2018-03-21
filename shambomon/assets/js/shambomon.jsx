@@ -46,7 +46,7 @@ class Shambomon extends React.Component {
   // Determines if the game is ready to start (i.e., has two players)
   isReady() {
     let players = this.state.players;
-    let ready = (players[0].id != null) && (players[1].id != null);
+    let ready = players[0].id && players[1].id;
     return ready;
   }
 
