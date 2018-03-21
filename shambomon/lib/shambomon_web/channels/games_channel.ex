@@ -75,8 +75,7 @@ defmodule ShambomonWeb.GamesChannel do
         player_id: player,
         opponent_id: opponent,
         player_champ: player_champ,
-        opponent_champ: opponent_champ,
-        winner: player
+        opponent_champ: opponent_champ
       }
     Gameplay.create_match(changeset)
 

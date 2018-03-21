@@ -107,9 +107,8 @@ defmodule Shambomon.Gameplay do
   Returns all matches played by the user.
   """
   def matches_map_for(user_id) do
-    wins = Repo.all(from m in Match,
-      where: m.player_id == ^user_id,
-      where: m.opponent_id == ^user_id,
+    Repo.all(from m in Match,
+      where: (m.player_id == ^user_id or m.opponent_id == ^user_id),
       order_by: [desc: :inserted_at])
     |> Repo.preload(:player)
     |> Repo.preload(:opponent)

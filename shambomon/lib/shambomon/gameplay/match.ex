@@ -10,7 +10,6 @@ defmodule Shambomon.Gameplay.Match do
     belongs_to :opponent, User
     field :player_champ, :string
     field :opponent_champ, :string
-    field :winner, :integer
 
     timestamps()
   end
@@ -18,7 +17,7 @@ defmodule Shambomon.Gameplay.Match do
   @doc false
   def changeset(%Match{} = match, attrs) do
     match
-    |> cast(attrs, [:player_id, :opponent_id, :player_champ, :opponent_champ, :winner])
-    |> validate_required([:player_id, :opponent_id, :player_champ, :opponent_champ, :winner])
+    |> cast(attrs, [:player_id, :opponent_id, :player_champ, :opponent_champ])
+    |> validate_required([:player_id, :opponent_id, :player_champ, :opponent_champ])
   end
 end

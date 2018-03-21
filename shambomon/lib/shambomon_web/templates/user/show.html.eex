@@ -16,23 +16,32 @@
     </thead>
     <tbody>
     <%= Enum.map @matches, fn match -> %>
-      <%= if Map.get(match, :winner) == Map.get(match, :player_id) do %>
+      <%
+      if @user.id == Map.get(match, :player_id) do
+        opponent = Map.get(match, :opponent).username
+        player_champ = Map.get(match, :player_champ)
+        opponent_champ = Map.get(match, :opponent_champ)
+        result = "Victory"
+      # User did not win, so everything is reversed since records get inserted
+      # for the winner
+      else
+        opponent = Map.get(match, :player).username
+        player_champ = Map.get(match, :opponent_champ)
+        opponent_champ = Map.get(match, :player_champ)
+        result = "Defeat"
+      end
+      %>
+      <%= if @user.id == Map.get(match, :player_id) do %>
       <tr class="victory">
-        <td><%= NaiveDateTime.truncate(Map.get(match, :inserted_at), :second) %></td>
-        <td>Victory</td>
-        <td><%= Map.get(match, :opponent).username %></td>
-        <td><%= Map.get(match, :player_champ) %></td>
-        <td><%= Map.get(match, :opponent_champ) %></td>
-      </tr>
       <% else %>
       <tr class="defeat">
-        <td><%= NaiveDateTime.truncate(Map.get(match, :inserted_at), :second) %></td>
-        <td>Defeat</td>
-        <td><%= Map.get(match, :opponent).username %></td>
-        <td><%= Map.get(match, :player_champ) %></td>
-        <td><%= Map.get(match, :opponent_champ) %></td>
-      </tr>
       <% end %>
+        <td><%= NaiveDateTime.truncate(Map.get(match, :inserted_at), :second) %></td>
+        <td><%= result %> </td>
+        <td><%= opponent %></td>
+        <td><%= player_champ %></td>
+        <td><%= opponent_champ %></td>
+      </tr>
     <% end %>
     </tbody>
   </table>
