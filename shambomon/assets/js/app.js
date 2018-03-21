@@ -24,17 +24,17 @@ import start_game from "./shambomon";
 function init() {
   let mainRoot = document.getElementById('main');
   let gameRoot = document.getElementById('game');
+  let charactersRoot = document.getElementById('characters');
   let user_id = $('#current-user').val();
-  // Redirect to the character-selection page
 
+  // Redirect to the character-selection page
   if (mainRoot) {
     $('#start-btn').click(() => {
       let gameName = $('#g-name').val();
       if (gameName) {
         window.location.href = '/game/' + gameName + '/characters';
-      }
+      } else {
         alert("You must enter a game name.");
-      else {
       }
     });
   }

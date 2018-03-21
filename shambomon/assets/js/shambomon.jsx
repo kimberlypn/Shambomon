@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
 
 export default function start_game(root, channel, user_id) {
-  ReactDOM.render(<Shambomon channel={ channel } user={ user_id } />, root);
+  ReactDOM.render(<Shambomon channel={channel} user={user_id} />, root);
 }
 
 class Shambomon extends React.Component {
@@ -15,16 +15,16 @@ class Shambomon extends React.Component {
       turn: 0, // current player whose turn it is
       attacks: 0, // number of attacks that have been chosen in the round
       players: [
-        {id: null, char: "", health: 100, attack: ""},
-        {id: null, char: "", health: 100, attack: ""}
+        { id: null, char: "", health: 100, attack: "" },
+        { id: null, char: "", health: 100, attack: "" }
       ]
     };
 
     this.channel.join()
-    .receive("ok", this.gotView.bind(this))
-    .receive("error", res => {
-      console.log("Unable to join", res);
-    });
+      .receive("ok", this.gotView.bind(this))
+      .receive("error", res => {
+        console.log("Unable to join", res);
+      });
   }
 
   // Sets the current state
@@ -35,7 +35,7 @@ class Shambomon extends React.Component {
   // Sends a request to the server to handle the logic for attacking
   sendAttack(attack) {
     this.channel.push("attack", { attack: attack })
-    .receive("ok", this.gotView.bind(this));
+      .receive("ok", this.gotView.bind(this));
   }
 
   // Sends a request to the server to reset the game
@@ -139,7 +139,7 @@ function Battlefield(props) {
     opponentImg = "/images/" + players[opponent].char + "-battle.png";
   }
 
-  return(
+  return (
     <div>
       <div>
         {/* Top */}
@@ -166,7 +166,7 @@ function Battlefield(props) {
 function Player(props) {
   return (
     <div class="col-3">
-      <img src={props.img}/>
+      <img src={props.img} />
     </div>
   );
 }
