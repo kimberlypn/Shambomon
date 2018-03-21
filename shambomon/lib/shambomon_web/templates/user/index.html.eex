@@ -4,7 +4,6 @@
   <h1 class="ribbon">
     <div class="ribbon-content">LEADERBOARD</div>
   </h1>
-
   <table class="table">
     <thead>
       <tr>
@@ -27,4 +26,9 @@
     <% end %>
     </tbody>
   </table>
+  <%= if @current_user do %>
+  <%= link "BACK", to: page_path(@conn, :name) %>
+  <% else %>
+  <%= link "BACK", to: page_path(@conn, :index) %>
+  <% end %>
 </div>
