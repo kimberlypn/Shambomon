@@ -3,13 +3,13 @@
 <%= if @current_user do %>
   <div class="centered">
     <div class="battlefield">
-    <script>
-      window.gameName = "<%= @game %>";
-    </script>
-    <div id="game">
-      <p>React app not loaded...</p>
-    </div>
-    <input type="hidden" id="current-user" value=<%= @current_user.id %>>
+      <script>
+        window.gameName = "<%= @game %>";
+      </script>
+      <div id="game">
+        <p>React app not loaded...</p>
+      </div>
+      <input type="hidden" id="current-user" value=<%= @current_user.id %>>
     </div>
   </div>
 

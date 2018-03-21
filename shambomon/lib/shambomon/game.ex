@@ -7,7 +7,7 @@ defmodule Shambomon.Game do
       turn: 0,
       attacks: 0,
       players: [
-        %{id: nil, char: "Charmander", health: 100, attack: ""},
+        %{id: 1, char: "Charmander", health: 100, attack: ""},
         %{id: nil, char: "Squirtle", health: 100, attack: ""}
       ]
     }

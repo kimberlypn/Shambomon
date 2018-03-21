@@ -29,7 +29,7 @@ function init() {
   // Redirect to the character-selection page
   if (mainRoot) {
     $('#start-btn').click(() => {
-      let gameName = $('#g-name').val();
+      let gameName = $('input#g-name').val();
       window.location.href = '/game/' + gameName + '/characters';
     });
   }
