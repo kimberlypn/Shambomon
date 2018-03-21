@@ -68,6 +68,7 @@ class Shambomon extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     let ready = this.isReady();
     let winner = this.hasWinner();
     // Game has less than two players
@@ -139,25 +140,45 @@ function Battlefield(props) {
     opponentImg = "/images/" + players[opponent].char + "-battle.png";
   }
 
-  return(
+  return (
     <div>
-      <div>
-        {/* Top */}
-        <div class="row player-info">
-          <div class="col-9">
-            <PlayerInfo player={opponent} state={props.state} />
-          </div>
-          <Player img={opponentImg} />
+      {/* Top */}
+      <div className="row player-info">
+        <div className="col-9">
+          <PlayerInfo player={opponent} state={props.state} />
         </div>
+        <Player img={opponentImg} />
       </div>
+      <Turn state={props.state} id={props.id} />
       {/* Bottom */}
-      <div class="row player-info" id="bottom-player">
+      <div className="row player-info">
         <Player img={playerImg} />
-        <div class="col-9">
+        <div className="col-9">
           <PlayerInfo player={player} state={props.state} />
-          <Attack attack={props.attack} />
+          <Attack attack={props.attack} state={props.state} id={props.id} />
         </div>
       </div>
+    </div>
+  );
+}
+
+// Renders the message indicating whose turn it is
+function Turn(props) {
+  let players = props.state.players;
+  var msg = "";
+  if (players[props.state.turn].id == props.id) {
+    msg = "YOUR TURN";
+  }
+  else {
+    msg = "OPPONENT'S TURN";
+  }
+  return (
+    <div className="waiting">
+      <p>
+        <img src="/images/Pokeball.png" />
+        {msg}
+        <img src="/images/Pokeball.png" />
+      </p>
     </div>
   );
 }
@@ -165,7 +186,7 @@ function Battlefield(props) {
 // Renders the player's character
 function Player(props) {
   return (
-    <div class="col-3">
+    <div className="col-3">
       <img src={props.img}/>
     </div>
   );
@@ -189,7 +210,7 @@ function PlayerInfo(props) {
   return (
     <div>
       <p>{name}</p>
-      <div class="hp">
+      <div className="hp">
         {hp}
         <p>HP {health} / 100</p>
       </div>
@@ -201,24 +222,27 @@ function PlayerInfo(props) {
 function HP(props) {
   if (props.type == "alive") {
     return (
-      <div class="hp-bar-alive"></div>
+      <div className="hp-bar-alive"></div>
     );
   }
   else {
     return (
-      <div class="hp-bar-dead"></div>
+      <div className="hp-bar-dead"></div>
     );
   }
 }
 
 // Renders the attack buttons
 function Attack(props) {
+  let players = props.state.players;
+  var disabled = players[props.state.turn].id != props.id;
+
   return (
-    <div class="attack">
+    <div className="attack">
       <span>Choose an attack: </span>
-      <button title="Tackle" onClick={() => props.attack("Q")}>Q</button>
-      <button title="Double Team" onClick={() => props.attack("W")}>W</button>
-      <button title="Frustration" onClick={() => props.attack("E")}>E</button>
+      <button type="button" disabled={disabled} title="Rock" onClick={() => props.attack("Q")}>Q</button>
+      <button type="button" disabled={disabled} title="Paper" onClick={() => props.attack("W")}>W</button>
+      <button type="button" disabled={disabled} title="Scissor" onClick={() => props.attack("E")}>E</button>
     </div>
   );
 }
