@@ -5,13 +5,20 @@ defmodule ShambomonWeb.GamesChannel do
   alias Shambomon.GameBackup
 
   def join("games:" <> name, payload, socket) do
-    IO.inspect(payload)
     # Get initial game on join
     game = GameBackup.load(name) || Game.new()
+
     # Add the game and name to socket assigns
     socket = socket
-    |> assign(:game, game)
     |> assign(:name, name)
+
+    # Add the player to the game if it is not full
+    if !Game.is_full(game) do
+      game = Game.add_player(game, payload["user"])
+    end
+
+    # Save the game
+    GameBackup.save(name, game)
 
     # Send an ok message
     {:ok, %{"join" => name, "game" => Game.client_view(game)}, socket}
@@ -23,13 +30,25 @@ defmodule ShambomonWeb.GamesChannel do
   # Sends to chosen attack to attack()
   def handle_in("attack", %{"attack" => a}, socket) do
     # Call attack() with the current state
-    game = Game.attack(socket.assigns[:game], a)
-    # Update game in socket assigns
-    socket = assign(socket, :game, game)
+    game = Game.attack(GameBackup.load(socket.assigns[:name]), a)
+
     # Save game after generating new state
-    GameBackup.save(socket.assigns[:name], socket.assigns[:game])
+    GameBackup.save(socket.assigns[:name], game)
+
     # Send an ok message
     {:reply, {:ok, %{"game" => Game.client_view(game)}}, socket}
+  end
+
+  # Resets the game
+  def handle_in("reset", %{}, socket) do
+    # Call new() to get a fresh state
+    game = Game.new()
+
+    # Override game with new state
+    GameBackup.save(socket.assigns[:name], game)
+
+    # Send an ok message
+    {:reply, {:ok, %{ "game" => Game.client_view(game) }}, socket}
   end
 
   # It is also common to receive messages from the client and

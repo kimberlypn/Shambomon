@@ -24,18 +24,24 @@ import start_game from "./shambomon";
 function init() {
   let mainRoot = document.getElementById('main');
   let gameRoot = document.getElementById('game');
+  let user_id = $('#current-user').val();
 
   // Redirect to the character-selection page
   if (mainRoot) {
     $('#start-btn').click(() => {
       let gameName = $('#g-name').val();
-      window.location.href = '/game/' + gameName + '/characters';
+      if (gameName) {
+        window.location.href = '/game/' + gameName + '/characters';
+      }
+      else {
+        alert("You must enter a game name.");
+      }
     });
   }
   // Redirect to the main game
   if (gameRoot) {
-    let channel = socket.channel("games:" + window.gameName, {});
-    start_game(gameRoot, channel);
+    let channel = socket.channel("games:" + window.gameName, {user: user_id});
+    start_game(gameRoot, channel, user_id);
   }
 }
 
