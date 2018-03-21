@@ -24,12 +24,12 @@ import start_game from "./shambomon";
 function init() {
   let mainRoot = document.getElementById('main');
   let gameRoot = document.getElementById('game');
-  let user_id = $('input#current-user').val();
+  let user_id = $('#current-user').val();
 
   // Redirect to the character-selection page
   if (mainRoot) {
     $('#start-btn').click(() => {
-      let gameName = $('input#g-name').val();
+      let gameName = $('#g-name').val();
       if (gameName) {
         window.location.href = '/game/' + gameName + '/characters';
       }
