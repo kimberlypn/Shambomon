@@ -192,11 +192,6 @@ h1 {
   margin: 0;
 }
 
-/* Used to render the player on the bottom */
-#bottom-player {
-  margin-top: 100px;
-}
-
 /* Used to render HP bars in a row */
 .hp {
   display: inline-block;
@@ -237,7 +232,7 @@ h1 {
   color: white;
 }
 
-.attack button:hover {
+.attack button:hover:enabled {
   background: #5f6163;
 }
 
@@ -246,8 +241,20 @@ h1 {
   font-size: 30px;
 }
 
+.waiting p {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  font-size: 35px;
+}
+
+.waiting img {
+  height: 50px;
+  width: auto;
+}
+
 /* Adds some padding between the battlefield and the header */
 .battlefield {
-  padding-top: 60px;
+  padding-top: 70px;
 }
 /*************************** END OF BATTLEFIELD **************************/

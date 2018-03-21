@@ -37,7 +37,7 @@
     <input type="hidden" id="current-user" value=<%= @current_user.id %>>
   </div>
 
-<% else %> 
-  <%= render ShambomonWeb.ComponentView, "no_session.html", assigns %> 
- 
-<% end %> 
+<% else %>
+  <%= render ShambomonWeb.ComponentView, "no_session.html", assigns %>
+
+<% end %>
