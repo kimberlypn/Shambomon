@@ -57,11 +57,9 @@ defmodule ShambomonWeb.GamesChannel do
   def handle_in("stats", %{"id" => id, "stats" => stats}, socket) do
     user = Accounts.get_user(id)
     if stats == 1 do
-      wins = user.wins
-      Accounts.update_user(user, %{wins: wins + 1})
+      Accounts.update_user(user, %{wins: user.wins + 1})
     else
-      losses = user.losses
-      Accounts.update_user(user, %{losses: losses + 1})
+      Accounts.update_user(user, %{losses: user.losses + 1})
     end
 
     {:noreply, socket}
