@@ -121,7 +121,7 @@ class Shambomon extends React.Component {
         <div>
           <Header specs={this.state.spectators.length} toggle={this.toggle.bind(this)}/>
           <div className="centered" id="battlefield">
-          <Waiting />
+            <Waiting />
           </div>
         </div>
       );
@@ -132,9 +132,11 @@ class Shambomon extends React.Component {
       this.sendHistory(winner);
       return (
         <div>
-          <Header specs={this.state.spectators.length} toggle={this.toggle.bind(this)}/>
+          <Header specs={this.state.spectators.length}
+            toggle={this.toggle.bind(this)}/>
           <div className="centered" id="battlefield">
-          <Winner winner={winner} id={this.user_id} reset={this.sendReset.bind(this)} />
+            <Winner winner={winner} id={this.user_id}
+              reset={this.sendReset.bind(this)} />
           </div>
         </div>
       );
@@ -143,9 +145,11 @@ class Shambomon extends React.Component {
     else {
       return (
         <div>
-          <Header specs={this.state.spectators.length} toggle={this.toggle.bind(this)}/>
+          <Header specs={this.state.spectators.length}
+            toggle={this.toggle.bind(this)}/>
           <div className="centered" id="battlefield">
-            <Battlefield state={this.state} id={this.user_id} attack={this.sendAttack.bind(this)} />
+            <Battlefield state={this.state} id={this.user_id}
+              attack={this.sendAttack.bind(this)} />
           </div>
         </div>
       );
@@ -153,6 +157,7 @@ class Shambomon extends React.Component {
   }
 }
 
+// Renders the Shambomon header, spectator count, and help link
 function Header(props) {
   return (
     <div className="row">
