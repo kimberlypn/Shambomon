@@ -92,15 +92,14 @@ defmodule Shambomon.Game do
     p1 = Enum.at(players, 0)
     p2 = Enum.at(players, 1)
     last_losses = Map.get(game, :lastLosses)
-    prev1_loser = last_losses
-    |> Map.get(:prev1)
-    prev2_loser = last_losses
-    |> Map.get(:prev2)
+    prev1_loser = Map.get(last_losses, :prev1)
+    prev2_loser = Map.get(last_losses, :prev2)
+    IO.inspect(last_losses)
 
     reset_multiplier? = (player == prev1_loser) and (player == prev2_loser)
-    update_losses = if reset_multiplier?, do: %{ prev1: nil, prev2: nil }, else: last_losses
-    multiplier = if reset_multiplier?, do: 1,
-      else: 1 + (Enum.count(Map.values(update_losses), fn(x) -> x == player end) * 0.5)
+    update_losses = if reset_multiplier?, do: %{ prev1: nil, prev2: nil }, else: %{ prev1: player, prev2: prev1_loser }
+    multiplier = if reset_multiplier?, do: 2,
+      else: 1 + (Enum.count(Map.values(last_losses), fn(x) -> x == player end) * 0.5)
     health_decr = 10 * multiplier
 
     if player == 0 do
