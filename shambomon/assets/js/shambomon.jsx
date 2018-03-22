@@ -14,11 +14,11 @@ class Shambomon extends React.Component {
     this.state = {
       turn: 0, // current player whose turn it is
       attacks: 0, // number of attacks that have been chosen in the round
-      lastLosses: null,
       players: [
         {id: null, char: "", health: 100, attack: ""},
         {id: null, char: "", health: 100, attack: ""}
       ], // information of the two users playing
+      lastLosses: null, // keeps track of the last two losses for the multiplier
       spectators: [] // list of spectator ids
     };
 
@@ -107,6 +107,7 @@ class Shambomon extends React.Component {
     }
   }
 
+  // Main render function
   render() {
     let ready = this.isReady();
     let winner = this.hasWinner();
@@ -187,10 +188,7 @@ function Battlefield(props) {
 
   return (
     <div>
-      {/* Bulbasaur image credits: http://www.ign.com/pokedex/pokemon/bulbasaur */}
-      {/* Charmander image credits: http://www.ign.com/pokedex/pokemon/charmander */}
-      {/* Squirtle image credits: http://www.ign.com/pokedex/pokemon/squirtle */}
-
+      {/* All images taken from http://www.ign.com/pokedex/pokemon/ */}
       {/* Top */}
       <div className="row player-info">
         <div className="col-9">
