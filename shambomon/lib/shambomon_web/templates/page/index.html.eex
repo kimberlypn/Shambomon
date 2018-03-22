@@ -1,3 +1,7 @@
+<%= if @current_user do %>
+<%= render ShambomonWeb.PageView, "name.html", assigns %>
+
+<% else %>
 <%= render ShambomonWeb.ComponentView, "functions.html", assigns %>
 <%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
@@ -41,3 +45,4 @@
 </div>
 
 <%= render ShambomonWeb.ComponentView, "instructions.html", assigns %>
+<% end %>

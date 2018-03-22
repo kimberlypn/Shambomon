@@ -10,11 +10,8 @@ defmodule Shambomon.Game do
         %{id: nil, char: "", health: 100, attack: ""},
         %{id: nil, char: "", health: 100, attack: ""}
       ],
-
-      spectators: []
-
+      spectators: [],
       lastLosses: %{ prev1: nil, prev2: nil }
-
     }
   end
 
@@ -24,11 +21,8 @@ defmodule Shambomon.Game do
       turn: game.turn,
       attacks: game.attacks,
       players: game.players,
-
-      spectators: game.spectators
-
+      spectators: game.spectators,
       lastLosses: game.lastLosses
-
     }
   end
 
