@@ -94,12 +94,15 @@ defmodule Shambomon.Game do
     last_losses = Map.get(game, :lastLosses)
     prev1_loser = Map.get(last_losses, :prev1)
     prev2_loser = Map.get(last_losses, :prev2)
-    IO.inspect(last_losses)
 
+    # multiplier should be reset when the current loser has lost the previous two times
     reset_multiplier? = (player == prev1_loser) and (player == prev2_loser)
+    # either resets the last losses object or updates it with the current loser
     update_losses = if reset_multiplier?, do: %{ prev1: nil, prev2: nil }, else: %{ prev1: player, prev2: prev1_loser }
+    # calculates the multiplier by counting previous losses for the losing player
     multiplier = if reset_multiplier?, do: 2,
       else: 1 + (Enum.count(Map.values(last_losses), fn(x) -> x == player end) * 0.5)
+    multiplier = if (player != prev1_loser and player == prev2_loser), do: 1, else: multiplier
     health_decr = 10 * multiplier
 
     if player == 0 do
@@ -110,6 +113,7 @@ defmodule Shambomon.Game do
       p2 = Map.put(p2, :health, health - health_decr)
     end
 
+    # updates the last losses object and players info
     %{ game | lastLosses: update_losses, players: [p1, p2] }
   end
 
