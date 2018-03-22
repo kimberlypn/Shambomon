@@ -2,13 +2,30 @@
 
 <%= if @current_user do %>
 <%= render ShambomonWeb.ComponentView, "help.html", assigns %>
-<script>
-  window.gameName = "<%= @game %>";
-</script>
-<div id="game">
-  <p>React app not loaded...</p>
+<div class="row">
+  <div class="col-9">
+  <%= render ShambomonWeb.ComponentView, "header.html", assigns %>
+  </div>
+  <div class="col-3">
+    <div class="top-right">
+      <a href="javascript:void(0);" onclick="toggleThree('battlefield', 'help-pg-1', 'help-pg-2')">
+        HELP
+      </a>
+      <!-- TODO: implement mid-game quitting if time permits
+      <p class="divider"> | </p>
+      <%= link "QUIT", to: "/session", method: :delete %> -->
+    </div>
+  </div>
 </div>
-<input type="hidden" id="current-user" value=<%= @current_user.id %>>
+<div class="centered" id="battlefield">
+  <script>
+    window.gameName = "<%= @game %>";
+  </script>
+  <div id="game">
+    <p>React app not loaded...</p>
+  </div>
+  <input type="hidden" id="current-user" value=<%= @current_user.id %>>
+</div>
 
 <% else %>
 <%= render ShambomonWeb.ComponentView, "header.html", assigns %>
