@@ -153,7 +153,7 @@ function Winner(props) {
         <div className="col-md-6 offset-md-3">
           <p>{msg}</p>
           <NewGame reset={props.reset} />
-          <p class="divider"> | </p>
+          <p className="divider"> | </p>
           <Leaderboard reset={props.reset} />
         </div>
       </div>
