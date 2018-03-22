@@ -10,26 +10,32 @@
   <table>
     <tbody>
       <tr>
-        <th>Charmander</th>
-        <th>Squirtle</th>
-        <th>Bulbasaur</th>
+        <%= for character <- @characters1 do %>
+          <th><%= character.name %></th>
+        <% end %>
       </tr>
       <tr>
-        <td>
-          <!-- Image credits to Jedflah on DeviantArt -->
-          <!-- https://jedflah.deviantart.com/art/Minimalist-Charmander-Icon-Free-to-Use-623942829 -->
-          <img src="/images/Charmander.png" alt="Charmander" class="character-icon"/>
-        </td>
-        <td>
-          <!-- Image credits to Jedflah on DeviantArt -->
-          <!-- https://jedflah.deviantart.com/art/Minimalist-Squirtle-Icon-Free-to-use-623939100 -->
-          <img src="/images/Squirtle.png" alt="Squirtle" class="character-icon"/>
-        </td>
-        <td>
-          <!-- Image credits to Jedflah on DeviantArt -->
-          <!-- https://jedflah.deviantart.com/art/Minimalist-Bulbasaur-Icon-Free-to-Use-623933759 -->
-          <img src="/images/Bulbasaur.png" alt="Bulbasaur" class="character-icon"/>
-        </td>
+        <%= for character <- @characters1 do %>
+          <td>
+            <!-- Image credits to Jedflah on DeviantArt -->
+            <!-- <%= character.credits %> -->
+            <img src="<%= character.source %>" alt="<%= character.name %>" class="character-icon"/>
+          </td>
+        <% end %>
+      </tr>
+      <tr>
+        <%= for character <- @characters2 do %>
+          <th><%= character.name %></th>
+        <% end %>
+      </tr>
+      <tr>
+        <%= for character <- @characters2 do %>
+          <td>
+            <!-- Image credits to Jedflah on DeviantArt -->
+            <!-- <%= character.credits %> -->
+            <img src="<%= character.source %>" alt="<%= character.name %>" class="character-icon"/>
+          </td>
+        <% end %>
       </tr>
     </tbody>
   </table>
