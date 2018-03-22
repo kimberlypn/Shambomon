@@ -183,6 +183,10 @@ function Battlefield(props) {
 
   return (
     <div>
+      {/* Bulbasaur image credits: http://www.ign.com/pokedex/pokemon/bulbasaur */}
+      {/* Charmander image credits: http://www.ign.com/pokedex/pokemon/charmander */}
+      {/* Squirtle image credits: http://www.ign.com/pokedex/pokemon/squirtle */}
+
       {/* Top */}
       <div className="row player-info">
         <div className="col-9">
@@ -215,6 +219,7 @@ function Turn(props) {
   }
   return (
     <div className="waiting">
+      {/* Image credits to http://pixelartmaker.com/art/b73566a14633720 */}
       <p>
         <img src="/images/Pokeball.png" />
         {msg}
@@ -281,9 +286,19 @@ function Attack(props) {
   return (
     <div className="attack">
       <span>Choose an attack: </span>
-      <button type="button" disabled={disabled} title="Rock" onClick={() => props.attack("Q")}>Q</button>
-      <button type="button" disabled={disabled} title="Paper" onClick={() => props.attack("W")}>W</button>
-      <button type="button" disabled={disabled} title="Scissor" onClick={() => props.attack("E")}>E</button>
+      {/* Image credits to https://www.dfpeducation.com/play-the-google-game */}
+      <span>
+        <input type="image" src="/images/Rock.png" disabled={disabled}
+          onClick={() => props.attack("Q")} alt="Rock" />
+      </span>
+      <span>
+        <input type="image" src="/images/Paper.png" disabled={disabled}
+          onClick={() => props.attack("W")} alt="Paper" />
+      </span>
+      <span>
+        <input type="image" src="/images/Scissor.png" disabled={disabled}
+          onClick={() => props.attack("E")} alt="Scissor" />
+      </span>
     </div>
   );
 }

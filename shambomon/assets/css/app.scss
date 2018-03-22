@@ -223,22 +223,25 @@ h1 {
   font-size: 30px;
 }
 
-.attack button {
-  font-size: 30px;
-  margin-right: 10px;
-  width: 50px;
-  border-radius: 5px;
-  background: #8c8f91;
-  color: white;
+.attack input {
+  height: 70px;
+  width: auto;
+  margin-left: 15px;
 }
 
-.attack button:hover:enabled {
-  background: #5f6163;
+.attack input:hover:enabled {
+  opacity: 0.5;
+}
+
+.attack input:disabled {
+  cursor: default;
 }
 
 /* Places "Choose an attack" on same line as attack btns */
 .attack span {
   font-size: 30px;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .waiting p {
