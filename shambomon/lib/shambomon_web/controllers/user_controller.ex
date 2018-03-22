@@ -27,7 +27,9 @@ defmodule ShambomonWeb.UserController do
 
   def show(conn, %{"id" => id}) do
     user = Accounts.get_user!(id)
-    render(conn, "show.html", user: user)
+    matches = Shambomon.Gameplay.matches_map_for(id)
+
+    render(conn, "show.html", user: user, matches: matches)
   end
 
   def edit(conn, %{"id" => id}) do

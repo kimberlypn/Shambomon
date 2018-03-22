@@ -38,7 +38,8 @@ defmodule ShambomonWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", ShambomonWeb do
-  #   pipe_through :api
-  # end
+  scope "/api/v1", ShambomonWeb do
+     pipe_through :api
+     resources "/matches", MatchController, except: [:new, :edit]
+  end
 end

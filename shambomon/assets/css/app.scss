@@ -71,6 +71,13 @@ h1 {
   text-align: center;
   font-size: 30px;
 }
+
+/* Aligns text at the top-right */
+.top-right {
+  text-align: right;
+  padding-top: 10px;
+  font-size: 25px;
+}
 /*********************** END OF SHARED ACROSS PAGES **********************/
 
 /****************************** INSTRUCTIONS *****************************/
@@ -223,22 +230,25 @@ h1 {
   font-size: 30px;
 }
 
-.attack button {
-  font-size: 30px;
-  margin-right: 10px;
-  width: 50px;
-  border-radius: 5px;
-  background: #8c8f91;
-  color: white;
+.attack input {
+  height: 70px;
+  width: auto;
+  margin-left: 15px;
 }
 
-.attack button:hover:enabled {
-  background: #5f6163;
+.attack input:hover:enabled {
+  opacity: 0.5;
+}
+
+.attack input:disabled {
+  cursor: default;
 }
 
 /* Places "Choose an attack" on same line as attack btns */
 .attack span {
   font-size: 30px;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .waiting p {
@@ -254,7 +264,53 @@ h1 {
 }
 
 /* Adds some padding between the battlefield and the header */
-.battlefield {
-  padding-top: 70px;
+#battlefield {
+  padding-top: 80px;
 }
 /*************************** END OF BATTLEFIELD **************************/
+
+/****************************** IN-GAME HELP *****************************/
+.help {
+  display: none;
+}
+
+/* Text on the help page; override inherited .instructions styling */
+#hierarchy {
+  color: black;
+  font-size: 27px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.help img {
+  height: 80px;
+  width: auto;
+}
+
+.help .row {
+  margin-top: 15px;
+}
+
+.help a {
+  font-size: 22px;
+}
+
+.help .divider {
+  font-size: 22px;
+}
+/*************************** END OF IN-GAME HELP *************************/
+
+/****************************** LEADERBOARD ******************************/
+.leaderboard .ribbon {
+  margin-top: 20px;
+  margin-bottom: 40px;
+}
+
+.victory {
+  background: #a3d1ff;
+}
+
+.defeat {
+  background: #f79eaa;
+}
+/************************** END OF LEADERBOARD ***************************/

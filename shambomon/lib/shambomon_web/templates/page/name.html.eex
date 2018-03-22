@@ -2,41 +2,45 @@
 <%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
 <%= if @current_user do %>
-  <!-- MAIN PAGE -->
-  <div class="centered" id="main">
-    <div class="row">
-      <div class="col-md-6 offset-md-3">
-        <div class="row" id="game-name">
-          <div class="col-6">
-            <p>ENTER A GAME NAME:</p>
-          </div>
-          <div class="col-6 right-side">
-            <a href="javascript:void(0);" onclick="toggleInstructions()">
-              HOW TO PLAY
-            </a>
-          </div>
-        </div>
+<!-- MAIN PAGE -->
+<div class="centered" id="main">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="right-side">
+        <a href="javascript:void(0);" onclick="toggleThree('main', 'pg-1', 'pg-2')">
+          HOW TO PLAY
+        </a>
+        <p class="divider"> | </p>
+        <%= link "LEADERBOARD", to: user_path(@conn, :index) %>
+        <p class="divider"> | </p>
+        <%= link "LOG OUT", to: "/session", method: :delete %>
       </div>
     </div>
-    <!-- GAME-NAME FORM -->
-      <div class="row">
-        <div class="col-md-6 offset-md-3">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="GAME NAME" id="g-name">
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-6 offset-md-3">
-          <div class="form-group">
-            <button class="btn btn-primary" id="start-btn">BEGIN BATTLE</button>
-          </div>
-        </div>
-      </div>
   </div>
-  <%= render ShambomonWeb.ComponentView, "instructions.html", assigns %>
+  <!-- GAME-NAME FORM -->
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <p>ENTER A GAME NAME:</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="GAME NAME" id="g-name">
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="form-group">
+        <button class="btn btn-primary" id="start-btn">BEGIN BATTLE</button>
+      </div>
+    </div>
+  </div>
+</div>
+<%= render ShambomonWeb.ComponentView, "instructions.html", assigns %>
 
 <% else %>
-  <%= render ShambomonWeb.ComponentView, "no_session.html", assigns %>
+<%= render ShambomonWeb.ComponentView, "no_session.html", assigns %>
 
 <% end %>

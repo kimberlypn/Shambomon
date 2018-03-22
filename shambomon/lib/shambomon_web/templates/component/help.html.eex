@@ -1,0 +1,41 @@
+<!-- HELP PAGE 1 -->
+<div class="centered instructions help" id="help-pg-1">
+  <%= render ShambomonWeb.ComponentView, "rock.html", assigns %>
+  <%= render ShambomonWeb.ComponentView, "paper.html", assigns %>
+  <%= render ShambomonWeb.ComponentView, "scissor.html", assigns %>
+  <div class="row">
+    <div class="col-md-6 offset-md-3 right-side">
+      <span>
+        <a href="javascript:void(0);" onclick="toggleTwo('help-pg-1', 'help-pg-2')">
+          NEXT
+        </a>
+        <p class="divider"> | </p>
+        <a href="javascript:void(0);" onclick="toggleThree('battlefield', 'help-pg-1', 'help-pg-2')">
+          CLOSE
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- HELP PAGE 2 -->
+<div class="centered instructions help" id="help-pg-2">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <%= render ShambomonWeb.ComponentView, "instructions_2.html", assigns %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3 right-side">
+      <span>
+        <a href="javascript:void(0);" onclick="toggleTwo('help-pg-1', 'help-pg-2')">
+          BACK
+        </a>
+        <p class="divider"> | </p>
+        <a href="javascript:void(0);" onclick="toggleThree('battlefield', 'help-pg-1', 'help-pg-2')">
+          CLOSE
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
