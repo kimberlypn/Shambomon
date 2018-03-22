@@ -1,6 +1,5 @@
 // Toggles between three given pages
 export function toggle_three(main, first, second) {
-  console.log("YUPPPPP");
   var main = document.getElementById(main);
   var first = document.getElementById(first);
   var second = document.getElementById(second);

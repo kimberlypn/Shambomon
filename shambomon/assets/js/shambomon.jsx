@@ -56,6 +56,7 @@ class Shambomon extends React.Component {
     this.channel.push("stats", {id: this.user_id, stats: stats});
   }
 
+  // Toggles between the help page and the game
   toggle() {
     toggle_three('battlefield', 'help-pg-1', 'help-pg-2');
   }
@@ -112,15 +113,16 @@ class Shambomon extends React.Component {
   }
 
   render() {
-    console.log(this.state.spectators);
     let ready = this.isReady();
     let winner = this.hasWinner();
     // Game has less than two players
     if (!ready) {
       return (
         <div>
-          <Header />
+          <Header specs={this.state.spectators.length} toggle={this.toggle.bind(this)}/>
+          <div className="centered" id="battlefield">
           <Waiting />
+          </div>
         </div>
       );
     }
@@ -130,8 +132,10 @@ class Shambomon extends React.Component {
       this.sendHistory(winner);
       return (
         <div>
-          <Header />
+          <Header specs={this.state.spectators.length} toggle={this.toggle.bind(this)}/>
+          <div className="centered" id="battlefield">
           <Winner winner={winner} id={this.user_id} reset={this.sendReset.bind(this)} />
+          </div>
         </div>
       );
     }
@@ -256,6 +260,9 @@ function Turn(props) {
   var msg = "";
   if (players[props.state.turn].id == props.id) {
     msg = "YOUR TURN";
+  }
+  else if (props.state.spectators.includes(props.id)) {
+    msg = "YOU ARE SPECTATING";
   }
   else {
     msg = "OPPONENT'S TURN";
