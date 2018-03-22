@@ -2,9 +2,13 @@ defmodule Shambomon.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Shambomon.Accounts.User
+  alias Shambomon.Gameplay.Match
 
   schema "users" do
     field :username, :string
+    field :wins, :integer
+    field :losses, :integer
 
     field :password_hash, :string
     field :pw_tries, :integer
@@ -13,18 +17,23 @@ defmodule Shambomon.Accounts.User do
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
 
+    has_many :player_matches, Match, foreign_key: :player_id
+    has_many :opponent_matches, Match, foreign_key: :opponent_id
+    has_many :players, through: [:opponent_matches, :player]
+    has_many :opponents, through: [:player_matches, :opponent]
+
     timestamps()
   end
 
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :password, :password_confirmation])
-    |> unique_constraint(:username)
+    |> cast(attrs, [:username, :password, :password_confirmation, :wins, :losses])
     |> validate_confirmation(:password)
     |> validate_password(:password)
     |> put_pass_hash()
     |> validate_required([:username, :password_hash])
+    |> unique_constraint(:username)
   end
 
   # Password validation

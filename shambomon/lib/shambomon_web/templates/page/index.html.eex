@@ -5,14 +5,14 @@
 <div class="centered" id="main">
   <div class="row">
     <div class="col-md-6 offset-md-3">
-      <div class="row">
-        <div class="col-6 offset-6 right-side">
-          <%= link "REGISTER", to: user_path(@conn, :new) %>
-          <p class="divider"> | </p>
-          <a href="javascript:void(0);" onclick="toggleInstructions()">
-            HOW TO PLAY
-          </a>
-        </div>
+      <div class="right-side">
+        <%= link "REGISTER", to: user_path(@conn, :new) %>
+        <p class="divider"> | </p>
+        <a href="javascript:void(0);" onclick="toggleInstructions()">
+          HOW TO PLAY
+        </a>
+        <p class="divider"> | </p>
+        <%= link "LEADERBOARD", to: user_path(@conn, :index) %>
       </div>
     </div>
   </div>

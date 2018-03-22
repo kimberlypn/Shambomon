@@ -3,6 +3,8 @@ defmodule ShambomonWeb.GamesChannel do
 
   alias Shambomon.Game
   alias Shambomon.GameBackup
+  alias Shambomon.Accounts
+  alias Shambomon.Gameplay
 
   def join("games:" <> name, payload, socket) do
     # Get initial game on join
@@ -49,6 +51,33 @@ defmodule ShambomonWeb.GamesChannel do
 
     # Send an ok message
     {:reply, {:ok, %{ "game" => Game.client_view(game) }}, socket}
+  end
+
+  # Updates the player's stats
+  def handle_in("stats", %{"id" => id, "stats" => stats}, socket) do
+    user = Accounts.get_user(id)
+    if stats == 1 do
+      Accounts.update_user(user, %{wins: user.wins + 1})
+    else
+      Accounts.update_user(user, %{losses: user.losses + 1})
+    end
+
+    {:noreply, socket}
+  end
+
+  # Creates a match history record
+  def handle_in("history", %{"player" => player, "opponent" => opponent,
+    "player_champ" => player_champ, "opponent_champ" => opponent_champ}, socket) do
+    changeset =
+      %{
+        player_id: player,
+        opponent_id: opponent,
+        player_champ: player_champ,
+        opponent_champ: opponent_champ
+      }
+    Gameplay.create_match(changeset)
+
+    {:noreply, socket}
   end
 
   # It is also common to receive messages from the client and

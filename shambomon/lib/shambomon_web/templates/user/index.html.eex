@@ -1,26 +1,39 @@
-<h2>Listing Users</h2>
+<%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Username</th>
-
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-<%= for user <- @users do %>
-    <tr>
-      <td><%= user.username %></td>
-
-      <td class="text-right">
-        <span><%= link "Show", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: user_path(@conn, :edit, user), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: user_path(@conn, :delete, user), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
-      </td>
-    </tr>
-<% end %>
-  </tbody>
-</table>
-
-<span><%= link "New User", to: user_path(@conn, :new) %></span>
+<div class="leaderboard">
+  <h1 class="ribbon">
+    <div class="ribbon-content">LEADERBOARD</div>
+  </h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Username</th>
+        <th>Wins</th>
+        <th>Losses</th>
+        <th>Win Ratio</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+    <%= for {user, i} <- Enum.with_index(@users) do %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= user.username %></td>
+        <td><%= user.wins %></td>
+        <td><%= user.losses %></td>
+        <td>
+          <%= if user.losses + user.wins == 0, do: 0,
+          else: Float.round((user.wins / (user.losses + user.wins)), 2) * 100 %>%
+        </td>
+        <td><%= link "Match History", to: user_path(@conn, :show, user), class: "btn btn-default btn-xs" %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <%= if @current_user do %>
+  <%= link "BACK", to: page_path(@conn, :name) %>
+  <% else %>
+  <%= link "BACK", to: page_path(@conn, :index) %>
+  <% end %>
+</div>
