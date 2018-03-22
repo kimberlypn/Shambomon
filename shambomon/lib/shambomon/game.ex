@@ -10,7 +10,11 @@ defmodule Shambomon.Game do
         %{id: nil, char: "", health: 100, attack: ""},
         %{id: nil, char: "", health: 100, attack: ""}
       ],
+
       spectators: []
+
+      lastLosses: %{ prev1: nil, prev2: nil }
+
     }
   end
 
@@ -20,7 +24,11 @@ defmodule Shambomon.Game do
       turn: game.turn,
       attacks: game.attacks,
       players: game.players,
+
       spectators: game.spectators
+
+      lastLosses: game.lastLosses
+
     }
   end
 
@@ -29,6 +37,7 @@ defmodule Shambomon.Game do
     players = Map.get(game, :players)
     p1 = Enum.at(players, 0)
     p2 = Enum.at(players, 1)
+
     Map.get(p1, :id) && Map.get(p2, :id)
   end
 
@@ -37,18 +46,19 @@ defmodule Shambomon.Game do
     players = Map.get(game, :players)
     p1 = Enum.at(players, 0)
     p2 = Enum.at(players, 1)
+    p1_id = Map.get(p1, :id)
+
     # Check if player should be Player 1 or Player 2
-    if !Map.get(p1, :id) do
-      p1 = Map.put(p1, :id, id)
-      |> Map.put(:char, character)
+    if !p1_id do
+      p1 = %{ p1 | id: id, char: character }
     else
       # Make sure the same player isn't getting added twice, which can happen
       # if the user refreshes the page while waiting for the second player
-      if Map.get(p1, :id) != id do
-        p2 = Map.put(p2, :id, id)
-        |> Map.put(:char, character)
+      if p1_id != id do
+        p2 = %{ p2 | id: id, char: character }
       end
     end
+
     Map.put(game, :players, [p1, p2])
   end
 
@@ -76,6 +86,7 @@ defmodule Shambomon.Game do
   # Updates the number of attacks that have been chosen for the current round
   defp update_attacks(game) do
     attacks = Map.get(game, :attacks)
+
     if attacks == 0, do:
       Map.put(game, :attacks, attacks + 1),
     # Both players have gone, so reset the number of attacks
@@ -88,10 +99,12 @@ defmodule Shambomon.Game do
     players = Map.get(game, :players)
     p1 = Enum.at(players, 0)
     p2 = Enum.at(players, 1)
+
     if Map.get(game, :turn) == 0, do:
       p1 = Map.put(p1, :attack, attk),
     else:
       p2 = Map.put(p2, :attack, attk)
+
     Map.put(game, :players, [p1, p2])
   end
 
@@ -100,14 +113,30 @@ defmodule Shambomon.Game do
     players = Map.get(game, :players)
     p1 = Enum.at(players, 0)
     p2 = Enum.at(players, 1)
+    last_losses = Map.get(game, :lastLosses)
+    prev1_loser = Map.get(last_losses, :prev1)
+    prev2_loser = Map.get(last_losses, :prev2)
+
+    # multiplier should be reset when the current loser has lost the previous two times
+    reset_multiplier? = (player == prev1_loser) and (player == prev2_loser)
+    # either resets the last losses object or updates it with the current loser
+    update_losses = if reset_multiplier?, do: %{ prev1: nil, prev2: nil }, else: %{ prev1: player, prev2: prev1_loser }
+    # calculates the multiplier by counting previous losses for the losing player
+    multiplier = if reset_multiplier?, do: 2,
+      else: 1 + (Enum.count(Map.values(last_losses), fn(x) -> x == player end) * 0.5)
+    multiplier = if (player != prev1_loser and player == prev2_loser), do: 1, else: multiplier
+    health_decr = 10 * multiplier
+
     if player == 0 do
       health = Map.get(p1, :health)
-      p1 = Map.put(p1, :health, health - 10)
+      p1 = Map.put(p1, :health, health - health_decr)
     else
       health = Map.get(p2, :health)
-      p2 = Map.put(p2, :health, health - 10)
+      p2 = Map.put(p2, :health, health - health_decr)
     end
-    Map.put(game, :players, [p1, p2])
+
+    # updates the last losses object and players info
+    %{ game | lastLosses: update_losses, players: [p1, p2] }
   end
 
   # Determines who won the round and calculates the damage taken accordingly;
@@ -120,25 +149,31 @@ defmodule Shambomon.Game do
     p2 = Enum.at(players, 1)
     p1Attack = Map.get(p1, :attack)
     p2Attack = Map.get(p2, :attack)
-    cond do
-      # Both chose the same attack, so no damage taken
-      String.equivalent?(p1Attack, p2Attack) ->
-        game
-      String.equivalent?(p1Attack, "Q") ->
-        if String.equivalent?(p2Attack, "W"), do:
-          update_health(game, 0),
-        else:
-          update_health(game, 1)
-      String.equivalent?(p1Attack, "W") ->
-        if String.equivalent?(p2Attack, "Q"), do:
-          update_health(game, 1),
-        else:
-          update_health(game, 0)
-      String.equivalent?(p1Attack, "E") ->
-        if String.equivalent?(p2Attack, "Q"), do:
-          update_health(game, 0),
-        else:
-          update_health(game, 1)
+    loser = nil
+
+    # Both chose the same attack, so no damage taken
+    if String.equivalent?(p1Attack, p2Attack) do
+      game
+    else
+      cond do
+        String.equivalent?(p1Attack, "Q") ->
+          if String.equivalent?(p2Attack, "W"), do:
+            loser = 0,
+          else:
+            loser = 1
+        String.equivalent?(p1Attack, "W") ->
+          if String.equivalent?(p2Attack, "Q"), do:
+            loser = 1,
+          else:
+            loser = 0
+        String.equivalent?(p1Attack, "E") ->
+          if String.equivalent?(p2Attack, "Q"), do:
+            loser = 0,
+          else:
+            loser = 1
+      end
+
+      update_health(game, loser)
     end
   end
 
