@@ -19,12 +19,12 @@ defmodule ShambomonWeb.PageController do
       %{ name: "Jigglypuff", source: "/images/Jigglypuff.png", credits: "https://jedflah.deviantart.com/art/Minimalist-Jigglypuff-Icon-Free-to-use-628616339" }
     ]
     characters2 = [
-      %{ name: "Onix", source: "/images/Onix.png", credits: "" },
-      %{ name: "Ninetales", source: "/images/Ninetales.png", credits: "" },
-      %{ name: "Gengar", source: "/images/Gengar.png", credits: "" },
-      %{ name: "Articuno", source: "/images/Articuno.png", credits: "" },
-      %{ name: "Zapdos", source: "/images/Zapdos.png", credits: "" },
-      %{ name: "Moltres", source: "/images/Moltres.png", credits: "" }
+      %{ name: "Onix", source: "/images/Onix.png", credits: "https://jedflah.deviantart.com/art/Minimalist-Onix-Icon-Free-to-use-629277913" },
+      %{ name: "Ninetales", source: "/images/Ninetales.png", credits: "https://jedflah.deviantart.com/art/Minimalist-Ninetails-Icon-Free-to-use-624301461" },
+      %{ name: "Gengar", source: "/images/Gengar.png", credits: "https://jedflah.deviantart.com/art/Minimalist-Gengar-Icon-Free-to-Use-627964104" },
+      %{ name: "Articuno", source: "/images/Articuno.png", credits: "https://jedflah.deviantart.com/art/Minimalist-Articuno-Icon-Free-to-use-624068931" },
+      %{ name: "Zapdos", source: "/images/Zapdos.png", credits: "https://jedflah.deviantart.com/art/Minimalist-Zapdos-Icon-Free-to-use-624072800" },
+      %{ name: "Moltres", source: "/images/Moltres.png", credits: "https://jedflah.deviantart.com/art/Minimalist-Moltres-Icon-Free-to-use-624084760" }
     ]
 
     render conn, "characters.html", game: params["game"], characters1: characters1, characters2: characters2
