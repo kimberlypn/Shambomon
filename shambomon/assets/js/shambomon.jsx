@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
+import { toggle_three } from 'js/utils.js';
 
 export default function start_game(root, channel, user_id) {
   ReactDOM.render(<Shambomon channel={ channel } user={ user_id } />, root);
@@ -17,7 +18,8 @@ class Shambomon extends React.Component {
       players: [
         {id: null, char: "", health: 100, attack: ""},
         {id: null, char: "", health: 100, attack: ""}
-      ]
+      ], // information of the two users playing
+      spectators: [] // list of spectator ids
     };
 
     this.channel.join()
@@ -52,6 +54,10 @@ class Shambomon extends React.Component {
       stats = -1;
     }
     this.channel.push("stats", {id: this.user_id, stats: stats});
+  }
+
+  toggle() {
+    toggle_three('battlefield', 'help-pg-1', 'help-pg-2');
   }
 
   // Sends a request to the server to update the user's match history
@@ -106,23 +112,60 @@ class Shambomon extends React.Component {
   }
 
   render() {
+    console.log(this.state.spectators);
     let ready = this.isReady();
     let winner = this.hasWinner();
     // Game has less than two players
     if (!ready) {
-      return <Waiting />;
+      return (
+        <div>
+          <Header />
+          <Waiting />
+        </div>
+      );
     }
     // Someone has won
     else if (winner) {
       this.sendStats(winner);
       this.sendHistory(winner);
-      return <Winner winner={winner} id={this.user_id} reset={this.sendReset.bind(this)} />;
+      return (
+        <div>
+          <Header />
+          <Winner winner={winner} id={this.user_id} reset={this.sendReset.bind(this)} />
+        </div>
+      );
     }
     // Ongoing game
     else {
-      return <Battlefield state={this.state} id={this.user_id} attack={this.sendAttack.bind(this)} />;
+      return (
+        <div>
+          <Header specs={this.state.spectators.length} toggle={this.toggle.bind(this)}/>
+          <div className="centered" id="battlefield">
+            <Battlefield state={this.state} id={this.user_id} attack={this.sendAttack.bind(this)} />
+          </div>
+        </div>
+      );
     }
   }
+}
+
+function Header(props) {
+  return (
+    <div className="row">
+      <div className="col-9">
+        <h1 className="shambomon-header">SHAMBOMON</h1>
+      </div>
+      <div className="col-3">
+        <div className="top-right">
+          SPECTATORS: {props.specs}
+          <p className="divider"> | </p>
+          <a href="javascript:void(0);" onClick={props.toggle}>
+            HELP
+          </a>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 // Renders a waiting message

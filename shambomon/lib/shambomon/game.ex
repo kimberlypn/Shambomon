@@ -9,7 +9,8 @@ defmodule Shambomon.Game do
       players: [
         %{id: nil, char: "", health: 100, attack: ""},
         %{id: nil, char: "", health: 100, attack: ""}
-      ]
+      ],
+      spectators: []
     }
   end
 
@@ -18,7 +19,8 @@ defmodule Shambomon.Game do
     %{
       turn: game.turn,
       attacks: game.attacks,
-      players: game.players
+      players: game.players,
+      spectators: game.spectators
     }
   end
 
@@ -48,6 +50,19 @@ defmodule Shambomon.Game do
       end
     end
     Map.put(game, :players, [p1, p2])
+  end
+
+  # Adds the given user as a spectator
+  def add_spectator(game, id) do
+    players = Map.get(game, :players)
+    p1 = Enum.at(players, 0)
+    |> Map.get(:id)
+    p2 = Enum.at(players, 1)
+    |> Map.get(:id)
+    spectators = Map.get(game, :spectators) ++ [id]
+    |> Enum.uniq()
+    |> Enum.filter(fn(id) -> id != p1 and id != p2 end)
+    Map.put(game, :spectators, spectators)
   end
 
   # Updates the turn
