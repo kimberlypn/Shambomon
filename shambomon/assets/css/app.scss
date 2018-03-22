@@ -230,6 +230,7 @@ h1 {
   font-size: 30px;
 }
 
+/* Styles the attack buttons, which are img inputs */
 .attack input {
   height: 70px;
   width: auto;
@@ -244,13 +245,14 @@ h1 {
   cursor: default;
 }
 
-/* Places "Choose an attack" on same line as attack btns */
+/* Places "Choose an attack" on same line as attack buttons */
 .attack span {
   font-size: 30px;
   display: table-cell;
   vertical-align: middle;
 }
 
+/* Waiting message when the game doesn't have two players yet */
 .waiting p {
   text-align: center;
   margin-top: 40px;
@@ -261,20 +263,18 @@ h1 {
 .waiting img {
   height: 50px;
   width: auto;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 /* Adds some padding between the battlefield and the header */
 #battlefield {
   padding-top: 80px;
 }
-
-#spec {
-  text-align: right;
-  font-size: 22px;
-}
 /*************************** END OF BATTLEFIELD **************************/
 
 /****************************** IN-GAME HELP *****************************/
+/* Don't display the help text by default */
 .help {
   display: none;
 }
