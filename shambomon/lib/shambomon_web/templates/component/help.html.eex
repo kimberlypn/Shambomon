@@ -26,7 +26,7 @@
       <p>2 consecutive wins = <span>1.5x multiplier</span> (deal -15 damage)</p>
       <p>3 consecutive wins = <span>2x multiplier</span> (deal -20 damage)</p>
       <br />
-      <p>The multiplier resets to 1x on the fourth consecutive win.</p>
+      <p><span>The multiplier resets to 1x on the fourth consecutive win.</span></p>
     </div>
   </div>
   <div class="row">
