@@ -18,7 +18,7 @@ defmodule Shambomon.Accounts do
 
   """
   def list_users do
-    Repo.all(from User, order_by: [desc: :wins, desc: :username])
+    Repo.all(from User, order_by: [desc: :wins, asc: :username])
   end
 
   @doc """
