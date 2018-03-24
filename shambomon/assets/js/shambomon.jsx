@@ -22,6 +22,11 @@ class Shambomon extends React.Component {
       spectators: [] // list of spectator ids
     };
 
+    // Refreshes the state on receiving a "refresh" broadcast on the channel
+    this.channel.on("refresh", (game) => {
+      this.setState(game);
+    });
+
     this.channel.join()
     .receive("ok", this.gotView.bind(this))
     .receive("error", res => {
