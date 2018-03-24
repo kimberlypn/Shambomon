@@ -22,8 +22,18 @@ defmodule ShambomonWeb.GamesChannel do
     # Save the game
     GameBackup.save(name, game)
 
+    # sends the game state after joining
+    send(self, {:after_join, game})
+
     # Send an ok message
     {:ok, %{"join" => name, "game" => Game.client_view(game)}, socket}
+  end
+
+  def handle_info({:after_join, game}, socket) do
+    # broadcasts a refresh message to update the game state
+    broadcast! socket, "refresh", game
+
+    {:noreply, socket}
   end
 
   # Channels can be used in a request/response fashion
@@ -37,6 +47,9 @@ defmodule ShambomonWeb.GamesChannel do
     # Save game after generating new state
     GameBackup.save(socket.assigns[:name], game)
 
+    # broadcasts a refresh message to update the game state
+    broadcast! socket, "refresh", game
+
     # Send an ok message
     {:reply, {:ok, %{"game" => Game.client_view(game)}}, socket}
   end
@@ -48,6 +61,9 @@ defmodule ShambomonWeb.GamesChannel do
 
     # Override game with new state
     GameBackup.save(socket.assigns[:name], game)
+
+    # broadcasts a refresh message to update the game state
+    broadcast! socket, "refresh", game
 
     # Send an ok message
     {:reply, {:ok, %{ "game" => Game.client_view(game) }}, socket}
