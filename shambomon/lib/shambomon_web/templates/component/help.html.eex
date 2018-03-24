@@ -6,11 +6,13 @@
   <div class="row">
     <div class="col-md-6 offset-md-3 right-side">
       <span>
-        <a href="javascript:void(0);" onclick="toggleTwo('help-pg-1', 'help-pg-2')">
+        <a href="javascript:void(0);"
+          onclick="toggle_two('help-pg-1', 'help-pg-2')">
           NEXT
         </a>
         <p class="divider"> | </p>
-        <a href="javascript:void(0);" onclick="toggleThree('battlefield', 'help-pg-1', 'help-pg-2')">
+        <a href="javascript:void(0);"
+          onclick="toggle_three('battlefield', 'help-pg-1', 'help-pg-2')">
           CLOSE
         </a>
       </span>
@@ -26,17 +28,21 @@
       <p>2 consecutive wins = <span>1.5x multiplier</span> (deal -15 damage)</p>
       <p>3 consecutive wins = <span>2x multiplier</span> (deal -20 damage)</p>
       <br />
-      <p><span>The multiplier resets to 1x on the fourth consecutive win.</span></p>
+      <p>
+        <span>The multiplier resets to 1x on the fourth consecutive win.</span>
+      </p>
     </div>
   </div>
   <div class="row">
     <div class="col-md-6 offset-md-3 right-side">
       <span>
-        <a href="javascript:void(0);" onclick="toggleTwo('help-pg-1', 'help-pg-2')">
+        <a href="javascript:void(0);" 
+          onclick="toggle_two('help-pg-1', 'help-pg-2')">
           BACK
         </a>
         <p class="divider"> | </p>
-        <a href="javascript:void(0);" onclick="toggleThree('battlefield', 'help-pg-1', 'help-pg-2')">
+        <a href="javascript:void(0);"
+          onclick="toggle_three('battlefield', 'help-pg-1', 'help-pg-2')">
           CLOSE
         </a>
       </span>

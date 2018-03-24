@@ -12,7 +12,8 @@
       <div class="right-side">
         <%= link "REGISTER", to: user_path(@conn, :new) %>
         <p class="divider"> | </p>
-        <a href="javascript:void(0);" onclick="toggleThree('main', 'pg-1', 'pg-2')">
+        <a href="javascript:void(0);"
+          onclick="toggle_three('main', 'pg-1', 'pg-2')">
           HOW TO PLAY
         </a>
         <p class="divider"> | </p>

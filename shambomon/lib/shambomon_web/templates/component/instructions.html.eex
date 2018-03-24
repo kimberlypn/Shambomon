@@ -18,11 +18,11 @@
   </div>
   <div class="row">
     <div class="col-md-6 offset-md-3 right-side">
-      <span><a href="javascript:void(0);" onclick="toggleTwo('pg-1', 'pg-2')">
+      <span><a href="javascript:void(0);" onclick="toggle_two('pg-1', 'pg-2')">
         NEXT
       </a>
       <p class="divider"> | </p>
-      <a href="javascript:void(0);" onclick="toggleThree('main', 'pg-1', 'pg-2')">
+      <a href="javascript:void(0);" onclick="toggle_three('main', 'pg-1', 'pg-2')">
         CLOSE
       </a>
       </span>
@@ -51,11 +51,11 @@
   </div>
   <div class="row">
     <div class="col-md-6 offset-md-3 right-side">
-      <span><a href="javascript:void(0);" onclick="toggleTwo('pg-1', 'pg-2')">
+      <span><a href="javascript:void(0);" onclick="toggle_two('pg-1', 'pg-2')">
         BACK
       </a>
       <p class="divider"> | </p>
-      <a href="javascript:void(0);" onclick="toggleThree('main', 'pg-1', 'pg-2')">
+      <a href="javascript:void(0);" onclick="toggle_three('main', 'pg-1', 'pg-2')">
         CLOSE
       </a>
       </span>

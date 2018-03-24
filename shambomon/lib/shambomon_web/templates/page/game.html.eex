@@ -8,7 +8,8 @@
   </div>
   <div class="col-3">
     <div class="top-right">
-      <a href="javascript:void(0);" onclick="toggleThree('battlefield', 'help-pg-1', 'help-pg-2')">
+      <a href="javascript:void(0);"
+        onclick="toggle_three('battlefield', 'help-pg-1', 'help-pg-2')">
         HELP
       </a>
       <!-- TODO: implement mid-game quitting if time permits
@@ -24,7 +25,8 @@
   <div id="game">
     <p>React app not loaded...</p>
   </div>
-  <input type="hidden" id="current-user" value=<%= @current_user.id %>>
+  <input type="hidden" id="user-id" value=<%= @current_user.id %>>
+  <input type="hidden" id="username" value=<%= @current_user.username %>>
 </div>
 
 <% else %>
