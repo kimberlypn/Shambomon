@@ -26,7 +26,6 @@ function init() {
   let gameRoot = document.getElementById('game');
   let charactersRoot = document.getElementById('characters');
   let user_id = $('#user-id').val();
-  let username = $('#username').val();
 
   // Redirect to the character-selection page
   if (mainRoot) {
@@ -44,7 +43,7 @@ function init() {
     $('.character-icon').bind('click', function () {
       let selectedCharacter = $(this).attr('alt');
       window.location.href = '/game/' + window.gameName + '?user='
-      + user_id + '&username=' + username + '&character=' + selectedCharacter;
+      + user_id + '&character=' + selectedCharacter;
     });
   }
 
@@ -57,11 +56,10 @@ function init() {
     let channel = socket.channel("games:"
     + window.gameName, {
       user: userId,
-      character: selectedCharacter,
-      username: userName
+      character: selectedCharacter
     });
 
-    start_game(gameRoot, channel, user_id, userName);
+    start_game(gameRoot, channel, user_id);
   }
 }
 
