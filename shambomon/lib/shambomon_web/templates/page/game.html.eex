@@ -4,10 +4,12 @@
 <%= render ShambomonWeb.ComponentView, "help.html", assigns %>
 <div class="row">
   <div class="col-9">
-  <%= render ShambomonWeb.ComponentView, "header.html", assigns %>
+    <h1 class="shambomon-header">SHAMBOMON</h1>
   </div>
   <div class="col-3">
     <div class="top-right">
+      <%= @current_user.username %>
+      <p class="divider"> | </p>
       <a href="javascript:void(0);"
         onclick="toggle_three('battlefield', 'help-pg-1', 'help-pg-2')">
         HELP
