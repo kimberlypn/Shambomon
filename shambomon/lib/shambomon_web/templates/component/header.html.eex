@@ -1,2 +1,17 @@
 <!-- Main header on every page -->
+<%= if @current_user do %>
+<div class="row">
+  <div class="col-9">
+    <h1 class="shambomon-header">SHAMBOMON</h1>
+  </div>
+  <div class="col-3">
+    <div class="top-right">
+      <%= @current_user.username %>
+    </div>
+  </div>
+</div>
+
+<% else %>
 <h1 class="shambomon-header">SHAMBOMON</h1>
+
+<% end %>
