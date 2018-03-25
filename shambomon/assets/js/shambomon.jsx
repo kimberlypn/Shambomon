@@ -14,11 +14,12 @@ class Shambomon extends React.Component {
     this.state = {
       turn: 0, // current player whose turn it is
       attacks: 0, // number of attacks that have been chosen in the round
-      lastLosses: null,
       players: [
         {id: null, char: "", health: 100, attack: ""},
         {id: null, char: "", health: 100, attack: ""}
-      ]
+      ], // information of the two users playing
+      lastLosses: null, // keeps track of the last two losses for the multiplier
+      spectators: [] // list of spectator ids
     };
 
     // Refreshes the state on receiving a "refresh" broadcast on the channel
@@ -111,6 +112,7 @@ class Shambomon extends React.Component {
     }
   }
 
+  // Main render function
   render() {
     let ready = this.isReady();
     let winner = this.hasWinner();
@@ -122,11 +124,13 @@ class Shambomon extends React.Component {
     else if (winner) {
       this.sendStats(winner);
       this.sendHistory(winner);
-      return <Winner winner={winner} id={this.user_id} reset={this.sendReset.bind(this)} />;
+      return <Winner winner={winner} id={this.user_id}
+        reset={this.sendReset.bind(this)} />;
     }
     // Ongoing game
     else {
-      return <Battlefield state={this.state} id={this.user_id} attack={this.sendAttack.bind(this)} />;
+      return <Battlefield state={this.state} id={this.user_id}
+        attack={this.sendAttack.bind(this)} />;
     }
   }
 }
@@ -189,10 +193,7 @@ function Battlefield(props) {
 
   return (
     <div>
-      {/* Bulbasaur image credits: http://www.ign.com/pokedex/pokemon/bulbasaur */}
-      {/* Charmander image credits: http://www.ign.com/pokedex/pokemon/charmander */}
-      {/* Squirtle image credits: http://www.ign.com/pokedex/pokemon/squirtle */}
-
+      {/* All images taken from http://www.ign.com/pokedex/pokemon/ */}
       {/* Top */}
       <div className="row player-info">
         <div className="col-9">
@@ -219,6 +220,9 @@ function Turn(props) {
   var msg = "";
   if (players[props.state.turn].id == props.id) {
     msg = "YOUR TURN";
+  }
+  else if (props.state.spectators.includes(props.id)) {
+    msg = "YOU ARE SPECTATING";
   }
   else {
     msg = "OPPONENT'S TURN";
@@ -289,24 +293,30 @@ function Attack(props) {
   let players = props.state.players;
   var disabled = players[props.state.turn].id != props.id;
 
-  return (
-    <div className="attack">
-      <span>Choose an attack: </span>
-      {/* Image credits to https://www.dfpeducation.com/play-the-google-game */}
-      <span>
-        <input type="image" src="/images/Rock.png" disabled={disabled}
-          onClick={() => props.attack("Q")} alt="Rock" />
-      </span>
-      <span>
-        <input type="image" src="/images/Paper.png" disabled={disabled}
-          onClick={() => props.attack("W")} alt="Paper" />
-      </span>
-      <span>
-        <input type="image" src="/images/Scissor.png" disabled={disabled}
-          onClick={() => props.attack("E")} alt="Scissor" />
-      </span>
-    </div>
-  );
+  // Don't show the attack buttons for spectators
+  if (!props.state.spectators.includes(props.id)) {
+    return (
+      <div className="attack">
+        <span>Choose an attack: </span>
+        {/* Image credits to https://www.dfpeducation.com/play-the-google-game */}
+        <span>
+          <input type="image" src="/images/Rock.png" disabled={disabled}
+            onClick={() => props.attack("Q")} alt="Rock" />
+        </span>
+        <span>
+          <input type="image" src="/images/Paper.png" disabled={disabled}
+            onClick={() => props.attack("W")} alt="Paper" />
+        </span>
+        <span>
+          <input type="image" src="/images/Scissor.png" disabled={disabled}
+            onClick={() => props.attack("E")} alt="Scissor" />
+        </span>
+      </div>
+    );
+  }
+  else {
+    return <div></div>;
+  }
 }
 
 // Resets the game state and redirects the user back to the game name page

@@ -1,6 +1,6 @@
 <script>
   // Toggles between three given pages
-  function toggleThree(main, first, second) {
+  function toggle_three(main, first, second) {
     var main = document.getElementById(main);
     var first = document.getElementById(first);
     var second = document.getElementById(second);
@@ -18,7 +18,7 @@
   }
 
   // Toggles between two given pages
-  function toggleTwo(first, second) {
+  function toggle_two(first, second) {
     var first = document.getElementById(first);
     var second = document.getElementById(second);
     // Show the first page and hide the second page

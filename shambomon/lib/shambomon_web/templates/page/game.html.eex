@@ -4,11 +4,14 @@
 <%= render ShambomonWeb.ComponentView, "help.html", assigns %>
 <div class="row">
   <div class="col-9">
-  <%= render ShambomonWeb.ComponentView, "header.html", assigns %>
+    <h1 class="shambomon-header">SHAMBOMON</h1>
   </div>
   <div class="col-3">
     <div class="top-right">
-      <a href="javascript:void(0);" onclick="toggleThree('battlefield', 'help-pg-1', 'help-pg-2')">
+      <%= @current_user.username %>
+      <p class="divider"> | </p>
+      <a href="javascript:void(0);"
+        onclick="toggle_three('battlefield', 'help-pg-1', 'help-pg-2')">
         HELP
       </a>
       <!-- TODO: implement mid-game quitting if time permits
@@ -24,7 +27,8 @@
   <div id="game">
     <p>React app not loaded...</p>
   </div>
-  <input type="hidden" id="current-user" value=<%= @current_user.id %>>
+  <input type="hidden" id="user-id" value=<%= @current_user.id %>>
+  <input type="hidden" id="username" value=<%= @current_user.username %>>
 </div>
 
 <% else %>

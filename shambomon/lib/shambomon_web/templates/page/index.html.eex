@@ -1,3 +1,7 @@
+<%= if @current_user do %>
+<%= render ShambomonWeb.PageView, "name.html", assigns %>
+
+<% else %>
 <%= render ShambomonWeb.ComponentView, "functions.html", assigns %>
 <%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
@@ -8,7 +12,8 @@
       <div class="right-side">
         <%= link "REGISTER", to: user_path(@conn, :new) %>
         <p class="divider"> | </p>
-        <a href="javascript:void(0);" onclick="toggleThree('main', 'pg-1', 'pg-2')">
+        <a href="javascript:void(0);"
+          onclick="toggle_three('main', 'pg-1', 'pg-2')">
           HOW TO PLAY
         </a>
         <p class="divider"> | </p>
@@ -41,3 +46,4 @@
 </div>
 
 <%= render ShambomonWeb.ComponentView, "instructions.html", assigns %>
+<% end %>

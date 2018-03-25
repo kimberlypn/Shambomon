@@ -39,7 +39,8 @@
       </tr>
     </tbody>
   </table>
-  <input type="hidden" id="current-user" value=<%= @current_user.id %>>
+  <input type="hidden" id="user-id" value=<%= @current_user.id %>>
+  <input type="hidden" id="username" value=<%= @current_user.username %>>
 </div>
 
 <% else %>

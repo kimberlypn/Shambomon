@@ -25,7 +25,7 @@ function init() {
   let mainRoot = document.getElementById('main');
   let gameRoot = document.getElementById('game');
   let charactersRoot = document.getElementById('characters');
-  let user_id = $('#current-user').val();
+  let user_id = $('#user-id').val();
 
   // Redirect to the character-selection page
   if (mainRoot) {
@@ -42,16 +42,23 @@ function init() {
   if (charactersRoot) {
     $('.character-icon').bind('click', function () {
       let selectedCharacter = $(this).attr('alt');
-      window.location.href = '/game/' + window.gameName + '?user=' + user_id + '&character=' + selectedCharacter;
+      window.location.href = '/game/' + window.gameName + '?user='
+      + user_id + '&character=' + selectedCharacter;
     });
   }
 
   if (gameRoot) {
     let params = (new URL(document.location)).searchParams;
     let userId = params.get('user');
+    let userName = params.get('username');
     let selectedCharacter = params.get('character');
 
-    let channel = socket.channel("games:" + window.gameName, { user: userId, character: selectedCharacter });
+    let channel = socket.channel("games:"
+    + window.gameName, {
+      user: userId,
+      character: selectedCharacter
+    });
+
     start_game(gameRoot, channel, user_id);
   }
 }
