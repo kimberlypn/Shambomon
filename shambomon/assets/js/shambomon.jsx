@@ -20,7 +20,8 @@ class Shambomon extends React.Component {
       ], // information of the two users playing
       lastLosses: null, // keeps track of the last two losses for the multiplier
       spectators: [], // list of spectator ids
-      messages: [] // messages to be printed in the sidebar
+      messages: [], // messages to be printed in the sidebar
+      gameOver: false // true if the game is over
     };
 
     // Refreshes the state on receiving a "refresh" broadcast on the channel
@@ -240,7 +241,7 @@ function Battlefield(props) {
       {/* Top */}
       <div className="row player-info">
         <div className="col-md-9">
-          <PlayerInfo player={opponent} state={props.state} />
+          <PlayerInfo player={opponent} state={props.state} left={false} />
         </div>
         <Player img={opponentImg} />
       </div>
@@ -248,8 +249,8 @@ function Battlefield(props) {
       {/* Bottom */}
       <div className="row player-info">
         <Player img={playerImg} />
-        <div className="col-md-9">
-          <PlayerInfo player={player} state={props.state} />
+        <div className="col-md-9 right-side">
+          <PlayerInfo player={player} state={props.state} left={true} />
           <Attack attack={props.attack} state={props.state} id={props.id} />
         </div>
       </div>
@@ -315,15 +316,29 @@ function PlayerInfo(props) {
     hp.push(<HP type={"dead"} />);
   }
 
-  return (
-    <div>
-      <p>{name}</p>
-      <div className="hp">
-        {hp}
-        <p>HP {health} / 100</p>
+  // Pad the bottom player's name only
+  if (props.left) {
+    return (
+      <div>
+        <p id="player-name">{name}</p>
+        <div className="hp">
+          {hp}
+          <p>HP {health} / 100</p>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+  else {
+    return (
+      <div>
+        <p>{name}</p>
+        <div className="hp">
+          {hp}
+          <p>HP {health} / 100</p>
+        </div>
+      </div>
+    );
+  }
 }
 
 // Renders an HP bar

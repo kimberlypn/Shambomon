@@ -12,7 +12,8 @@ defmodule Shambomon.Game do
       ],
       spectators: [],
       lastLosses: %{ prev1: nil, prev2: nil },
-      messages: []
+      messages: [],
+      gameOver: false
     }
   end
 
@@ -24,7 +25,8 @@ defmodule Shambomon.Game do
       players: game.players,
       spectators: game.spectators,
       lastLosses: game.lastLosses,
-      messages: game.messages
+      messages: game.messages,
+      gameOver: game.gameOver
     }
   end
 

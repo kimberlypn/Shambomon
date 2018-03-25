@@ -199,6 +199,12 @@ h1 {
   margin: 0;
 }
 
+/* Pad the bottom player's name so that it's symmetric with the top player's */
+#player-name {
+  text-align: left;
+  padding-left: 93px;
+}
+
 /* Used to render HP bars in a row */
 .hp {
   display: inline-block;
@@ -218,17 +224,19 @@ h1 {
   background: #83ea8f;
 }
 
+/* Renders yellow HP bars */
+#low {
+  background: #f7f799;
+}
+
+/* Renders red HP bars */
+#critical {
+  background: #ef9f9e;
+}
+
 /* Renders grey HP bars */
 #dead {
   background: #d6d8db;
-}
-
-#low {
-  background: #f2e793;
-}
-
-#critical {
-  background: #ef9f9e;
 }
 
 /* HP status (e.g., "HP 60/100") */
@@ -257,6 +265,8 @@ h1 {
   font-size: 30px;
   display: table-cell;
   vertical-align: middle;
+  text-align: right;
+  width: 100%;
 }
 
 /* Waiting message when the game doesn't have two players yet */
@@ -324,7 +334,7 @@ h1 {
 /**************************** MESSAGES SIDEBAR ***************************/
 #messages {
   margin-top: 20px;
-  max-height: 55%;
+  max-height: 540px;
   overflow: auto;
 }
 
