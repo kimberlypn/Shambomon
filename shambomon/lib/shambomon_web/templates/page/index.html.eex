@@ -2,6 +2,7 @@
 <%= render ShambomonWeb.PageView, "name.html", assigns %>
 
 <% else %>
+<%= render ShambomonWeb.ComponentView, "background.html", assigns %>
 <%= render ShambomonWeb.ComponentView, "functions.html", assigns %>
 <%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
