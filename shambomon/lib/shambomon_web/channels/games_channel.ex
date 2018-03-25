@@ -46,7 +46,7 @@ defmodule ShambomonWeb.GamesChannel do
     # Call attack() with the current state
     game = Game.attack(GameBackup.load(socket.assigns[:name]), a)
 
-    # Save game after generating new state
+    # Save game after generating new game state
     GameBackup.save(socket.assigns[:name], game)
 
     # broadcasts a refresh message to update the game state
@@ -57,14 +57,14 @@ defmodule ShambomonWeb.GamesChannel do
   end
 
   # Resets the game
-  def handle_in("reset", %{}, socket) do
-    # Call new() to get a fresh state
-    game = Game.new()
+  def handle_in("reset", %{"id" => id}, socket) do
+    # Remove the player from the game
+    game = Game.leave(GameBackup.load(socket.assigns[:name]), id)
 
     # Override game with new state
     GameBackup.save(socket.assigns[:name], game)
 
-    # broadcasts a refresh message to update the game state
+    # Broadcast refresh message to update the game state
     broadcast! socket, "refresh", game
 
     # Send an ok message

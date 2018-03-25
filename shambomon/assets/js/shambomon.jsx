@@ -20,7 +20,8 @@ class Shambomon extends React.Component {
       ], // information of the two users playing
       lastLosses: null, // keeps track of the last two losses for the multiplier
       spectators: [], // list of spectator ids
-      messages: [] // messages to be printed in the sidebar
+      messages: [], // messages to be printed in the sidebar
+      gameOver: false // true if the game is over
     };
 
     // Refreshes the state on receiving a "refresh" broadcast on the channel
@@ -47,9 +48,8 @@ class Shambomon extends React.Component {
   }
 
   // Sends a request to the server to reset the game
-  sendReset() {
-    this.channel.push("reset")
-    .receive("ok", console.log("Successfully reset."));
+  sendReset(id) {
+    this.channel.push("reset", { id: id });
   }
 
   // Sends a request to the server to update the user's stats
@@ -96,37 +96,34 @@ class Shambomon extends React.Component {
     return ready;
   }
 
-  // Returns the id of the winner; else returns false
-  hasWinner() {
+  // Returns the id of the winner
+  getWinner() {
     let players = this.state.players;
     // Player 2 wins
     if (players[0].health <= 0) {
       return players[1].id;
     }
     // Player 1 wins
-    else if (players[1].health <= 0) {
-      return players[0].id;
-    }
-    // No one has won yet
     else {
-      return false;
+      return players[0].id;
     }
   }
 
   // Main render function
   render() {
+    console.log(this.state);
     let ready = this.isReady();
-    let winner = this.hasWinner();
     // Game has less than two players
-    if (!ready) {
+    if (!ready && !this.state.gameOver) {
       return <Waiting />;
     }
     // Someone has won
-    else if (winner) {
+    else if (this.state.gameOver) {
+      let winner = this.getWinner();
       this.sendStats(winner);
       this.sendHistory(winner);
       return <Winner winner={winner} id={this.user_id}
-        reset={this.sendReset.bind(this)} />;
+        reset={this.sendReset.bind(this)} state={this.state} />;
     }
     // Ongoing game
     else {
@@ -163,14 +160,35 @@ function Winner(props) {
   else {
     msg = "You lost!";
   }
+
+  if (!props.state.spectators.includes(props.id)) {
+    return (
+      <div className="centered center-text">
+        <div className="row">
+          <div className="col-md-6 offset-md-3">
+            <p>{msg}</p>
+            <NewGame reset={props.reset} id={props.id} />
+            <p className="divider"> | </p>
+            <Leaderboard reset={props.reset} id={props.id} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+  else {
+    return <Limbo state={props.state} />;
+  }
+}
+
+// Renders a message for those who try to join a game that has just ended;
+// they must wait for it to reset first
+function Limbo(props) {
   return (
     <div className="centered center-text">
       <div className="row">
         <div className="col-md-6 offset-md-3">
-          <p>{msg}</p>
-          <NewGame reset={props.reset} />
-          <p className="divider"> | </p>
-          <Leaderboard reset={props.reset} />
+          <p>Game is currently busy. Try again later.</p>
+          <a href="/game/">BACK</a>
         </div>
       </div>
     </div>
@@ -240,7 +258,7 @@ function Battlefield(props) {
       {/* Top */}
       <div className="row player-info">
         <div className="col-md-9">
-          <PlayerInfo player={opponent} state={props.state} />
+          <PlayerInfo player={opponent} state={props.state} left={false} />
         </div>
         <Player img={opponentImg} />
       </div>
@@ -248,8 +266,8 @@ function Battlefield(props) {
       {/* Bottom */}
       <div className="row player-info">
         <Player img={playerImg} />
-        <div className="col-md-9">
-          <PlayerInfo player={player} state={props.state} />
+        <div className="col-md-9 right-side">
+          <PlayerInfo player={player} state={props.state} left={true} />
           <Attack attack={props.attack} state={props.state} id={props.id} />
         </div>
       </div>
@@ -315,15 +333,29 @@ function PlayerInfo(props) {
     hp.push(<HP type={"dead"} />);
   }
 
-  return (
-    <div>
-      <p>{name}</p>
-      <div className="hp">
-        {hp}
-        <p>HP {health} / 100</p>
+  // Pad the bottom player's name only
+  if (props.left) {
+    return (
+      <div>
+        <p id="player-name">{name}</p>
+        <div className="hp">
+          {hp}
+          <p>HP {health} / 100</p>
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
+  else {
+    return (
+      <div>
+        <p>{name}</p>
+        <div className="hp">
+          {hp}
+          <p>HP {health} / 100</p>
+        </div>
+      </div>
+    );
+  }
 }
 
 // Renders an HP bar
@@ -367,13 +399,13 @@ function Attack(props) {
   // Resets the game state and redirects the user back to the game name page
   function NewGame(props) {
     return (
-      <a href="/game/" onClick={() => props.reset()}>New Game</a>
+      <a href="/game/" onClick={() => props.reset(props.id)}>New Game</a>
     );
   }
 
   // Resets the game state and redirects the user to the leaderboard
   function Leaderboard(props) {
     return (
-      <a href="/users/" onClick={() => props.reset()}>Leaderboard</a>
+      <a href="/users/" onClick={() => props.reset(props.id)}>Leaderboard</a>
     );
   }
