@@ -64,6 +64,12 @@ defmodule ShambomonWeb.GamesChannel do
     # Override game with new state
     GameBackup.save(socket.assigns[:name], game)
 
+    # Reset match_recorded flag if the game has been reset
+    if !Map.get(game, :gameOver) do
+      socket = socket
+      |> assign(:match_recorded, false)
+    end
+
     # Broadcast refresh message to update the game state
     broadcast! socket, "refresh", game
 
@@ -86,14 +92,21 @@ defmodule ShambomonWeb.GamesChannel do
   # Creates a match history record
   def handle_in("history", %{"player" => player, "opponent" => opponent,
     "player_champ" => player_champ, "opponent_champ" => opponent_champ}, socket) do
-    changeset =
-      %{
-        player_id: player,
-        opponent_id: opponent,
-        player_champ: player_champ,
-        opponent_champ: opponent_champ
-      }
-    Gameplay.create_match(changeset)
+    if !socket.assigns[:match_recorded] do
+      changeset =
+        %{
+          player_id: player,
+          opponent_id: opponent,
+          player_champ: player_champ,
+          opponent_champ: opponent_champ
+        }
+      Gameplay.create_match(changeset)
+
+      # Set flag to indicate that a match record has already been created
+      # for this game
+      socket = socket
+      |> assign(:match_recorded, true)
+    end
 
     {:noreply, socket}
   end
