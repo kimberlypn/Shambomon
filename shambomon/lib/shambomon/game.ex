@@ -131,14 +131,17 @@ defmodule Shambomon.Game do
       else: multiplier
     health_decr = round(10 * multiplier)
 
-    if player == 0 do
-      health = Map.get(p1, :health)
-      p1 = Map.put(p1, :health, health - health_decr)
-      game = update_messages(game, Map.get(p1, :char), health_decr)
-    else
-      health = Map.get(p2, :health)
-      p2 = Map.put(p2, :health, health - health_decr)
-      game = update_messages(game, Map.get(p2, :char), health_decr)
+    cond do
+      player == 0 ->
+        health = Map.get(p1, :health)
+        p1 = Map.put(p1, :health, health - health_decr)
+        game = update_messages(game, Map.get(p1, :char), health_decr)
+      player == 1 ->
+        health = Map.get(p2, :health)
+        p2 = Map.put(p2, :health, health - health_decr)
+        game = update_messages(game, Map.get(p2, :char), health_decr)
+      player == nil ->
+        nil
     end
 
     # Update the last losses object and players' info
@@ -180,10 +183,7 @@ defmodule Shambomon.Game do
     p2Char = Map.get(p2, :char)
     loser = nil
 
-    # Both chose the same attack, so no damage taken
-    if String.equivalent?(p1Attack, p2Attack) do
-      update_messages(game, p1Char, p1Attack, p2Char, p2Attack)
-    else
+    if !String.equivalent?(p1Attack, p2Attack) do
       cond do
         String.equivalent?(p1Attack, "Rock") ->
           if String.equivalent?(p2Attack, "Paper"), do:
@@ -201,10 +201,10 @@ defmodule Shambomon.Game do
           else:
             loser = 1
       end
-
-      update_messages(game, p1Char, p1Attack, p2Char, p2Attack)
-      |> update_health(loser)
     end
+
+    update_messages(game, p1Char, p1Attack, p2Char, p2Attack)
+    |> update_health(loser)
   end
 
   # Handles an attack
