@@ -115,7 +115,6 @@ class Shambomon extends React.Component {
 
   // Main render function
   render() {
-    console.log(this.state.messages);
     let ready = this.isReady();
     let winner = this.hasWinner();
     // Game has less than two players
