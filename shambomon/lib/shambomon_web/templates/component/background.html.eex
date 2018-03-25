@@ -1,7 +1,7 @@
 <style>
   /* Image credits to https://wifflegif.com/gifs/484149-pokemon-gen-1-8bitbychiara-gif */
   body {
-    background-image: url('/images/Background.png');
+    background-image: url('/images/Background-8bit.png');
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: right bottom;

@@ -1,3 +1,4 @@
+<%= render ShambomonWeb.ComponentView, "background.html", assigns %>
 <%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
 <div class="leaderboard match-history">
