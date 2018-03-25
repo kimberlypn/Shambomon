@@ -123,7 +123,7 @@ class Shambomon extends React.Component {
       this.sendStats(winner);
       this.sendHistory(winner);
       return <Winner winner={winner} id={this.user_id}
-        reset={this.sendReset.bind(this)} state={this.state}/>;
+        reset={this.sendReset.bind(this)} state={this.state} />;
     }
     // Ongoing game
     else {
