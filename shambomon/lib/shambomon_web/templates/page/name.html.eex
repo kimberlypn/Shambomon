@@ -13,8 +13,6 @@
         </a>
         <p class="divider"> | </p>
         <%= link "LEADERBOARD", to: user_path(@conn, :index) %>
-        <p class="divider"> | </p>
-        <%= link "LOG OUT", to: "/session", method: :delete %>
       </div>
     </div>
   </div>

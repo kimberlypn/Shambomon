@@ -19,7 +19,8 @@ class Shambomon extends React.Component {
         {id: null, char: "", health: 100, attack: ""}
       ], // information of the two users playing
       lastLosses: null, // keeps track of the last two losses for the multiplier
-      spectators: [] // list of spectator ids
+      spectators: [], // list of spectator ids
+      messages: [] // messages to be printed in the sidebar
     };
 
     // Refreshes the state on receiving a "refresh" broadcast on the channel
@@ -114,6 +115,7 @@ class Shambomon extends React.Component {
 
   // Main render function
   render() {
+    console.log(this.state.messages);
     let ready = this.isReady();
     let winner = this.hasWinner();
     // Game has less than two players
@@ -129,8 +131,13 @@ class Shambomon extends React.Component {
     }
     // Ongoing game
     else {
-      return <Battlefield state={this.state} id={this.user_id}
-        attack={this.sendAttack.bind(this)} />;
+      return (
+        <div className="row container">
+          <Messages state={this.state} />
+          <Battlefield state={this.state} id={this.user_id}
+            attack={this.sendAttack.bind(this)} />
+        </div>
+      );
     }
   }
 }
@@ -171,6 +178,43 @@ function Winner(props) {
   );
 }
 
+// Renders the attack history sidebar
+function Messages(props) {
+  let messages = props.state.messages;
+  // Skip if no messages
+  if (messages.length == 0) {
+    return (
+      <div className="col-md-3" id="messages">
+        <h3>ATTACK HISTORY</h3>
+      </div>
+    );
+  }
+  else {
+    var msgs = [];
+    // Make the newest set of messages a different color
+    for (var i = messages.length - 1; i >= messages.length - 3; i--) {
+      msgs.push(<p className="last-messages">>> {messages[i]}</p>);
+    }
+    if (messages.length >= 3) {
+      msgs.push(<br />);
+      for (var i = messages.length - 4; i >= 0; i--) {
+        msgs.push(<p>>> {messages[i]}</p>);
+        // Add a space between each round
+        if (i % 3 == 0) {
+          msgs.push(<br />);
+        }
+      }
+    }
+
+    return (
+      <div className="col-md-3" id="messages">
+        <h3>ATTACK HISTORY</h3>
+        {msgs}
+      </div>
+    );
+  }
+}
+
 // Renders the battlefield, where the user's character is at the bottom
 function Battlefield(props) {
   let players = props.state.players;
@@ -192,11 +236,11 @@ function Battlefield(props) {
   }
 
   return (
-    <div>
+    <div className="col-md-9" id="arena">
       {/* All images taken from http://www.ign.com/pokedex/pokemon/ */}
       {/* Top */}
       <div className="row player-info">
-        <div className="col-9">
+        <div className="col-md-9">
           <PlayerInfo player={opponent} state={props.state} />
         </div>
         <Player img={opponentImg} />
@@ -205,7 +249,7 @@ function Battlefield(props) {
       {/* Bottom */}
       <div className="row player-info">
         <Player img={playerImg} />
-        <div className="col-9">
+        <div className="col-md-9">
           <PlayerInfo player={player} state={props.state} />
           <Attack attack={props.attack} state={props.state} id={props.id} />
         </div>
@@ -242,7 +286,7 @@ function Turn(props) {
 // Renders the player's character
 function Player(props) {
   return (
-    <div className="col-3">
+    <div className="col-md-3">
       <img src={props.img}/>
     </div>
   );
@@ -301,34 +345,34 @@ function Attack(props) {
         {/* Image credits to https://www.dfpeducation.com/play-the-google-game */}
         <span>
           <input type="image" src="/images/Rock.png" disabled={disabled}
-            onClick={() => props.attack("Q")} alt="Rock" />
+            onClick={() => props.attack("Rock")} alt="Rock" />
         </span>
         <span>
           <input type="image" src="/images/Paper.png" disabled={disabled}
-            onClick={() => props.attack("W")} alt="Paper" />
+            onClick={() => props.attack("Paper")} alt="Paper" />
         </span>
         <span>
           <input type="image" src="/images/Scissor.png" disabled={disabled}
-            onClick={() => props.attack("E")} alt="Scissor" />
+            onClick={() => props.attack("Scissor")} alt="Scissor" />
         </span>
       </div>
     );
   }
   else {
     return <div></div>;
+    }
   }
-}
 
-// Resets the game state and redirects the user back to the game name page
-function NewGame(props) {
-  return (
-    <a href="/game/" onClick={() => props.reset()}>New Game</a>
-  );
-}
+  // Resets the game state and redirects the user back to the game name page
+  function NewGame(props) {
+    return (
+      <a href="/game/" onClick={() => props.reset()}>New Game</a>
+    );
+  }
 
-// Resets the game state and redirects the user to the leaderboard
-function Leaderboard(props) {
-  return (
-    <a href="/users/" onClick={() => props.reset()}>Leaderboard</a>
-  );
-}
+  // Resets the game state and redirects the user to the leaderboard
+  function Leaderboard(props) {
+    return (
+      <a href="/users/" onClick={() => props.reset()}>Leaderboard</a>
+    );
+  }

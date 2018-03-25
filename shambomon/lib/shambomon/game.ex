@@ -11,7 +11,8 @@ defmodule Shambomon.Game do
         %{id: nil, char: "", health: 100, attack: ""}
       ],
       spectators: [],
-      lastLosses: %{ prev1: nil, prev2: nil }
+      lastLosses: %{ prev1: nil, prev2: nil },
+      messages: []
     }
   end
 
@@ -22,7 +23,8 @@ defmodule Shambomon.Game do
       attacks: game.attacks,
       players: game.players,
       spectators: game.spectators,
-      lastLosses: game.lastLosses
+      lastLosses: game.lastLosses,
+      messages: game.messages
     }
   end
 
@@ -127,55 +129,81 @@ defmodule Shambomon.Game do
       else: 1 + (Enum.count(Map.values(last_losses), fn(x) -> x == player end) * 0.5)
     multiplier = if (player != prev1_loser) and (player == prev2_loser), do: 1,
       else: multiplier
-    health_decr = 10 * multiplier
+    health_decr = round(10 * multiplier)
 
     if player == 0 do
       health = Map.get(p1, :health)
       p1 = Map.put(p1, :health, health - health_decr)
+      game = update_messages(game, Map.get(p1, :char), health_decr)
     else
       health = Map.get(p2, :health)
       p2 = Map.put(p2, :health, health - health_decr)
+      game = update_messages(game, Map.get(p2, :char), health_decr)
     end
 
     # Update the last losses object and players' info
     %{ game | lastLosses: update_losses, players: [p1, p2] }
   end
 
-  # Determines who won the round and calculates the damage taken accordingly;
-  # Q beats E but loses to W;
-  # W beats Q but loses to E;
-  # E beats W but loses to Q;
+  # Updates the messages array with the attacks
+  defp update_messages(game, p1Char, p1Attack, p2Char, p2Attack) do
+    msgs = Map.get(game, :messages)
+    msgs = msgs
+      ++ [p1Char <> " chose " <> p1Attack <> "."]
+      ++ [p2Char <> " chose " <> p2Attack <> "."]
+
+
+    if String.equivalent?(p1Attack, p2Attack) do
+      msgs = msgs ++ ["No damage taken."]
+    end
+
+    Map.put(game, :messages, msgs)
+  end
+
+  # Updates the messages array with the damage dealt
+  defp update_messages(game, loser, damage) do
+    msgs = Map.get(game, :messages)
+    msgs = msgs
+      ++ [loser <> " took " <> Integer.to_string(damage) <> " damage!"]
+
+    Map.put(game, :messages, msgs)
+  end
+
+  # Determines who won the round and calculates the damage taken accordingly
   defp determine_winner(game) do
     players = Map.get(game, :players)
     p1 = Enum.at(players, 0)
     p2 = Enum.at(players, 1)
     p1Attack = Map.get(p1, :attack)
     p2Attack = Map.get(p2, :attack)
+    p1Char = Map.get(p1, :char)
+    p2Char = Map.get(p2, :char)
     loser = nil
 
     # Both chose the same attack, so no damage taken
     if String.equivalent?(p1Attack, p2Attack) do
-      game
+      update_messages(game, p1Char, p1Attack, p2Char, p2Attack)
     else
       cond do
-        String.equivalent?(p1Attack, "Q") ->
-          if String.equivalent?(p2Attack, "W"), do:
+        String.equivalent?(p1Attack, "Rock") ->
+          if String.equivalent?(p2Attack, "Paper"), do:
             loser = 0,
           else:
             loser = 1
-        String.equivalent?(p1Attack, "W") ->
-          if String.equivalent?(p2Attack, "Q"), do:
+        String.equivalent?(p1Attack, "Paper") ->
+          if String.equivalent?(p2Attack, "Rock"), do:
             loser = 1,
           else:
             loser = 0
-        String.equivalent?(p1Attack, "E") ->
-          if String.equivalent?(p2Attack, "Q"), do:
+        String.equivalent?(p1Attack, "Scissor") ->
+          if String.equivalent?(p2Attack, "Rock"), do:
             loser = 0,
           else:
             loser = 1
       end
 
-      update_health(game, loser)
+      update_messages(game, p1Char, p1Attack, p2Char, p2Attack)
+      |> update_health(loser)
     end
   end
 
