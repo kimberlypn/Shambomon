@@ -7,6 +7,7 @@ defmodule Shambomon.Accounts do
   alias Shambomon.Repo
 
   alias Shambomon.Accounts.User
+  alias Shambomon.Gameplay.Match
 
   @doc """
   Returns the list of users.
@@ -108,5 +109,22 @@ defmodule Shambomon.Accounts do
   """
   def change_user(%User{} = user) do
     User.changeset(user, %{})
+  end
+
+  @doc """
+  Updates the player's stats based on the match history
+  """
+  def update_stats(user_id) do
+    # Win count
+    wins = Repo.one(from m in Match,
+      where: m.player_id == ^user_id,
+      select: count(m.id))
+    # Losses count
+    losses = Repo.one(from m in Match,
+      where: m.opponent_id == ^user_id,
+      select: count(m.id))
+
+    user = get_user(user_id)
+    update_user(user, %{wins: wins, losses: losses})
   end
 end

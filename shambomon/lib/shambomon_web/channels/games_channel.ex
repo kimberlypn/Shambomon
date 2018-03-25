@@ -74,16 +74,9 @@ defmodule ShambomonWeb.GamesChannel do
   end
 
   # Updates the player's stats
-  def handle_in("stats", %{"id" => id, "stats" => stats}, socket) do
-    # Only update once per game
-    if !socket.assigns[:match_recorded] do
-      user = Accounts.get_user(id)
-      if stats == 1, do:
-        Accounts.update_user(user, %{wins: user.wins + 1}),
-      else:
-        Accounts.update_user(user, %{losses: user.losses + 1})
-    end
-
+  def handle_in("stats", %{"id" => id}, socket) do
+    Accounts.update_stats(id)
+    
     {:noreply, socket}
   end
 
