@@ -15,16 +15,15 @@ defmodule ShambomonWeb.GamesChannel do
     |> assign(:name, name)
 
     # Add the player to the game if it is not full
-    if !Game.is_full(game) do
-      game = Game.add_player(game, payload["user"], payload["character"])
-    else
+    if !Game.is_full(game), do:
+      game = Game.add_player(game, payload["user"], payload["character"]),
+    else:
       game = Game.add_spectator(game, payload["user"])
-    end
 
     # Save the game
     GameBackup.save(name, game)
 
-    # sends the game state after joining
+    # Send the game state after joining
     send(self, {:after_join, game})
 
     # Send an ok message
@@ -32,24 +31,21 @@ defmodule ShambomonWeb.GamesChannel do
   end
 
   def handle_info({:after_join, game}, socket) do
-    # broadcasts a refresh message to update the game state
+    # Broadcast a refresh message to update the game state
     broadcast! socket, "refresh", game
 
     {:noreply, socket}
   end
 
-  # Channels can be used in a request/response fashion
-  # by sending replies to requests from the client
-
   # Sends to chosen attack to attack()
   def handle_in("attack", %{"attack" => a}, socket) do
-    # Call attack() with the current state
+    # Call attack() with the current game state
     game = Game.attack(GameBackup.load(socket.assigns[:name]), a)
 
     # Save game after generating new game state
     GameBackup.save(socket.assigns[:name], game)
 
-    # broadcasts a refresh message to update the game state
+    # Broadcast a refresh message to update the game state
     broadcast! socket, "refresh", game
 
     # Send an ok message
@@ -80,11 +76,10 @@ defmodule ShambomonWeb.GamesChannel do
   # Updates the player's stats
   def handle_in("stats", %{"id" => id, "stats" => stats}, socket) do
     user = Accounts.get_user(id)
-    if stats == 1 do
-      Accounts.update_user(user, %{wins: user.wins + 1})
-    else
+    if stats == 1, do:
+      Accounts.update_user(user, %{wins: user.wins + 1}),
+    else:
       Accounts.update_user(user, %{losses: user.losses + 1})
-    end
 
     {:noreply, socket}
   end
