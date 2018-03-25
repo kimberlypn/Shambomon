@@ -123,7 +123,7 @@ class Shambomon extends React.Component {
       this.sendStats(winner);
       this.sendHistory(winner);
       return <Winner winner={winner} id={this.user_id}
-        reset={this.sendReset.bind(this)} />;
+        reset={this.sendReset.bind(this)} state={this.state}/>;
     }
     // Ongoing game
     else {
@@ -160,15 +160,35 @@ function Winner(props) {
   else {
     msg = "You lost!";
   }
-  
+
+  if (!props.state.spectators.includes(props.id)) {
+    return (
+      <div className="centered center-text">
+        <div className="row">
+          <div className="col-md-6 offset-md-3">
+            <p>{msg}</p>
+            <NewGame reset={props.reset} id={props.id} />
+            <p className="divider"> | </p>
+            <Leaderboard reset={props.reset} id={props.id} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+  else {
+    return <Limbo state={props.state} />;
+  }
+}
+
+// Renders a message for those who try to join a game that has just ended;
+// they must wait for it to reset first
+function Limbo(props) {
   return (
     <div className="centered center-text">
       <div className="row">
         <div className="col-md-6 offset-md-3">
-          <p>{msg}</p>
-          <NewGame reset={props.reset} id={props.id} />
-          <p className="divider"> | </p>
-          <Leaderboard reset={props.reset} id={props.id} />
+          <p>Game is currently busy. Try again later.</p>
+          <a href="/game/">BACK</a>
         </div>
       </div>
     </div>

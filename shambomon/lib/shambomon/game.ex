@@ -30,13 +30,14 @@ defmodule Shambomon.Game do
     }
   end
 
-  # Returns true if there are two players in the game
+  # Returns true if there are two players in the game or if the game is in the
+  # process of resetting
   def is_full(game) do
     players = Map.get(game, :players)
     p1 = Enum.at(players, 0)
     p2 = Enum.at(players, 1)
 
-    Map.get(p1, :id) && Map.get(p2, :id)
+    (Map.get(p1, :id) && Map.get(p2, :id)) || Map.get(game, :gameOver)
   end
 
   # Adds the given player to the game
