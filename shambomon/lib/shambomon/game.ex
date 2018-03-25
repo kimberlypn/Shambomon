@@ -144,11 +144,6 @@ defmodule Shambomon.Game do
       game = update_messages(game, Map.get(p2, :char), health_decr)
     end
 
-    # Set the gameOver flag if applicable
-    if (Map.get(p1, :health) <= 0) or Map.get(p2, :health <= 0) do
-      game = Map.put(game, :gameOver, true)
-    end
-
     # Update the last losses object and players' info
     %{ game | lastLosses: update_losses, players: [p1, p2] }
   end
@@ -215,6 +210,20 @@ defmodule Shambomon.Game do
     end
   end
 
+  # Set the gameOver flag if applicable
+  defp check_hp(game) do
+    players = Map.get(game, :players)
+    p1 = Enum.at(players, 0)
+    p2 = Enum.at(players, 1)
+    IO.inspect(Map.get(p1, :health))
+    IO.inspect(Map.get(p2, :health))
+
+    if (Map.get(p1, :health) <= 0) or (Map.get(p2, :health) <= 0), do:
+      game = Map.put(game, :gameOver, true),
+    else:
+      game
+  end
+
   # Handles an attack
   def attack(game, attk) do
     # First attack in the round
@@ -227,6 +236,7 @@ defmodule Shambomon.Game do
       update_player_attack(game, attk)
       |> determine_winner()
       |> update_attacks()
+      |> check_hp()
       |> update_turn()
     end
   end
