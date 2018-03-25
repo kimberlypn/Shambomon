@@ -114,7 +114,6 @@ class Shambomon extends React.Component {
     // Someone has won
     else if (this.state.gameOver) {
       let winner = this.getWinner();
-      //console.log("winner: " + winner);
       this.sendHistory(winner);
       this.sendStats();
       return <Winner winner={winner} id={this.user_id}
