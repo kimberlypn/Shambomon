@@ -3,10 +3,10 @@
 <%= if @current_user do %>
 <%= render ShambomonWeb.ComponentView, "help.html", assigns %>
 <div class="row">
-  <div class="col-9">
+  <div class="col-md-9">
     <h1 class="shambomon-header">SHAMBOMON</h1>
   </div>
-  <div class="col-3">
+  <div class="col-md-3">
     <div class="top-right">
       <%= @current_user.username %>
       <p class="divider"> | </p>

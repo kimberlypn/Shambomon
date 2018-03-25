@@ -204,24 +204,31 @@ h1 {
   display: inline-block;
 }
 
-/* Renders green HP bars */
-.hp-bar-alive {
+.hp-bar {
   border: 1px none;
   height: 30px;
-  width: 5px;
+  width: 3px;
   background: #83ea8f;
   margin-right: 2px;
   display: inline-block;
 }
 
+/* Renders green HP bars */
+#alive {
+  background: #83ea8f;
+}
+
 /* Renders grey HP bars */
-.hp-bar-dead {
-  border: 1px none;
-  height: 30px;
-  width: 5px;
+#dead {
   background: #d6d8db;
-  margin-right: 2px;
-  display: inline-block;
+}
+
+#low {
+  background: #f2e793;
+}
+
+#critical {
+  background: #ef9f9e;
 }
 
 /* HP status (e.g., "HP 60/100") */
@@ -317,7 +324,7 @@ h1 {
 /**************************** MESSAGES SIDEBAR ***************************/
 #messages {
   margin-top: 20px;
-  max-height: 90%;
+  max-height: 55%;
   overflow: auto;
 }
 

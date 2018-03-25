@@ -300,7 +300,16 @@ function PlayerInfo(props) {
 
   var hp = []
   for (var i = 0; i < health; i++) {
-    hp.push(<HP type={"alive"} />);
+    // Use 'and' because JS is weird about double inequalities
+    if ((50 < health) && (health <= 100)) {
+      hp.push(<HP type={"alive"} />);
+    }
+    else if ((20 < health) && (health <= 50)) {
+      hp.push(<HP type={"low"} />);
+    }
+    else {
+      hp.push(<HP type={"critical"} />);
+    }
   }
   for (var i = health; i < 100; i++) {
     hp.push(<HP type={"dead"} />);
@@ -319,16 +328,9 @@ function PlayerInfo(props) {
 
 // Renders an HP bar
 function HP(props) {
-  if (props.type == "alive") {
-    return (
-      <div className="hp-bar-alive"></div>
-    );
-  }
-  else {
-    return (
-      <div className="hp-bar-dead"></div>
-    );
-  }
+  return (
+    <div className="hp-bar" id={props.type}></div>
+  );
 }
 
 // Renders the attack buttons
