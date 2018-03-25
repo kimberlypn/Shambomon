@@ -143,6 +143,11 @@ defmodule Shambomon.Game do
       game = update_messages(game, Map.get(p2, :char), health_decr)
     end
 
+    # Set the gameOver flag if applicable
+    if (Map.get(p1, :health) <= 0) or Map.get(p2, :health <= 0) do
+      game = Map.put(game, :gameOver, true)
+    end
+
     # Update the last losses object and players' info
     %{ game | lastLosses: update_losses, players: [p1, p2] }
   end
@@ -222,6 +227,26 @@ defmodule Shambomon.Game do
       |> determine_winner()
       |> update_attacks()
       |> update_turn()
+    end
+  end
+
+  # Removes a player from the game
+  def leave(game, id) do
+    players = Map.get(game, :players)
+    p1 = Enum.at(players, 0)
+    p2 = Enum.at(players, 1)
+
+    if Map.get(p1, :id) == id do
+      p1 = %{id: nil, char: "", health: 100, attack: ""}
+    else
+      p2 = %{id: nil, char: "", health: 100, attack: ""}
+    end
+
+    # Reset the game if both players have left
+    if !Map.get(p1, :id) and !Map.get(p2, :id) do
+      new()
+    else
+      Map.put(game, :players, [p1, p2])
     end
   end
 end

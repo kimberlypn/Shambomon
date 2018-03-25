@@ -48,9 +48,8 @@ class Shambomon extends React.Component {
   }
 
   // Sends a request to the server to reset the game
-  sendReset() {
-    this.channel.push("reset")
-    .receive("ok", console.log("Successfully reset."));
+  sendReset(id) {
+    this.channel.push("reset", { id: id });
   }
 
   // Sends a request to the server to update the user's stats
@@ -97,33 +96,30 @@ class Shambomon extends React.Component {
     return ready;
   }
 
-  // Returns the id of the winner; else returns false
-  hasWinner() {
+  // Returns the id of the winner
+  getWinner() {
     let players = this.state.players;
     // Player 2 wins
     if (players[0].health <= 0) {
       return players[1].id;
     }
     // Player 1 wins
-    else if (players[1].health <= 0) {
-      return players[0].id;
-    }
-    // No one has won yet
     else {
-      return false;
+      return players[0].id;
     }
   }
 
   // Main render function
   render() {
+    console.log(this.state)
     let ready = this.isReady();
-    let winner = this.hasWinner();
     // Game has less than two players
-    if (!ready) {
+    if (!ready && !this.state.gameOver) {
       return <Waiting />;
     }
     // Someone has won
-    else if (winner) {
+    else if (this.state.gameOver) {
+      let winner = this.getWinner();
       this.sendStats(winner);
       this.sendHistory(winner);
       return <Winner winner={winner} id={this.user_id}
@@ -164,14 +160,15 @@ function Winner(props) {
   else {
     msg = "You lost!";
   }
+  
   return (
     <div className="centered center-text">
       <div className="row">
         <div className="col-md-6 offset-md-3">
           <p>{msg}</p>
-          <NewGame reset={props.reset} />
+          <NewGame reset={props.reset} id={props.id} />
           <p className="divider"> | </p>
-          <Leaderboard reset={props.reset} />
+          <Leaderboard reset={props.reset} id={props.id} />
         </div>
       </div>
     </div>
@@ -382,13 +379,13 @@ function Attack(props) {
   // Resets the game state and redirects the user back to the game name page
   function NewGame(props) {
     return (
-      <a href="/game/" onClick={() => props.reset()}>New Game</a>
+      <a href="/game/" onClick={() => props.reset(props.id)}>New Game</a>
     );
   }
 
   // Resets the game state and redirects the user to the leaderboard
   function Leaderboard(props) {
     return (
-      <a href="/users/" onClick={() => props.reset()}>Leaderboard</a>
+      <a href="/users/" onClick={() => props.reset(props.id)}>Leaderboard</a>
     );
   }
