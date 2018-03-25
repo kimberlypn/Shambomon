@@ -19,7 +19,8 @@
           <td>
             <!-- Image credits to Jedflah on DeviantArt -->
             <!-- <%= character.credits %> -->
-            <img src="<%= character.source %>" alt="<%= character.name %>" class="character-icon"/>
+            <img src="<%= character.source %>" alt="<%= character.name %>"
+              class="character-icon"/>
           </td>
         <% end %>
       </tr>
@@ -33,7 +34,8 @@
           <td>
             <!-- Image credits to Jedflah on DeviantArt -->
             <!-- <%= character.credits %> -->
-            <img src="<%= character.source %>" alt="<%= character.name %>" class="character-icon"/>
+            <img src="<%= character.source %>" alt="<%= character.name %>"
+              class="character-icon"/>
           </td>
         <% end %>
       </tr>

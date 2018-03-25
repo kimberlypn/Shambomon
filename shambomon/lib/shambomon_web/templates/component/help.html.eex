@@ -29,7 +29,7 @@
       <p>3 consecutive wins = <span>2x multiplier</span> (deal -20 damage)</p>
       <br />
       <p>
-        <span id="mult-end">The multiplier resets to 1x on the fourth consecutive win or if
+        <span>The multiplier resets to 1x on the fourth consecutive win or if
         your opponent chooses a superior or the same attack.</span>
       </p>
     </div>

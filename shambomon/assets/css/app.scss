@@ -204,24 +204,31 @@ h1 {
   display: inline-block;
 }
 
-/* Renders green HP bars */
-.hp-bar-alive {
+.hp-bar {
   border: 1px none;
   height: 30px;
-  width: 5px;
+  width: 3px;
   background: #83ea8f;
   margin-right: 2px;
   display: inline-block;
 }
 
+/* Renders green HP bars */
+#alive {
+  background: #83ea8f;
+}
+
 /* Renders grey HP bars */
-.hp-bar-dead {
-  border: 1px none;
-  height: 30px;
-  width: 5px;
+#dead {
   background: #d6d8db;
-  margin-right: 2px;
-  display: inline-block;
+}
+
+#low {
+  background: #f2e793;
+}
+
+#critical {
+  background: #ef9f9e;
 }
 
 /* HP status (e.g., "HP 60/100") */
@@ -269,7 +276,7 @@ h1 {
 
 /* Adds some padding between the battlefield and the header */
 #battlefield {
-  padding-top: 80px;
+  padding-top: 20px;
 }
 /*************************** END OF BATTLEFIELD **************************/
 
@@ -292,7 +299,7 @@ h1 {
 }
 
 .mult p {
-  font-size: 25px;
+  font-size: 24px;
   text-align: center;
 }
 
@@ -312,11 +319,27 @@ h1 {
 .help .divider {
   font-size: 22px;
 }
-
-#mult-end {
-  font-size: 22px;
-}
 /*************************** END OF IN-GAME HELP *************************/
+
+/**************************** MESSAGES SIDEBAR ***************************/
+#messages {
+  margin-top: 20px;
+  max-height: 55%;
+  overflow: auto;
+}
+
+#arena {
+    margin-top: 20px;
+}
+
+.last-messages {
+  color: #57af9e;
+}
+
+#messages p {
+  margin: 0;
+}
+/************************ END OF MESSAGES SIDEBAR ************************/
 
 /****************************** LEADERBOARD ******************************/
 .leaderboard .ribbon {

@@ -33,6 +33,7 @@ defmodule Shambomon.Accounts.User do
     |> validate_password(:password)
     |> put_pass_hash()
     |> validate_required([:username, :password_hash])
+    |> update_change(:username, &String.downcase/1)
     |> unique_constraint(:username)
   end
 

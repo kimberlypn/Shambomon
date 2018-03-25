@@ -8,5 +8,8 @@ defmodule Shambomon.Repo.Migrations.CreateUsers do
       timestamps()
     end
 
+    # Make sure that the username is unique since it is used for logging in
+    create unique_index(:users, [:username])
+
   end
 end

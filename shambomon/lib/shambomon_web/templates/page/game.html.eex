@@ -3,10 +3,10 @@
 <%= if @current_user do %>
 <%= render ShambomonWeb.ComponentView, "help.html", assigns %>
 <div class="row">
-  <div class="col-9">
+  <div class="col-md-9">
     <h1 class="shambomon-header">SHAMBOMON</h1>
   </div>
-  <div class="col-3">
+  <div class="col-md-3">
     <div class="top-right">
       <%= @current_user.username %>
       <p class="divider"> | </p>
@@ -20,15 +20,15 @@
     </div>
   </div>
 </div>
-<div class="centered" id="battlefield">
-  <script>
-    window.gameName = "<%= @game %>";
-  </script>
-  <div id="game">
+<div class="row" id="game">
+  <div class="centered" id="battlefield">
+    <script>
+      window.gameName = "<%= @game %>";
+    </script>
     <p>React app not loaded...</p>
+    <input type="hidden" id="user-id" value=<%= @current_user.id %>>
+    <input type="hidden" id="username" value=<%= @current_user.username %>>
   </div>
-  <input type="hidden" id="user-id" value=<%= @current_user.id %>>
-  <input type="hidden" id="username" value=<%= @current_user.username %>>
 </div>
 
 <% else %>

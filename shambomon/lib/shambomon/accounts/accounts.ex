@@ -42,7 +42,7 @@ defmodule Shambomon.Accounts do
 
   # Gets a user by username lookup
   def get_user_by_username(username) do
-    Repo.get_by(User, username: username)
+    Repo.get_by(User, username: String.downcase(username))
   end
 
   @doc """
