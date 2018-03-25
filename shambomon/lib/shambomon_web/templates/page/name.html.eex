@@ -1,6 +1,6 @@
 <%= render ShambomonWeb.ComponentView, "functions.html", assigns %>
-<%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 <%= render ShambomonWeb.ComponentView, "background.html", assigns %>
+<%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
 <%= if @current_user do %>
 <!-- MAIN PAGE -->

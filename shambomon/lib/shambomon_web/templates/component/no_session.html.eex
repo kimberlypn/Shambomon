@@ -1,4 +1,5 @@
 <!-- Error message when the user is not logged in -->
+<%= render ShambomonWeb.ComponentView, "background.html", assigns %>
 <div class="centered center-text">
   <div class="row">
     <div class="col-md-6 offset-md-3">

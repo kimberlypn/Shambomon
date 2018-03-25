@@ -1,5 +1,5 @@
-<%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 <%= render ShambomonWeb.ComponentView, "background.html", assigns %>
+<%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
 <%= render "form.html", Map.put(assigns, :action, user_path(@conn, :create)) %>
 
