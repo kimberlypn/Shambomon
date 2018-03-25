@@ -21,7 +21,7 @@
   </div>
 </div>
 <div class="row" id="game">
-  <div class="centered" id="battlefield">
+  <div class="centered">
     <script>
       window.gameName = "<%= @game %>";
     </script>

@@ -12,7 +12,8 @@ defmodule Shambomon.Game do
       ],
       spectators: [],
       lastLosses: %{ prev1: nil, prev2: nil },
-      messages: []
+      messages: [],
+      gameOver: false
     }
   end
 
@@ -24,17 +25,19 @@ defmodule Shambomon.Game do
       players: game.players,
       spectators: game.spectators,
       lastLosses: game.lastLosses,
-      messages: game.messages
+      messages: game.messages,
+      gameOver: game.gameOver
     }
   end
 
-  # Returns true if there are two players in the game
+  # Returns true if there are two players in the game or if the game is in the
+  # process of resetting
   def is_full(game) do
     players = Map.get(game, :players)
     p1 = Enum.at(players, 0)
     p2 = Enum.at(players, 1)
 
-    Map.get(p1, :id) && Map.get(p2, :id)
+    (Map.get(p1, :id) && Map.get(p2, :id)) || Map.get(game, :gameOver)
   end
 
   # Adds the given player to the game
@@ -207,6 +210,20 @@ defmodule Shambomon.Game do
     end
   end
 
+  # Set the gameOver flag if applicable
+  defp check_hp(game) do
+    players = Map.get(game, :players)
+    p1 = Enum.at(players, 0)
+    p2 = Enum.at(players, 1)
+    IO.inspect(Map.get(p1, :health))
+    IO.inspect(Map.get(p2, :health))
+
+    if (Map.get(p1, :health) <= 0) or (Map.get(p2, :health) <= 0), do:
+      game = Map.put(game, :gameOver, true),
+    else:
+      game
+  end
+
   # Handles an attack
   def attack(game, attk) do
     # First attack in the round
@@ -219,7 +236,28 @@ defmodule Shambomon.Game do
       update_player_attack(game, attk)
       |> determine_winner()
       |> update_attacks()
+      |> check_hp()
       |> update_turn()
+    end
+  end
+
+  # Removes a player from the game
+  def leave(game, id) do
+    players = Map.get(game, :players)
+    p1 = Enum.at(players, 0)
+    p2 = Enum.at(players, 1)
+
+    if Map.get(p1, :id) == id do
+      p1 = %{id: nil, char: "", health: 100, attack: ""}
+    else
+      p2 = %{id: nil, char: "", health: 100, attack: ""}
+    end
+
+    # Reset the game if both players have left
+    if !Map.get(p1, :id) and !Map.get(p2, :id) do
+      new()
+    else
+      Map.put(game, :players, [p1, p2])
     end
   end
 end
