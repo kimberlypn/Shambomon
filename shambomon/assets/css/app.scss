@@ -93,7 +93,12 @@ h1 {
 
 /* Emphasizes certain text by changing the color */
 .instructions span {
-  //color: #57af9e;
+  color: #57af9e;
+}
+
+/* Make span black on index page because hard to see with background */
+#index-help .instructions span {
+  color: black;
 }
 /************************** END OF INSTRUCTIONS **************************/
 

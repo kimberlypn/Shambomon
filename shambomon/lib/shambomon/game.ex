@@ -215,8 +215,6 @@ defmodule Shambomon.Game do
     players = Map.get(game, :players)
     p1 = Enum.at(players, 0)
     p2 = Enum.at(players, 1)
-    IO.inspect(Map.get(p1, :health))
-    IO.inspect(Map.get(p2, :health))
 
     if (Map.get(p1, :health) <= 0) or (Map.get(p2, :health) <= 0), do:
       game = Map.put(game, :gameOver, true),
