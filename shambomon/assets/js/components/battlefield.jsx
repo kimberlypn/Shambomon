@@ -5,25 +5,46 @@ import Turn from './turn';
 import Attack from './attack';
 import Player from './player';
 
+// Returns 0 if the user is Player 1; else, returns 1
+function getPlayer(players, id) {
+  if (players[0].id == id) {
+    return 0;
+  }
+  else {
+    return 1;
+  }
+}
+
+// Returns 1 if the opponent is Player 1; else, returns 0
+function getOpponent(players, id) {
+  if (players[0].id == id) {
+    return 1;
+  }
+  else {
+    return 0;
+  }
+}
+
+// Returns the image path for the user's character
+function getPlayerImg(players, id) {
+  let player = getPlayer(players, id);
+  return "/images/" + players[player].char + "-battle.png";
+}
+
+// Returns the image path for the opponent's character
+function getOpponentImg(players, id) {
+  let opponent = getOpponent(players, id);
+  return "/images/" + players[opponent].char + "-battle.png";
+}
+
+
 // Renders the battlefield, where the user's character is at the bottom
 export default function Battlefield(props) {
   let players = props.state.players;
-  var player, opponent;
-  var playerImg, opponentImg;
-  // User is Player 1
-  if (players[0].id == props.id) {
-    player = 0;
-    opponent = 1;
-    playerImg = "/images/" + players[player].char + "-battle.png";
-    opponentImg = "/images/" + players[opponent].char + "-battle.png";
-  }
-  // User is Player 2
-  else {
-    player = 1;
-    opponent = 0;
-    playerImg = "/images/" + players[player].char + "-battle.png";
-    opponentImg = "/images/" + players[opponent].char + "-battle.png";
-  }
+  let player = getPlayer(players, props.id);
+  let opponent = getOpponent(players, props.id);
+  let playerImg = getPlayerImg(players, props.id);
+  let opponentImg = getOpponentImg(players, props.id);
 
   return (
     <div className="col-md-9" id="arena">

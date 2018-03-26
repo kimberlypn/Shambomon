@@ -2,13 +2,8 @@ import React from 'react';
 
 import HP from './hp';
 
-// Renders the player's character name and HP
-export default function PlayerInfo(props) {
-  var health, name, pokemon, pos;
-  let players = props.state.players;
-  health = players[props.player].health;
-  name = players[props.player].char;
-
+// Returns a list of HP components to be rendered
+function getHealthBars(health) {
   var hp = []
   for (var i = 0; i < health; i++) {
     // Use 'and' because JS is weird about double inequalities
@@ -25,6 +20,15 @@ export default function PlayerInfo(props) {
   for (var i = health; i < 100; i++) {
     hp.push(<HP type={"dead"} />);
   }
+  return hp;
+}
+
+// Renders the player's character name and HP
+export default function PlayerInfo(props) {
+  let players = props.state.players;
+  let health = players[props.player].health;
+  let hp = getHealthBars(health);
+  let name = players[props.player].char;
 
   // Pad the bottom player's name only
   if (props.left) {
