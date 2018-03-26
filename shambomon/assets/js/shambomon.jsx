@@ -111,7 +111,7 @@ class Shambomon extends React.Component {
     if (!ready && !this.state.gameOver) {
       return (
         <div id="battlefield">
-          <Waiting />;
+          <Waiting />
         </div>
       );
     }
@@ -123,7 +123,7 @@ class Shambomon extends React.Component {
       return (
         <div id="battlefield">
           <Winner winner={winner} id={this.user_id}
-            reset={this.sendReset.bind(this)} state={this.state} />;
+            reset={this.sendReset.bind(this)} state={this.state} />
         </div>
       );
     }
