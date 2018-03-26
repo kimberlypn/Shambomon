@@ -23,34 +23,31 @@ function getHealthBars(health) {
   return hp;
 }
 
+// Determines if the player's character name should be padded
+function getPadding(pad, name) {
+  if (pad) {
+    return (<p id="player-name">{name}</p>);
+  }
+  else {
+    return (<p>{name}</p>);
+  }
+}
+
 // Renders the player's character name and HP
 export default function PlayerInfo(props) {
   let players = props.state.players;
   let health = players[props.player].health;
   let hp = getHealthBars(health);
   let name = players[props.player].char;
+  let padding = getPadding(props.left, name);
 
-  // Pad the bottom player's name only
-  if (props.left) {
-    return (
-      <div>
-        <p id="player-name">{name}</p>
-        <div className="hp">
-          {hp}
-          <p>HP {health} / 100</p>
-        </div>
+  return (
+    <div>
+      {padding}
+      <div className="hp">
+        {hp}
+        <p>HP {health} / 100</p>
       </div>
-    );
-  }
-  else {
-    return (
-      <div>
-        <p>{name}</p>
-        <div className="hp">
-          {hp}
-          <p>HP {health} / 100</p>
-        </div>
-      </div>
-    );
-  }
+    </div>
+  );
 }
