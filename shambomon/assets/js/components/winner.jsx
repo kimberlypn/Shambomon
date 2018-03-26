@@ -25,6 +25,7 @@ export default class Winner extends React.Component {
     }
   }
 
+  // Renders the end-game page
   render() {
     if (!this.state.spectators.includes(this.state.id)) {
       return (

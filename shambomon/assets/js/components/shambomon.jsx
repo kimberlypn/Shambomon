@@ -129,7 +129,7 @@ class Shambomon extends React.Component {
       return (
         <div id="battlefield">
           <div className="row container">
-            <Messages state={this.state} />
+            <Messages messages={this.state.messages} />
             <Battlefield state={this.state} id={this.user_id}
               attack={this.sendAttack.bind(this)} />
           </div>
