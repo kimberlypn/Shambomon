@@ -23,6 +23,8 @@ function getMessages(messages) {
 // Renders the attack history sidebar
 export default function Messages(props) {
   let messages = props.messages;
+  let msgs = getMessages(messages);
+  
   // Skip if no messages
   if (messages.length == 0) {
     return (
@@ -35,7 +37,7 @@ export default function Messages(props) {
     return (
       <div className="col-md-3" id="messages">
         <h3>ATTACK HISTORY</h3>
-        {getMessages(messages)}
+        {msgs}
       </div>
     );
   }
