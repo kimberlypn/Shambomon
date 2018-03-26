@@ -31,7 +31,7 @@ Yes.
 7. What parts of the project did each team member work on?
 Kimberly: overall UI design; DB logic for the leaderboard and 
 maintaining sessions; spectators; rendering the client-side and 
-message-handling on the channel; game-reset logic; creating a 
+request-handling on the server; game-reset logic; creating a 
 component view and React components to organize/reuse code
 
 Matt: character selection page; maintainging persistent user 
