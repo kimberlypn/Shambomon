@@ -15,16 +15,15 @@ defmodule ShambomonWeb.GamesChannel do
     |> assign(:name, name)
 
     # Add the player to the game if it is not full
-    if !Game.is_full(game) do
-      game = Game.add_player(game, payload["user"], payload["character"])
-    else
+    if !Game.is_full(game), do:
+      game = Game.add_player(game, payload["user"], payload["character"]),
+    else:
       game = Game.add_spectator(game, payload["user"])
-    end
 
     # Save the game
     GameBackup.save(name, game)
 
-    # sends the game state after joining
+    # Send the game state after joining
     send(self, {:after_join, game})
 
     # Send an ok message
@@ -32,24 +31,21 @@ defmodule ShambomonWeb.GamesChannel do
   end
 
   def handle_info({:after_join, game}, socket) do
-    # broadcasts a refresh message to update the game state
+    # Broadcast a refresh message to update the game state
     broadcast! socket, "refresh", game
 
     {:noreply, socket}
   end
 
-  # Channels can be used in a request/response fashion
-  # by sending replies to requests from the client
-
   # Sends to chosen attack to attack()
   def handle_in("attack", %{"attack" => a}, socket) do
-    # Call attack() with the current state
+    # Call attack() with the current game state
     game = Game.attack(GameBackup.load(socket.assigns[:name]), a)
 
     # Save game after generating new game state
     GameBackup.save(socket.assigns[:name], game)
 
-    # broadcasts a refresh message to update the game state
+    # Broadcast a refresh message to update the game state
     broadcast! socket, "refresh", game
 
     # Send an ok message
@@ -64,6 +60,12 @@ defmodule ShambomonWeb.GamesChannel do
     # Override game with new state
     GameBackup.save(socket.assigns[:name], game)
 
+    # Reset match_recorded flag if the game has been reset
+    if !Map.get(game, :gameOver) do
+      socket = socket
+      |> assign(:match_recorded, false)
+    end
+
     # Broadcast refresh message to update the game state
     broadcast! socket, "refresh", game
 
@@ -72,36 +74,31 @@ defmodule ShambomonWeb.GamesChannel do
   end
 
   # Updates the player's stats
-  def handle_in("stats", %{"id" => id, "stats" => stats}, socket) do
-    user = Accounts.get_user(id)
-    if stats == 1 do
-      Accounts.update_user(user, %{wins: user.wins + 1})
-    else
-      Accounts.update_user(user, %{losses: user.losses + 1})
-    end
-
+  def handle_in("stats", %{"id" => id}, socket) do
+    Accounts.update_stats(id)
+    
     {:noreply, socket}
   end
 
   # Creates a match history record
   def handle_in("history", %{"player" => player, "opponent" => opponent,
     "player_champ" => player_champ, "opponent_champ" => opponent_champ}, socket) do
-    changeset =
-      %{
-        player_id: player,
-        opponent_id: opponent,
-        player_champ: player_champ,
-        opponent_champ: opponent_champ
-      }
-    Gameplay.create_match(changeset)
+    if !socket.assigns[:match_recorded] do
+      changeset =
+        %{
+          player_id: player,
+          opponent_id: opponent,
+          player_champ: player_champ,
+          opponent_champ: opponent_champ
+        }
+      Gameplay.create_match(changeset)
 
-    {:noreply, socket}
-  end
+      # Set flag to indicate that a match record has already been created
+      # for this game
+      socket = socket
+      |> assign(:match_recorded, true)
+    end
 
-  # It is also common to receive messages from the client and
-  # broadcast to everyone in the current topic (games:lobby).
-  def handle_in("shout", payload, socket) do
-    broadcast socket, "shout", payload
     {:noreply, socket}
   end
 end

@@ -1,0 +1,7 @@
+<style>
+  /* Image credits to https://www.wallpapervortex.com/wallpaper-51609_pokemon_8_bit_8_bit_pokemon.html#.WrgWTSM-LMI */
+  body {
+    background-image: url('/images/Background-Bikes.png');
+    background-size: 80%;
+  }
+</style>
