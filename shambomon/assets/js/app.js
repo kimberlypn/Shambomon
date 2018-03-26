@@ -19,7 +19,7 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 import socket from "./socket"
-import start_game from "./shambomon";
+import start_game from "./components/shambomon";
 
 function init() {
   let mainRoot = document.getElementById('main');

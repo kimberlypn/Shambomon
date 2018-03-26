@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Button } from 'reactstrap';
 
+import Waiting from './waiting';
+import Winner from './winner';
+
 export default function start_game(root, channel, user_id) {
   ReactDOM.render(<Shambomon channel={ channel } user={ user_id } />, root);
 }
@@ -109,23 +112,15 @@ class Shambomon extends React.Component {
     let ready = this.isReady();
     // Game has less than two players
     if (!ready && !this.state.gameOver) {
-      return (
-        <div id="battlefield">
-          <Waiting />
-        </div>
-      );
+      return <Waiting />;
     }
     // Someone has won
     else if (this.state.gameOver) {
       let winner = this.getWinner();
       this.sendHistory(winner);
       this.sendStats();
-      return (
-        <div id="battlefield">
-          <Winner winner={winner} id={this.user_id}
-            reset={this.sendReset.bind(this)} state={this.state} />
-        </div>
-      );
+      return <Winner winner={winner} id={this.user_id}
+        reset={this.sendReset.bind(this)} state={this.state} />;
     }
     // Ongoing game
     else {
@@ -140,63 +135,6 @@ class Shambomon extends React.Component {
       );
     }
   }
-}
-
-// Renders a waiting message
-function Waiting() {
-  return (
-    <div className="centered center-text">
-      <div className="row">
-        <div className="col-md-6 offset-md-3">
-          <p>Waiting for another player...</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// Renders the end-game message
-function Winner(props) {
-  var msg = "";
-  if (props.winner == props.id) {
-    msg = "You won!";
-  }
-  else {
-    msg = "You lost!";
-  }
-
-  if (!props.state.spectators.includes(props.id)) {
-    return (
-      <div className="centered center-text">
-        <div className="row">
-          <div className="col-md-6 offset-md-3">
-            <p>{msg}</p>
-            <NewGame reset={props.reset} id={props.id} />
-            <p className="divider"> | </p>
-            <Leaderboard reset={props.reset} id={props.id} />
-          </div>
-        </div>
-      </div>
-    );
-  }
-  else {
-    return <Limbo state={props.state} />;
-  }
-}
-
-// Renders a message for those who try to join a game that has just ended;
-// they must wait for it to reset first
-function Limbo(props) {
-  return (
-    <div className="centered center-text">
-      <div className="row">
-        <div className="col-md-6 offset-md-3">
-          <p>Game is currently busy. Try again later.</p>
-          <a href="/game/">BACK</a>
-        </div>
-      </div>
-    </div>
-  );
 }
 
 // Renders the attack history sidebar
@@ -398,18 +336,4 @@ function Attack(props) {
   else {
     return (<div></div>);
   }
-}
-
-// Resets the game state and redirects the user back to the game name page
-function NewGame(props) {
-  return (
-    <a href="/game/" onClick={() => props.reset(props.id)}>New Game</a>
-  );
-}
-
-// Resets the game state and redirects the user to the leaderboard
-function Leaderboard(props) {
-  return (
-    <a href="/users/" onClick={() => props.reset(props.id)}>Leaderboard</a>
-  );
 }
