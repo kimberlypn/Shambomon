@@ -3,7 +3,7 @@ import React from 'react';
 // Renders the attack buttons
 export default function Attack(props) {
   let players = props.state.players;
-  var disabled = players[props.state.turn].id != props.id;
+  let disabled = players[props.state.turn].id != props.id;
 
   // Don't show the attack buttons for spectators
   if (!props.state.spectators.includes(props.id)) {
