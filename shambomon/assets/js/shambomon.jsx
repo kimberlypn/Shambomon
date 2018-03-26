@@ -53,13 +53,8 @@ class Shambomon extends React.Component {
   }
 
   // Sends a request to the server to update the user's stats
-  sendStats(winner) {
-    let stats = 1
-    // Send a 1 if the user won; else, send a -1
-    if (this.user_id != winner) {
-      stats = -1;
-    }
-    this.channel.push("stats", {id: this.user_id, stats: stats});
+  sendStats() {
+    this.channel.push("stats", {id: this.user_id});
   }
 
   // Sends a request to the server to update the user's match history
@@ -111,7 +106,6 @@ class Shambomon extends React.Component {
 
   // Main render function
   render() {
-    console.log(this.state);
     let ready = this.isReady();
     // Game has less than two players
     if (!ready && !this.state.gameOver) {
@@ -120,8 +114,8 @@ class Shambomon extends React.Component {
     // Someone has won
     else if (this.state.gameOver) {
       let winner = this.getWinner();
-      this.sendStats(winner);
       this.sendHistory(winner);
+      this.sendStats();
       return <Winner winner={winner} id={this.user_id}
         reset={this.sendReset.bind(this)} state={this.state} />;
     }

@@ -3,6 +3,7 @@
 
 <% else %>
 <%= render ShambomonWeb.ComponentView, "functions.html", assigns %>
+<%= render ShambomonWeb.ComponentView, "index_background.html", assigns %>
 <%= render ShambomonWeb.ComponentView, "header.html", assigns %>
 
 <!-- MAIN PAGE -->

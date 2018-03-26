@@ -247,17 +247,16 @@ defmodule Shambomon.Game do
     p1 = Enum.at(players, 0)
     p2 = Enum.at(players, 1)
 
-    if Map.get(p1, :id) == id do
-      p1 = %{id: nil, char: "", health: 100, attack: ""}
-    else
-      p2 = %{id: nil, char: "", health: 100, attack: ""}
-    end
+    # Only reset the ID so that the win/lose message doens't change
+    if Map.get(p1, :id) == id, do:
+      p1 = Map.put(p1, :id, nil),
+    else:
+      p2 = Map.put(p2, :id, nil)
 
     # Reset the game if both players have left
-    if !Map.get(p1, :id) and !Map.get(p2, :id) do
-      new()
-    else
+    if !Map.get(p1, :id) and !Map.get(p2, :id), do:
+      new(),
+    else:
       Map.put(game, :players, [p1, p2])
-    end
   end
 end
