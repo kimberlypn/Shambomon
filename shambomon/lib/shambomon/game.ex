@@ -124,7 +124,7 @@ defmodule Shambomon.Game do
   end
 
   # Updates the given player's HP
-  defp update_health(game, player) do
+  defp update_health(game, player, special?) do
     players = Map.get(game, :players)
     p1 = Enum.at(players, 0)
     p2 = Enum.at(players, 1)
@@ -144,7 +144,8 @@ defmodule Shambomon.Game do
       else: 1 + (Enum.count(Map.values(last_losses), fn(x) -> x == player end) * 0.5)
     multiplier = if (player != prev1_loser) and (player == prev2_loser), do: 1,
       else: multiplier
-    health_decr = round(10 * multiplier)
+    # if a special attack was successful then it does 40 damage, otherwise the damage is base (10) multiplied by the multiplier
+    health_decr = if special?, do: 40, else: round(10 * multiplier)
 
     cond do
       player == 0 ->
@@ -189,15 +190,15 @@ defmodule Shambomon.Game do
 
   defp update_messages(game, player, special_roll, _special?) do
     msgs = Map.get(game, :messages)
-    msgs = if special_roll == 6, do: msgs ++ [player <> " used their special attack! It's super effective!"],
-      else: msgs ++ [player <> " used their special attack, but it missed! Roll value: " <> Integer.to_string(special_roll)]
+    # insert special attack related messages in groups of three to display correctly
+    msgs = msgs ++ ["Roll value: " <> Integer.to_string(special_roll)]
+    msgs = if special_roll == 6, do: msgs ++ ["It's super effective!"] ++ [player <> " used their special attack!"],
+      else: msgs ++ ["But it missed!"] ++ [player <> " used their special attack..."]
 
     Map.put(game, :messages, msgs)
   end
 
   defp handle_specials(game, p1, p2) do
-    IO.inspect(p1)
-    IO.inspect(p2)
     p1_special_roll = Map.get(p1, :specialRoll)
     p2_special_roll = Map.get(p2, :specialRoll)
     updated_game = game
@@ -221,6 +222,7 @@ defmodule Shambomon.Game do
     p1Attack = Map.get(p1, :attack)
     p2Attack = Map.get(p2, :attack)
     p2_special? = p2Attack == "Special"
+    special_activated? = p1Attack == "Special" or p2_special?
     p1Char = Map.get(p1, :char)
     p2Char = Map.get(p2, :char)
     updated_game = game
@@ -249,17 +251,15 @@ defmodule Shambomon.Game do
             loser = 1
         end
       else
+        # Player 2 automatically wins if they successfully activate their special attack
         loser = 0
       end
 
       updated_game = handle_specials(game, p1, p2)
     end
 
-    # winner player number is the opposite of the loser player number and can be calculated by: |loser - 1|
-    # winner = abs(loser - 1)
-
     update_messages(updated_game, p1Char, p1Attack, p2Char, p2Attack)
-    |> update_health(loser)
+    |> update_health(loser, special_activated?)
   end
 
   # Set the gameOver flag if applicable
