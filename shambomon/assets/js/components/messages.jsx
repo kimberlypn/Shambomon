@@ -6,15 +6,15 @@ function getMessages(messages) {
   if (messages.length > 0) {
     // Make the newest set of messages a different color
     for (var i = messages.length - 1; i >= messages.length - 3; i--) {
-      msgs.push(<p className="last-messages">>> {messages[i]}</p>);
+      msgs.push(<p className="last-messages" key={i}> {messages[i]}</p>);
     }
     if (messages.length >= 3) {
-      msgs.push(<br />);
+      msgs.push(<br key={messages.length}/>);
       for (var i = messages.length - 4; i >= 0; i--) {
-        msgs.push(<p>>> {messages[i]}</p>);
+        msgs.push(<p key={i}> {messages[i]}</p>);
         // Add a space between each round
         if (i % 3 == 0) {
-          msgs.push(<br />);
+          msgs.push(<br key={messages.length * 2 + i}/>);
         }
       }
     }
