@@ -7,11 +7,12 @@ export default function Attack(props) {
   let specialDisabled = players[props.state.turn].specialUsed || disabled
   let specialSet = false;
 
+  // Sends the attack and a flag indicating if the special was used
   function attack(option) {
-    console.log(specialSet);
     props.attack(option, specialSet);
   }
 
+  // Sets the special flag to true and alerts the user to choose an attack
   function special() {
     specialSet = true;
     alert("Now choose an attack.");
