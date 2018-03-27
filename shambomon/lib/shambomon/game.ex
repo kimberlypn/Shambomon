@@ -151,24 +151,27 @@ defmodule Shambomon.Game do
   defp handle_specials(game, p1, p2) do
     p1_special_roll = Map.get(p1, :specialRoll)
     p2_special_roll = Map.get(p2, :specialRoll)
+    update_game = game
 
     # Player 1 used a special attack
     if p1_special_roll != nil do
-      update_messages(game, p1.char, p1_special_roll, p1_special_roll != nil)
+      updated_game =
+        update_messages(game, p1.char, p1_special_roll, p1_special_roll != nil)
     end
 
     # Player 2 used a special attack
     if p2_special_roll != nil do
-      update_messages(game, p2.char, p2_special_roll, p2_special_roll != nil)
+      updated_game =
+        update_messages(game, p2.char, p2_special_roll, p2_special_roll != nil)
     end
+
+    updated_game
   end
 
   # Updates the messages array with the attacks
   defp update_messages(game, p1Char, p1Attack, p2Char, p2Attack) do
-    msgs = Map.get(game, :messages)
-
     # Add the attacks chosen
-    msgs = msgs
+    msgs = Map.get(game, :messages)
       ++ [p1Char <> " chose " <> p1Attack <> "."]
       ++ [p2Char <> " chose " <> p2Attack <> "."]
 
