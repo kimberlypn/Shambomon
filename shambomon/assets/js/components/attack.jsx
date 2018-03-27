@@ -1,4 +1,5 @@
 import React from 'react';
+import swal from 'sweetalert';
 
 // Renders the attack buttons
 export default function Attack(props) {
@@ -8,13 +9,12 @@ export default function Attack(props) {
   let specialSet = false;
 
   function attack(option) {
-    console.log(specialSet);
     props.attack(option, specialSet);
   }
 
   function special() {
     specialSet = true;
-    alert("Now choose an attack.");
+    swal("You activated your special ability!", "Now choose a default attack.", "warning");
   }
 
   // Don't show the attack buttons for spectators
