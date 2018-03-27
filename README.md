@@ -8,4 +8,4 @@
 Shambomon is a two-player game inspired by the two classics: Roshambo (more 
 commonly known as "Rock-Paper-Scissors") and Pokémon. 
 
-![index page](screenshots/index)
+![index page](screenshots/index.png)
