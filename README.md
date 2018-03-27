@@ -16,7 +16,6 @@ bring your opponent's HP to 0.
 ================================================================================ 
 ## Creating a Game
 ================================================================================ 
-
 When users first visit the home page, they will be prompted with a log-in form. 
 ![index page](screenshots/index.png) 
 
