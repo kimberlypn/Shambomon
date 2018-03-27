@@ -55,3 +55,13 @@ Players can use the "Help" link in the top-right to toggle the help pages.
 Once the game ends, players will see a message indicating whether or not they 
 have won. 
 ![end-game page](screenshots/winner.png) 
+
+## Leaderboard 
+Users' stats will be recorded in a leaderboard, where they can view their ranks 
+and win ratios compared to those of other users. 
+![leaderboard](screenshots/leaderboard.png) 
+
+Users can also view details about individual matches by using the "Match 
+History" link. Victories are highlighted in blue, while defeats are highlighted 
+in pink. 
+![match history page](screenshots/match-history.png) 
