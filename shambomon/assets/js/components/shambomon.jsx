@@ -99,7 +99,7 @@ class Shambomon extends React.Component {
   // Returns the id of the winner
   getWinner() {
     let players = this.state.players;
-    // Player 2 wons
+    // Player 2 won
     if (players[0].health <= 0) {
       return players[1].id;
     }
