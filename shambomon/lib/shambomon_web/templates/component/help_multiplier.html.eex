@@ -1,0 +1,21 @@
+<!-- Multiplier Information -->
+<div class="row">
+  <div class="col-md-6 offset-md-3 mult">
+    <h2>ATTACK MULTIPLIERS</h2>
+    <ul>
+      <li>
+        >> 1 win = <span>1x multiplier</span> (deal 10 damage)
+      </li>
+      <li>
+        >> 2 consecutive wins = <span>1.5x multiplier</span> (deal 15 damage)
+      </li>
+      <li>
+        >> 3 consecutive wins = <span>2x multiplier</span> (deal 20 damage)
+      </li>
+      <li>
+        >> <span>The multiplier resets to 1x on the fourth consecutive win or if
+        your opponent chooses a superior or the same attack.</span>
+      </li>
+    </ul>
+  </div>
+</div>

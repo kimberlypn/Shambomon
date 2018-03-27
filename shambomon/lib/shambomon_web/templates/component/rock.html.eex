@@ -1,9 +1,0 @@
-<div class="row">
-  <div class="col-md-6 offset-md-3">
-    <img src="/images/Rock.png" />
-    <span>BEATS</span>
-    <img src="/images/Scissor.png" />
-    <span>BUT LOSES TO</span>
-    <img src="/images/Paper.png" />
-  </div>
-</div>
