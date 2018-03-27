@@ -38,9 +38,9 @@ defmodule ShambomonWeb.GamesChannel do
   end
 
   # Sends to chosen attack to attack()
-  def handle_in("attack", %{"attack" => a}, socket) do
+  def handle_in("attack", %{"attack" => a, "special" => s}, socket) do
     # Call attack() with the current game state
-    game = Game.attack(GameBackup.load(socket.assigns[:name]), a)
+    game = Game.attack(GameBackup.load(socket.assigns[:name]), a, s)
 
     # Save game after generating new game state
     GameBackup.save(socket.assigns[:name], game)
@@ -76,7 +76,7 @@ defmodule ShambomonWeb.GamesChannel do
   # Updates the player's stats
   def handle_in("stats", %{"id" => id}, socket) do
     Accounts.update_stats(id)
-    
+
     {:noreply, socket}
   end
 

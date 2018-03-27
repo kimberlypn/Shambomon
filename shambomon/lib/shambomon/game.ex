@@ -7,8 +7,8 @@ defmodule Shambomon.Game do
       turn: 0,
       attacks: 0,
       players: [
-        %{id: nil, char: "", health: 100, attack: ""},
-        %{id: nil, char: "", health: 100, attack: ""}
+        %{id: nil, char: "", health: 100, attack: "", specialUsed: false, specialRoll: nil},
+        %{id: nil, char: "", health: 100, attack: "", specialUsed: false, specialRoll: nil}
       ],
       spectators: [],
       lastLosses: %{ prev1: nil, prev2: nil },
@@ -98,15 +98,27 @@ defmodule Shambomon.Game do
   end
 
   # Updates the attack chosen by the current player
-  defp update_player_attack(game, attk) do
+  defp update_player_attack(game, attk, special?) do
     players = Map.get(game, :players)
     p1 = Enum.at(players, 0)
     p2 = Enum.at(players, 1)
+    # current_turn = Map.get(game, :turn)
+    # current_player = if current_turn == 0, do: p1.char, else: p2.char
+    # generates a random number between 1-6 to determine if the special attack is successful
+    special_roll = if special?, do: :rand.uniform(6), else: nil
+    # if the special skill was activated and the special roll is 6
+    # specialAttk? = special? and special_roll == 6
+    attack_move = if special? and special_roll == 6, do: "Special", else: attk
 
-    if Map.get(game, :turn) == 0, do:
-      p1 = Map.put(p1, :attack, attk),
-    else:
-      p2 = Map.put(p2, :attack, attk)
+    if Map.get(game, :turn) == 0 do
+      # p1 = if specialAttk?, do: %{ p1 | attack: "Special", specialUsed: special?, specialRoll: special_roll },
+      #   else: %{ p1 | attack: attk, specialUsed: special?, specialRoll: special_roll }
+      p1 = %{ p1 | attack: attack_move, specialUsed: special?, specialRoll: special_roll }
+    else
+      # p2 = if specialAttk?, do: %{ p2 | attack: "Special", specialUsed: special?, specialRoll: special_roll },
+      #   else: %{ p2 | attack: attk, specialUsed: special?, specialRoll: special_roll }
+      p2 = %{ p2 | attack: attack_move, specialUsed: special?, specialRoll: special_roll }
+    end
 
     Map.put(game, :players, [p1, p2])
   end
@@ -175,6 +187,32 @@ defmodule Shambomon.Game do
     Map.put(game, :messages, msgs)
   end
 
+  defp update_messages(game, player, special_roll, _special?) do
+    msgs = Map.get(game, :messages)
+    msgs = if special_roll == 6, do: msgs ++ [player <> " used their special attack! It's super effective!"],
+      else: msgs ++ [player <> " used their special attack, but it missed! Roll value: " <> Integer.to_string(special_roll)]
+
+    Map.put(game, :messages, msgs)
+  end
+
+  defp handle_specials(game, p1, p2) do
+    IO.inspect(p1)
+    IO.inspect(p2)
+    p1_special_roll = Map.get(p1, :specialRoll)
+    p2_special_roll = Map.get(p2, :specialRoll)
+    updated_game = game
+
+    if p1_special_roll != nil do
+      updated_game = update_messages(updated_game, p1.char, p1_special_roll, p1_special_roll != nil)
+    end
+
+    if p2_special_roll != nil do
+      updated_game = update_messages(updated_game, p2.char, p2_special_roll, p2_special_roll != nil)
+    end
+
+    updated_game
+  end
+
   # Determines who won the round and calculates the damage taken accordingly
   defp determine_winner(game) do
     players = Map.get(game, :players)
@@ -182,31 +220,45 @@ defmodule Shambomon.Game do
     p2 = Enum.at(players, 1)
     p1Attack = Map.get(p1, :attack)
     p2Attack = Map.get(p2, :attack)
+    p2_special? = p2Attack == "Special"
     p1Char = Map.get(p1, :char)
     p2Char = Map.get(p2, :char)
+    updated_game = game
     loser = nil
 
     if !String.equivalent?(p1Attack, p2Attack) do
-      cond do
-        String.equivalent?(p1Attack, "Rock") ->
-          if String.equivalent?(p2Attack, "Paper"), do:
-            loser = 0,
-          else:
+      if !p2_special? do
+        cond do
+          String.equivalent?(p1Attack, "Rock") ->
+            if String.equivalent?(p2Attack, "Paper"), do:
+              loser = 0,
+            else:
+              loser = 1
+          String.equivalent?(p1Attack, "Paper") ->
+            if String.equivalent?(p2Attack, "Rock"), do:
+              loser = 1,
+            else:
+              loser = 0
+          String.equivalent?(p1Attack, "Scissor") ->
+            if String.equivalent?(p2Attack, "Rock"), do:
+              loser = 0,
+            else:
+              loser = 1
+          String.equivalent?(p1Attack, "Special") ->
+            # Player 1 automatically wins if they successfully activate their special attack
             loser = 1
-        String.equivalent?(p1Attack, "Paper") ->
-          if String.equivalent?(p2Attack, "Rock"), do:
-            loser = 1,
-          else:
-            loser = 0
-        String.equivalent?(p1Attack, "Scissor") ->
-          if String.equivalent?(p2Attack, "Rock"), do:
-            loser = 0,
-          else:
-            loser = 1
+        end
+      else
+        loser = 0
       end
+
+      updated_game = handle_specials(game, p1, p2)
     end
 
-    update_messages(game, p1Char, p1Attack, p2Char, p2Attack)
+    # winner player number is the opposite of the loser player number and can be calculated by: |loser - 1|
+    # winner = abs(loser - 1)
+
+    update_messages(updated_game, p1Char, p1Attack, p2Char, p2Attack)
     |> update_health(loser)
   end
 
@@ -223,15 +275,15 @@ defmodule Shambomon.Game do
   end
 
   # Handles an attack
-  def attack(game, attk) do
+  def attack(game, attk, special?) do
     # First attack in the round
     if Map.get(game, :attacks) == 0 do
-      update_player_attack(game, attk)
+      update_player_attack(game, attk, special?)
       |> update_attacks()
       |> update_turn()
     # Both attacks have been chosen, so calculate damage
     else
-      update_player_attack(game, attk)
+      update_player_attack(game, attk, special?)
       |> determine_winner()
       |> update_attacks()
       |> check_hp()

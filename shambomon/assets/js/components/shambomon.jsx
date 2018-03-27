@@ -20,8 +20,8 @@ class Shambomon extends React.Component {
       turn: 0, // current player whose turn it is
       attacks: 0, // number of attacks that have been chosen in the round
       players: [
-        {id: null, char: "", health: 100, attack: ""},
-        {id: null, char: "", health: 100, attack: ""}
+        {id: null, char: "", health: 100, attack: "", specialUsed: false, specialRoll: null},
+        {id: null, char: "", health: 100, attack: "", specialUsed: false, specialRoll: null}
       ], // information of the two users playing
       lastLosses: null, // keeps track of the last two losses for the multiplier
       spectators: [], // list of spectator ids
