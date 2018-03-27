@@ -250,11 +250,10 @@ defmodule Shambomon.Game do
         # Player 2 automatically wins if they successfully activate their special attack
         loser = 0
       end
-
-      updated_game = handle_specials(game, p1, p2)
     end
 
-    update_messages(updated_game, p1Char, p1Attack, p2Char, p2Attack)
+    handle_specials(updated_game, p1, p2)
+    |> update_messages(p1Char, p1Attack, p2Char, p2Attack)
     |> update_health(loser, special_activated?)
   end
 
