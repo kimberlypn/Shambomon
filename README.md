@@ -67,4 +67,4 @@ History" link. Victories are highlighted in blue, while defeats are highlighted
 in pink. 
 ![match history page](screenshots/match-history.png) 
 
-Game on!
+Have fun playing!
