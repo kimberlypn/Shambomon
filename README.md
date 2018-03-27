@@ -5,21 +5,30 @@
 
 **Course Website**: http://www.ccs.neu.edu/home/ntuck/courses/2018/01/cs4550/
 
+## Introduction
 Shambomon is a two-player game inspired by the two classics: Roshambo (more 
-commonly known as "Rock-Paper-Scissors") and Pokémon. 
+commonly known as "Rock-Paper-Scissors") and Pokémon. Each player starts off 
+with 100 health points (HP), and the goal of the game is to be the first to 
+bring your opponent's HP to 0.
 
-When a user first visit the home page, she will be prompted with a log-in form. 
+## Creating a Game
+When users first visit the home page, they will be prompted with a log-in form. 
 ![index page](screenshots/index.png) 
 
-There are help pages on the home page that the user can read to learn how to 
-play. 
+Users can use the "Help" link to open the help pages and learn how to play. 
 ![index page help](screenshots/index-help-pg-1.png) 
 ![index page help](screenshots/index-help-pg-2.png) 
 
-If the user does not an account yet, she can use the "Registration" link to 
-create one. This will redirect her to a registration form.
+If users do not have an account yet, they can use the "Registration" link to 
+create one. This will redirect them to a registration form. 
 ![registration form](screenshots/registration.png) 
 
-After logging in, the user will be prompted for a game name. Two users who enter 
+After logging in, users will be prompted for a game name. Two users who enter 
 the same game name will be placed in the same game to play against each other. 
 ![game name form](screenshots/game-name.png) 
+
+There are 12 different Pokémon to choose from. 
+![character selection page](screenshots/character-selection.png) 
+
+If the room does not have two players yet, users will see a "Waiting" message. 
+![waiting page](screenshots/waiting.png) 
