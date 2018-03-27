@@ -1,21 +1,17 @@
 # Shambomon
 **Collaborators**: Matt Dang, Kimberly Nguyen 
 
-**Shambomon**: http://shambomon.kimberlynguyen.solutions
+**Shambomon**: http://shambomon.kimberlynguyen.solutions 
 
-**Course Website**: http://www.ccs.neu.edu/home/ntuck/courses/2018/01/cs4550/
+**Course Website**: http://www.ccs.neu.edu/home/ntuck/courses/2018/01/cs4550/ 
 
-================================================================================ 
-## Introduction
-================================================================================ 
-Shambomon is a two-player game inspired by the two classics: Roshambo (more 
-commonly known as "Rock-Paper-Scissors") and Pokémon. Each player starts off 
+## Introduction 
+Shambomon is a two-player game inspired by the two classics: [Roshambo](https://en.wikipedia.org/wiki/Rock–paper–scissors) (more 
+commonly known as "Rock-Paper-Scissors") and [Pokémon](https://en.wikipedia.org/wiki/Pokémon). Each player starts off 
 with 100 health points (HP), and the goal of the game is to be the first to 
-bring your opponent's HP to 0.
+bring your opponent's HP to 0. 
 
-================================================================================ 
-## Creating a Game
-================================================================================ 
+## Creating a Game 
 When users first visit the home page, they will be prompted with a log-in form. 
 ![index page](screenshots/index.png) 
 
@@ -37,9 +33,7 @@ There are 12 different Pokémon to choose from.
 If the room does not have two players yet, users will see a "Waiting" message. 
 ![waiting page](screenshots/waiting.png) 
 
-================================================================================ 
-## Gameplay
-================================================================================ 
+## Gameplay 
 Once a second player joins, the battlefield will be rendered. 
 ![battlefield page](screenshots/battlefield.png) 
 
