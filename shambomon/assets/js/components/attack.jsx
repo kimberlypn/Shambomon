@@ -4,6 +4,7 @@ import React from 'react';
 export default function Attack(props) {
   let players = props.state.players;
   let disabled = players[props.state.turn].id != props.id;
+  let specialDisabled = players[props.state.turn].specialUsed || disabled
   let specialSet = false;
 
   function attack(option) {
@@ -35,7 +36,7 @@ export default function Attack(props) {
             onClick={() => attack("Scissor")} alt="Scissor" />
         </span>
         <span>
-          <input type="image" src="/images/Special.png" disabled={disabled}
+          <input type="image" src="/images/Special.png" disabled={specialDisabled}
             onClick={() => special()} alt="Special" />
         </span>
       </div>
