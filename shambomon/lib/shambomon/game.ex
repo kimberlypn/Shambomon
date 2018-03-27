@@ -141,11 +141,10 @@ defmodule Shambomon.Game do
 
   # Updates the messages array with the result of the special attack
   defp update_messages(game, player, special_roll, _special?) do
-    msgs = Map.get(game, :messages)
-
     # Insert special-attack related messages in groups of three
     # so that they display correctly
-    msgs = msgs ++ ["Roll value: " <> Integer.to_string(special_roll)]
+    msgs = Map.get(game, :messages)
+      ++ ["Roll value: " <> Integer.to_string(special_roll)]
     msgs =
       if special_roll == 6, do:
         msgs
