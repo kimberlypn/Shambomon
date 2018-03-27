@@ -36,16 +36,16 @@
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <p class="explanation">
-        Once per game, you have a chance to activate a <span>special
+        Once per game, you have the chance to activate a <span>special
         attack</span> by clicking the "Star" attack button. After activating
         your special attack, you must choose a default attack so that the round
-        can proceed as normal in the event that the special attack fails. After
-        your opponent has chosen her attack, a dice will be rolled. <span>If it
-        lands on a 6, you will deal 40 damage to your opponent.</span> However,
-        if it lands on any other number, then the damage will be calculated
-        based on the default attacks. Both players can use their special attacks
-        in the same round, but if both players land a 6, then neither player
-        will be able to deal 40 damage.
+        can proceed as normally in the event that the special attack fails.
+        Once both attacks have been chosen for the round, a dice will be rolled.
+        <span>If it lands on a 6, you will deal 40 damage to your opponent.
+        </span> However, if it lands on any other number, then the damage will
+        be calculated based on the default attacks. Both players can use their
+        special attacks in the same round, but if both players land on a 6, then
+        neither player will be able to deal the 40 damage.
       </p>
     </div>
   </div>
