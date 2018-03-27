@@ -47,8 +47,8 @@ class Shambomon extends React.Component {
   }
 
   // Sends a request to the server to handle the logic for attacking
-  sendAttack(attack) {
-    this.channel.push("attack", { attack: attack })
+  sendAttack(attack, special) {
+    this.channel.push("attack", { attack: attack, special: special })
     .receive("ok", this.gotView.bind(this));
   }
 
