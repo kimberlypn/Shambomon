@@ -5,4 +5,7 @@
 
 **Course Website**: http://www.ccs.neu.edu/home/ntuck/courses/2018/01/cs4550/
 
-This repository contains all of our work for Project 1 for CS4550 Web Development.
+Shambomon is a two-player game inspired by the two classics: Roshambo (more 
+commonly known as "Rock-Paper-Scissors") and Pokémon. 
+
+![index page](screenshots/index)
