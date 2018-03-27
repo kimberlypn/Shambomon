@@ -317,11 +317,12 @@ li {
   display: none;
 }
 
+/* Center the attack icons */
 #help-pg-1, #help-pg-2 {
   text-align: center;
 }
 
-/* Text on the help page; override inherited .instructions styling */
+/* Text on the help page; override inherited .instructions span styling */
 #help-pg-1 span, .special-black span {
   font-size: 27px;
   padding-left: 10px;
@@ -329,19 +330,23 @@ li {
   color: black;
 }
 
+/* Override the overrided span coloring */
 .special-black {
   margin-bottom: 20px;
 }
 
+/* Make divider between BACK/NEXT/CLOSE links black */
 #help-pg-3 .divider {
   color: black;
 }
 
+/* ATTACK MULTIPLIERS header on page 3 */
 .mult h2 {
   font-size: 40px;
   text-align: center;
 }
 
+/* Attack icons */
 .help img {
   height: 80px;
   width: auto;
