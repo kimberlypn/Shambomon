@@ -32,3 +32,13 @@ There are 12 different Pokémon to choose from.
 
 If the room does not have two players yet, users will see a "Waiting" message. 
 ![waiting page](screenshots/waiting.png) 
+
+## Gameplay
+Once a second player joins, the battlefield will be rendered. 
+![battlefield page](screenshots/battlefield.png) 
+
+Users take turns playing multiple rounds of Roshambo using the attack buttons 
+below their character. The HP bars will change color as a player's HP goes down. 
+The sidebar to the left records the attacks chosen and damage taken for each 
+round. 
+![battlefield page](screenshots/mid-page.png) 
