@@ -8,17 +8,17 @@ function getHealthBars(health) {
   for (var i = 0; i < health; i++) {
     // Use 'and' because JS is weird about double inequalities
     if ((50 < health) && (health <= 100)) {
-      hp.push(<HP type={"alive"} />);
+      hp.push(<HP type={"alive"} key={i} />);
     }
     else if ((20 < health) && (health <= 50)) {
-      hp.push(<HP type={"low"} />);
+      hp.push(<HP type={"low"} key={i} />);
     }
     else {
-      hp.push(<HP type={"critical"} />);
+      hp.push(<HP type={"critical"} key={i} />);
     }
   }
   for (var i = health; i < 100; i++) {
-    hp.push(<HP type={"dead"} />);
+    hp.push(<HP type={"dead"} key={i} />);
   }
   return hp;
 }
