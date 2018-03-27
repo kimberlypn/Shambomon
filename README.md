@@ -68,7 +68,7 @@ have won.
 
 ## Leaderboard 
 Users' stats will be recorded in a leaderboard after each game. Here, they can 
-view their ranks and win ratios compared to those of other users. 
+compare their ranks and win ratios to those of other users. 
 ![leaderboard](screenshots/leaderboard.png) 
 
 Users can also view details about individual matches by using the "Match 
