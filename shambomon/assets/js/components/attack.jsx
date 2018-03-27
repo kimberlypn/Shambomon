@@ -16,7 +16,8 @@ export default function Attack(props) {
   // Sets the special flag to true and alerts the user to choose an attack
   function special() {
     specialSet = true;
-    swal("You activated your special ability!", "Now choose a default attack.", "warning");
+    swal("You activated your special ability!",
+      "Now choose a default attack.", "warning");
   }
 
   // Don't show the attack buttons for spectators

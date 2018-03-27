@@ -167,13 +167,15 @@ defmodule Shambomon.Game do
     # Player 1 used a special attack
     if p1_special_roll != nil do
       updated_game =
-        update_messages(game, p1.char, p1_special_roll, p1_special_roll != nil)
+        update_messages(updated_game, p1.char, p1_special_roll,
+          p1_special_roll != nil)
     end
 
     # Player 2 used a special attack
     if p2_special_roll != nil do
       updated_game =
-        update_messages(game, p2.char, p2_special_roll, p2_special_roll != nil)
+        update_messages(updated_game, p2.char, p2_special_roll,
+          p2_special_roll != nil)
     end
 
     updated_game
