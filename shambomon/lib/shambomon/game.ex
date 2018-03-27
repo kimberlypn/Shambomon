@@ -1,15 +1,27 @@
 defmodule Shambomon.Game do
   @moduledoc false
 
+  # Resets the players array
+  defp reset_players do
+    player =
+      %{
+        id: nil,
+        char: "",
+        health: 100,
+        attack: "",
+        specialUsed: false,
+        specialRoll: nil
+      }
+
+    [player, player]
+  end
+
   # Creates a new game
   def new do
     %{
       turn: 0,
       attacks: 0,
-      players: [
-        %{id: nil, char: "", health: 100, attack: "", specialUsed: false, specialRoll: nil},
-        %{id: nil, char: "", health: 100, attack: "", specialUsed: false, specialRoll: nil}
-      ],
+      players: reset_players(),
       spectators: [],
       lastLosses: %{prev1: nil, prev2: nil},
       messages: [],
