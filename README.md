@@ -15,12 +15,13 @@ bring your opponent's HP to 0.
 When users first visit the home page, they will be prompted with a log-in form. 
 ![index page](screenshots/index.png) 
 
-Users can use the "Help" link to open the help pages and learn how to play. 
+Users can use the "How to Play" link to open the help pages and learn how to 
+play. 
 ![index help page 1](screenshots/index-help-pg-1.png) 
 ![index help page 2](screenshots/index-help-pg-2.png) 
 
-If users do not have an account yet, they can use the "Registration" link to 
-create one. This will redirect them to a registration form. 
+If users do not have an account, they can use the "Register" link to create one. 
+This will redirect them to a registration form. 
 ![registration form](screenshots/registration.png) 
 
 After logging in, users will be prompted for a game name. Two users who enter 
@@ -37,8 +38,8 @@ If the room does not have two players yet, users will see a "Waiting" message.
 Once a second player joins, the battlefield will be rendered. 
 ![battlefield page](screenshots/battlefield.png) 
 
-Players take turns playing multiple rounds of Roshambo using the attack buttons 
-below their character. The HP bars will change color as a player's HP goes down. 
+Players take turns playing multiple rounds of Roshambo, using the attack buttons 
+in the bottom-right. The HP bars will change color as a player's HP goes down. 
 The sidebar to the left records the attacks chosen and damage taken for each 
 round. 
 ![battlefield page mid-game](screenshots/mid-game.png) 
@@ -57,11 +58,13 @@ have won.
 ![end-game page](screenshots/winner.png) 
 
 ## Leaderboard 
-Users' stats will be recorded in a leaderboard, where they can view their ranks 
-and win ratios compared to those of other users. 
+Users' stats will be recorded in a leaderboard after each game. Here, they can 
+view their ranks and win ratios compared to those of other users. 
 ![leaderboard](screenshots/leaderboard.png) 
 
 Users can also view details about individual matches by using the "Match 
 History" link. Victories are highlighted in blue, while defeats are highlighted 
 in pink. 
 ![match history page](screenshots/match-history.png) 
+
+Game on!
