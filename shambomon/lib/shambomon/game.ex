@@ -102,22 +102,18 @@ defmodule Shambomon.Game do
     players = Map.get(game, :players)
     p1 = Enum.at(players, 0)
     p2 = Enum.at(players, 1)
-    # current_turn = Map.get(game, :turn)
-    # current_player = if current_turn == 0, do: p1.char, else: p2.char
     # generates a random number between 1-6 to determine if the special attack is successful
-    special_roll = if special?, do: :rand.uniform(6), else: nil
+    special_roll = :rand.uniform(6)
     # if the special skill was activated and the special roll is 6
-    # specialAttk? = special? and special_roll == 6
     attack_move = if special? and special_roll == 6, do: "Special", else: attk
 
     if Map.get(game, :turn) == 0 do
-      # p1 = if specialAttk?, do: %{ p1 | attack: "Special", specialUsed: special?, specialRoll: special_roll },
-      #   else: %{ p1 | attack: attk, specialUsed: special?, specialRoll: special_roll }
-      p1 = %{ p1 | attack: attack_move, specialUsed: special?, specialRoll: special_roll }
+      # player is only allowed to use a special attack if they haven't already activated it
+      p1 = if !Map.get(p1, :specialUsed) and special?, do: %{ p1 | attack: attack_move, specialUsed: true, specialRoll: special_roll },
+        else: %{ p1 | attack: attk, specialRoll: nil }
     else
-      # p2 = if specialAttk?, do: %{ p2 | attack: "Special", specialUsed: special?, specialRoll: special_roll },
-      #   else: %{ p2 | attack: attk, specialUsed: special?, specialRoll: special_roll }
-      p2 = %{ p2 | attack: attack_move, specialUsed: special?, specialRoll: special_roll }
+      p2 = if !Map.get(p2, :specialUsed) and special?, do: %{ p2 | attack: attack_move, specialUsed: true, specialRoll: special_roll },
+        else: %{ p2 | attack: attk, specialRoll: nil }
     end
 
     Map.put(game, :players, [p1, p2])
