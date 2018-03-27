@@ -54,7 +54,7 @@ opponent.
 
 The message in the middle indicates whose turn it is. If users try to join a 
 game that is already full, the message will indicate that they are spectating. 
-Spectators can watch the game in real-time but are not allowed to play. 
+Spectators can watch the game in real time but are not allowed to play. 
 ![battlefield page for spectators](screenshots/battlefield-spectator.png) 
 
 Players can use the "Help" link in the top-right to toggle the help pages. 
