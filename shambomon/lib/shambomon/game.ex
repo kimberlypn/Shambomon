@@ -151,7 +151,7 @@ defmodule Shambomon.Game do
   defp handle_specials(game, p1, p2) do
     p1_special_roll = Map.get(p1, :specialRoll)
     p2_special_roll = Map.get(p2, :specialRoll)
-    update_game = game
+    updated_game = game
 
     # Player 1 used a special attack
     if p1_special_roll != nil do
