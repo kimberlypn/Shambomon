@@ -8,13 +8,16 @@ export default function Attack(props) {
   let specialDisabled = players[props.state.turn].specialUsed || disabled
   let specialSet = false;
 
+  // Sends the attack and a flag indicating if the special was used
   function attack(option) {
     props.attack(option, specialSet);
   }
 
+  // Sets the special flag to true and alerts the user to choose an attack
   function special() {
     specialSet = true;
-    swal("You activated your special ability!", "Now choose a default attack.", "warning");
+    swal("You activated your special ability!",
+      "Now choose a default attack.", "warning");
   }
 
   // Don't show the attack buttons for spectators

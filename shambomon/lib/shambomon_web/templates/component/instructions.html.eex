@@ -3,13 +3,13 @@
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <p class="explanation">
-        Each player has <span>100 health points (HP)</span>. On your turn, you
-        will be able to use one of three attacks by clicking the corresponding
-        image: <span>Rock, Paper, or Scissor.</span> The attacks follow the
-        conventions of Roshambo (“Rock-Paper-Scissors”), where each attack is
-        superior to one attack, inferior to another, and negated if the same
-        attack is chosen by the opponent. A round ends once each player has
-        chosen her attack and the damage dealt has been calculated. If both
+        Each player starts with <span>100 health points (HP)</span>. On your
+        turn, you will be able to use one of three attacks by clicking the
+        corresponding image: <span>Rock, Paper, or Scissor.</span> The attacks
+        follow the conventions of Roshambo (“Rock-Paper-Scissors”), where each
+        attack is superior to one attack, inferior to another, and negated if
+        the same attack is chosen by the opponent. A round ends once each player
+        has chosen her attack and the damage dealt has been calculated. If both
         players choose the same attack, then neither player will incur damage
         for that round. If the attacks are different, then the player who chose
         the inferior attack will incur damage.
@@ -22,7 +22,8 @@
         NEXT
       </a>
       <p class="divider"> | </p>
-      <a href="javascript:void(0);" onclick="toggle_three('main', 'pg-1', 'pg-2')">
+      <a href="javascript:void(0);"
+        onclick="toggle_three('main', 'pg-1', 'pg-2', 'pg-3')">
         CLOSE
       </a>
       </span>
@@ -35,17 +36,16 @@
   <div class="row">
     <div class="col-md-6 offset-md-3">
       <p class="explanation">
-        The damage dealt each round will increase on each consecutive win. For
-        example, if you win the first round, then you will deal -10 damage, which
-        is the base damage, to your opponent. If you win again the next round,
-        then you will earn a <span>1.5x multiplier</span> and be able to deal -15
-        damage to your opponent. The multiplier will be capped at 2x the base
-        damage (i.e., the maximum damage that a player can deal in a single round
-        is -20) and will reset back to 1x, or -10 damage, on the fourth
-        consecutive win. The multiplier will also reset if your opponent chooses
-        either the same attack or a superior attack. After a reset, you can work
-        to earn the multiplier again. <span>The game ends when one player’s HP
-        reaches 0, and the winner is the player who is still alive.</span>
+        Once per game, you have the chance to activate a <span>special
+        attack</span> by clicking the "Star" attack button. After activating
+        your special attack, you must choose a default attack so that the round
+        can proceed as normally in the event that the special attack fails.
+        Once both attacks have been chosen for the round, a dice will be rolled.
+        <span>If it lands on a 6, you will deal 40 damage to your opponent.
+        </span> However, if it lands on any other number, then the damage will
+        be calculated based on the default attacks. Both players can use their
+        special attacks in the same round, but if both players land on a 6, then
+        neither player will be able to deal the 40 damage.
       </p>
     </div>
   </div>
@@ -55,7 +55,46 @@
         BACK
       </a>
       <p class="divider"> | </p>
-      <a href="javascript:void(0);" onclick="toggle_three('main', 'pg-1', 'pg-2')">
+      <span><a href="javascript:void(0);" onclick="toggle_two('pg-2', 'pg-3')">
+        NEXT
+      </a>
+      <p class="divider"> | </p>
+      <a href="javascript:void(0);"
+        onclick="toggle_three('main', 'pg-1', 'pg-2', 'pg-3')">
+        CLOSE
+      </a>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- Instructions Page 3 -->
+<div class="centered instructions" id="pg-3">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <p class="explanation">
+        The damage dealt each round will increase on each consecutive win. For
+        example, if you win the first round, then you will deal 10 damage, which
+        is the base damage, to your opponent. If you win again the next round,
+        then you will earn a <span>1.5x multiplier</span> and be able to deal 15
+        damage to your opponent. The multiplier will be capped at 2x the base
+        damage (i.e., the maximum damage that a player can deal in a single round
+        is 20) and will reset back to 1x, or 10 damage, on the fourth
+        consecutive win. The multiplier will also reset if your opponent chooses
+        either the same attack or a superior attack. After a reset, you can work
+        to earn the multiplier again. <span>The game ends when one player’s HP
+        reaches 0, and the winner is the player who is still alive.</span>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 offset-md-3 right-side">
+      <span><a href="javascript:void(0);" onclick="toggle_two('pg-2', 'pg-3')">
+        BACK
+      </a>
+      <p class="divider"> | </p>
+      <a href="javascript:void(0);"
+        onclick="toggle_three('main', 'pg-1', 'pg-2', 'pg-3')">
         CLOSE
       </a>
       </span>

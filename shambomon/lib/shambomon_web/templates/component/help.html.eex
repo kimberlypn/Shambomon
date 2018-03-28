@@ -1,8 +1,6 @@
 <!-- Help Page 1 -->
 <div class="centered instructions help" id="help-pg-1">
-  <%= render ShambomonWeb.ComponentView, "rock.html", assigns %>
-  <%= render ShambomonWeb.ComponentView, "paper.html", assigns %>
-  <%= render ShambomonWeb.ComponentView, "scissor.html", assigns %>
+  <%= render ShambomonWeb.ComponentView, "help_attack.html", assigns %>
   <div class="row">
     <div class="col-md-6 offset-md-3 right-side">
       <span>
@@ -12,7 +10,7 @@
         </a>
         <p class="divider"> | </p>
         <a href="javascript:void(0);"
-          onclick="toggle_three('battlefield', 'help-pg-1', 'help-pg-2')">
+          onclick="toggle_three('battlefield', 'help-pg-1', 'help-pg-2', 'help-pg-3')">
           CLOSE
         </a>
       </span>
@@ -22,20 +20,9 @@
 
 <!-- Help Page 2 -->
 <div class="centered instructions help" id="help-pg-2">
+  <%= render ShambomonWeb.ComponentView, "help_special.html", assigns %>
   <div class="row">
-    <div class="col-md-6 offset-md-3 mult">
-      <p>1 win = <span>1x multiplier</span> (deal -10 damage)</p>
-      <p>2 consecutive wins = <span>1.5x multiplier</span> (deal -15 damage)</p>
-      <p>3 consecutive wins = <span>2x multiplier</span> (deal -20 damage)</p>
-      <br />
-      <p>
-        <span>The multiplier resets to 1x on the fourth consecutive win or if
-        your opponent chooses a superior or the same attack.</span>
-      </p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-6 offset-md-3 right-side">
+    <div class="col-md-6 offset-md-3 right-side special-black">
       <span>
         <a href="javascript:void(0);"
           onclick="toggle_two('help-pg-1', 'help-pg-2')">
@@ -43,7 +30,32 @@
         </a>
         <p class="divider"> | </p>
         <a href="javascript:void(0);"
-          onclick="toggle_three('battlefield', 'help-pg-1', 'help-pg-2')">
+          onclick="toggle_two('help-pg-2', 'help-pg-3')">
+          NEXT
+        </a>
+        <p class="divider"> | </p>
+        <a href="javascript:void(0);"
+          onclick="toggle_three('battlefield', 'help-pg-1', 'help-pg-2', 'help-pg-3')">
+          CLOSE
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- Help Page 3 -->
+<div class="centered instructions help" id="help-pg-3">
+  <%= render ShambomonWeb.ComponentView, "help_multiplier.html", assigns %>
+  <div class="row">
+    <div class="col-md-6 offset-md-3 right-side">
+      <span>
+        <a href="javascript:void(0);"
+          onclick="toggle_two('help-pg-2', 'help-pg-3')">
+          BACK
+        </a>
+        <p class="divider"> | </p>
+        <a href="javascript:void(0);"
+          onclick="toggle_three('battlefield', 'help-pg-1', 'help-pg-2', 'help-pg-3')">
           CLOSE
         </a>
       </span>

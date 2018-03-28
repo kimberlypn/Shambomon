@@ -39,6 +39,7 @@ function init() {
     });
   }
 
+  // Include the user id and character selected in the URL
   if (charactersRoot) {
     $('.character-icon').bind('click', function () {
       let selectedCharacter = $(this).attr('alt');
@@ -47,6 +48,7 @@ function init() {
     });
   }
 
+  // Create the channel and start the game
   if (gameRoot) {
     let params = (new URL(document.location)).searchParams;
     let userId = params.get('user');
@@ -63,5 +65,5 @@ function init() {
   }
 }
 
-// Use jQuery to delay until page loaded.
+// Delay page until it is loaded
 $(init);

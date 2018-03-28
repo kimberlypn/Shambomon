@@ -64,7 +64,7 @@ class Shambomon extends React.Component {
 
   // Sends a request to the server to update the user's match history
   sendHistory(winner) {
-    // Only send if the user won; otherwise, two records would be added per game
+    // Only send if the user won to prevent two records being created per game
     if (this.user_id == winner) {
       let players = this.state.players;
       var opponent;
@@ -99,11 +99,11 @@ class Shambomon extends React.Component {
   // Returns the id of the winner
   getWinner() {
     let players = this.state.players;
-    // Player 2 wins
+    // Player 2 won
     if (players[0].health <= 0) {
       return players[1].id;
     }
-    // Player 1 wins
+    // Player 1 won
     else {
       return players[0].id;
     }

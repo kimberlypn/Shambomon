@@ -77,6 +77,22 @@ h1 {
   padding-top: 10px;
   font-size: 25px;
 }
+
+ul {
+   list-style: none;
+   margin-left: 0;
+   padding-left: 1em;
+   text-indent: -1em;
+}
+
+ul li {
+  padding: 5px 0px;
+}
+
+li {
+  text-align: justify;
+  font-size: 23px;
+}
 /*********************** END OF SHARED ACROSS PAGES **********************/
 
 /****************************** INSTRUCTIONS *****************************/
@@ -301,23 +317,36 @@ h1 {
   display: none;
 }
 
-/* Text on the help page; override inherited .instructions styling */
-#help-pg-1 span {
+/* Center the attack icons */
+#help-pg-1, #help-pg-2 {
+  text-align: center;
+}
+
+/* Text on the help page; override inherited .instructions span styling */
+#help-pg-1 span, .special-black span {
   font-size: 27px;
   padding-left: 10px;
   padding-right: 10px;
   color: black;
 }
 
-#help-pg-2 .divider {
+/* Override the overrided span coloring */
+.special-black {
+  margin-bottom: 20px;
+}
+
+/* Make divider between BACK/NEXT/CLOSE links black */
+#help-pg-3 .divider {
   color: black;
 }
 
-.mult p {
-  font-size: 24px;
+/* ATTACK MULTIPLIERS header on page 3 */
+.mult h2 {
+  font-size: 40px;
   text-align: center;
 }
 
+/* Attack icons */
 .help img {
   height: 80px;
   width: auto;

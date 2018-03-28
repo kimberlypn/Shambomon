@@ -1,0 +1,32 @@
+<!-- Rock Information -->
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <img src="/images/Rock.png" />
+    <span>BEATS</span>
+    <img src="/images/Scissor.png" />
+    <span>BUT LOSES TO</span>
+    <img src="/images/Paper.png" />
+  </div>
+</div>
+
+<!-- Paper Information -->
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <img src="/images/Paper.png" />
+    <span>BEATS</span>
+    <img src="/images/Rock.png" />
+    <span>BUT LOSES TO</span>
+    <img src="/images/Scissor.png" />
+  </div>
+</div>
+
+<!-- Scissor Information -->
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <img src="/images/Scissor.png" />
+    <span>BEATS</span>
+    <img src="/images/Paper.png" />
+    <span>BUT LOSES TO</span>
+    <img src="/images/Rock.png" />
+  </div>
+</div>

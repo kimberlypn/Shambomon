@@ -6,7 +6,7 @@ import HP from './hp';
 function getHealthBars(health) {
   var hp = []
   for (var i = 0; i < health; i++) {
-    // Use 'and' because JS is weird about double inequalities
+    // Use '&&' because JS is weird about double inequalities
     if ((50 < health) && (health <= 100)) {
       hp.push(<HP type={"alive"} key={i} />);
     }

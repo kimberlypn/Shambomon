@@ -1,0 +1,25 @@
+<!-- Special Attack Information -->
+<div class="row">
+  <div class="col-md-6 offset-md-3 special">
+    <div class="special-black">
+      <img src="/images/Special.png" />
+      <span>ACTIVATES YOUR SPECIAL ATTACK</span>
+    </div>
+    <ul>
+      <li>
+        >> You can only activate this <span>once per game</span>.
+      </li>
+      <li>
+        >> If you roll a 6, you deal <span>40 damage</span> to your opponent.
+      </li>
+      <li>
+        >> If you roll any other number, the damage is calculated based on the
+        default attacks.
+      </li>
+      <li>
+        >> <span>If both players activate their special attacks in the same
+        round and both roll a 6, no damage is dealt.</span>
+      </li>
+    </ul>
+  </div>
+</div>
