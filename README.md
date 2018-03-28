@@ -1,5 +1,5 @@
 # Shambomon
-**Collaborators**: Matt Dang, Kimberly Nguyen 
+**Collaborators**: Kimberly Nguyen, Matt Dang 
 
 **Shambomon**: http://shambomon.kimberlynguyen.solutions 
 
