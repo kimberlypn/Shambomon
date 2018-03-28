@@ -29,7 +29,7 @@ After logging in, users will be prompted for a game name. Two users who enter
 the same game name will be placed in the same game to play against each other. 
 ![game name form](screenshots/game-name.png) 
 
-There are 12 different Pokémon to choose from. 
+There are twelve different Pokémon to choose from. 
 ![character selection page](screenshots/character-selection.png) 
 
 If the room does not have two players yet, users will see a "Waiting" message 
