@@ -9,7 +9,9 @@ Kimberly Nguyen, Matt Dang
 
 
 2. What's the URL of the github repo with your code for this project?
-https://github.com/kimberlypn/Shambomon/tree/v1.0/shambomon
+Repo: https://github.com/kimberlypn/Shambomon/tree/v1.0
+
+The code itself is in the shambomon directory of the above repo.
 
 
 3. What's the version number of your github release?
