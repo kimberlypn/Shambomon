@@ -11,7 +11,7 @@ This repository contains all of the required documents for the project.
 - Bulleted lists and other non-prose content are allowed but don't count 
 towards the length requirement 
 
-## [Project 1 Status](proj1-status.txt) 
+## [Project 1 - Status](proj1-status.txt) 
 - Name of team members 
 - URL of the Github repo 
 - Version number for the release 
@@ -20,7 +20,7 @@ towards the length requirement
 - App deployment 
 - Individual contributions 
 
-## [Project 1 Report](report.pdf) 
+## [Project 1 - Report](report.pdf) 
 - Introduction and Game Description 
 - UI Design 
 - UI to Server Protocol 
