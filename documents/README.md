@@ -20,7 +20,7 @@ towards the length requirement
 - App deployment 
 - Individual contributions 
 
-## [Project 1 Report](proj1-report.pdf) 
+## [Project 1 Report](report.pdf) 
 - Introduction and Game Description 
 - UI Design 
 - UI to Server Protocol 
