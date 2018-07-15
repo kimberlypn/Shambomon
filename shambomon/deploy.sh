@@ -1,8 +1,8 @@
 #!/bin/bash
 
-export PORT=5104
+export PORT=5102
 export MIX_ENV=prod
-export GIT_PATH=/home/shambomon/src/shambomon 
+export GIT_PATH=/home/shambomon/src/shambomon
 
 PWD=`pwd`
 if [ $PWD != $GIT_PATH ]; then
