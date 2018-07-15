@@ -1,7 +1,7 @@
 # Shambomon
 **Collaborators**: Kimberly Nguyen, Matt Dang 
 
-**Shambomon**: https://shambomon.kimberlynguyen.solutions 
+**Shambomon**: https://shambomon.kimberlypn.com/ 
 
 **Course Website**: http://www.ccs.neu.edu/home/ntuck/courses/2018/01/cs4550/ 
 
